@@ -1,0 +1,24 @@
+.FormWrapper {
+  border-radius: 10px;
+  display: flex;
+  margin: auto;
+  width: 40rem;
+  height: 10rem;
+  background-color: white;
+}
+
+.Form {
+  margin: auto;
+}
+
+.Form input {
+  font-size: 1.5rem;
+}
+
+.Form button {
+  margin-left: 10px;
+  font-size: 1.5rem;
+  background-color: purple;
+  color: white;
+  border-radius: 10px;
+}

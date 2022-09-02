@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import React, { useState } from "react";
+import MovieSearch from "./components/MovieSearch";
+import styles from "./App.module.css";
+import MovieList from "./components/MovieList";
+import { Fragment } from "react";
+// import { DebounceInput } from "react-debounce-input";
 
 function App() {
+  const [movieInput, setMovieInput] = useState("");
+  const [movie, setMovie] = useState("");
+  const [movieList, setMovieList] = useState(false);
+
+  const setMovieHandler = (data) => {
+    if (data !== "") setMovieList(true);
+    setMovie(data);
+  };
+
+  const setMovieInputHandler = (data) => {
+    setMovieInput(data);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <main className={styles.App}>
+        <MovieSearch
+          setMovieHandler={setMovieHandler}
+          setMovieInputHandler={setMovieInputHandler}
+          movieInput={movieInput}
+        ></MovieSearch>
+        {movieList && <MovieList movie={movie}></MovieList>}
+      </main>
+    </React.Fragment>
   );
 }
 
