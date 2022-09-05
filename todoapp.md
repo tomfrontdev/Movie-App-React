@@ -2,7 +2,7 @@
 
 # Technologie:
 
-React, Redux-toolkit
+React, Redux-toolkit, Routing
 
 ## wymagania:
 
@@ -13,7 +13,7 @@ React, Redux-toolkit
 - na stornie głównej jest przycisk którego kliknięcie odświeży (pobierze jeszcze raz) seriale ZGODNIE Z WPISANYM search value
 - elementy na liście muszą mieć przycisk który doda (jeśli jeszcze go tam nie ma) item do listy ulubionych (lista ulubionych będzie na osobnym widoku) lub usunie z listy ulubionych (jeśli już jest na liście ulubionych)
 - za kazdym razem jak wejdziesz na stronę to nastepuje ponowne pobranie listy seriali
-- na czas pobierania musi calą listę elementów przkryć półprzezroczystym divem z ze spinerem na środku. Spiner ze strony: `https://loading.io/css/`
+- na czas pobierania musi calą listę elementów przkryć półprzezroczystym divem z ze spinerem na środku. Spiner ze strony: `https://loading.iox/css/`
 - w razie jakby nie udało się pobrać danych to wyswietla napis "nie udało się pobrać danych" (będę to testował)
 
 ### B - lista ulubionych

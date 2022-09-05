@@ -1,35 +1,28 @@
 import styles from "../components/MovieList.module.css";
-import { useState, useEffect } from "react";
+import { FaCheckCircle, FaRegCheckCircle } from "react-icons/fa";
 
 const MovieList = (props) => {
-  console.log(props.isLoading);
-  const [moviesToDisplay, setMoviesToDisplay] = useState(false);
-
-  useEffect(() => {
-    if (props.movie.length > 0) {
-      setMoviesToDisplay(true);
-    }
-
-    if (props.movie.length === 0) {
-      setMoviesToDisplay(false);
-    }
-  });
-
+  console.log(props.movie);
   return (
     <section className={styles.Moviecontainer}>
       <ul className={styles.Movielist}>
-        {moviesToDisplay &&
+        {props.moviesToDisplay &&
           props.movie.map((movie) => (
-            <li className={styles.Movie}>
+            <li className={styles.Movie} onClick={() => console.log(movie.id)}>
               <p className={styles.Movietitle}>Movie title:</p>
-              <p>{movie.name}</p>
+              <p>{movie.title}</p>
               <p className={styles.Movieyear}>Date of Premiere:</p>
-              <p>{movie.premiered}</p>
+              <p>{movie.year}</p>
             </li>
           ))}
-        {!moviesToDisplay && (
+        {!props.moviesToDisplay && !props.error && (
           <li className={styles.Movie}>
             <p>No movies found!</p>
+          </li>
+        )}
+        {props.error && (
+          <li className={styles.Movie}>
+            <p>{props.error}</p>
           </li>
         )}
       </ul>
