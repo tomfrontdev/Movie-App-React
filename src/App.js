@@ -1,34 +1,55 @@
-import logo from "./logo.svg";
 import React, { useState } from "react";
 import MovieSearch from "./components/MovieSearch";
 import styles from "./App.module.css";
 import MovieList from "./components/MovieList";
-import { Fragment } from "react";
-// import { DebounceInput } from "react-debounce-input";
+import SpinnerModal from "./components/SpinnerModal";
+import { useEffect } from "react";
 
 function App() {
   const [movieInput, setMovieInput] = useState("");
-  const [movie, setMovie] = useState("");
-  const [movieList, setMovieList] = useState(false);
+  const [movie, setMovie] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [moviesToDisplay, setMoviesToDisplay] = useState(false);
 
-  const setMovieHandler = (data) => {
-    if (data !== "") setMovieList(true);
-    setMovie(data);
-  };
+  async function fetchMoviesHandler(content) {
+    setMovieInput(content);
+    setIsLoading(true);
+    const response = await fetch(
+      `https://api.tvmaze.com/search/shows?q=${content}`
+    );
+    const data = await response.json();
+    const serialData = data.map((serial) => serial.show);
+    setMovie(serialData);
+    setIsLoading(false);
+  }
 
-  const setMovieInputHandler = (data) => {
-    setMovieInput(data);
-  };
+  useEffect(() => {
+    setIsLoading(true);
+    async function fetchStarterMovies() {
+      const response = await fetch(
+        `https://api.tvmaze.com/search/shows?q=girls`
+      );
+      const data = await response.json();
+      const serialData = data.map((serial) => serial.show);
+      setMovie(serialData);
+      setIsLoading(false);
+    }
+    fetchStarterMovies();
+  }, []);
 
   return (
     <React.Fragment>
+      {isLoading && <SpinnerModal />}
       <main className={styles.App}>
         <MovieSearch
-          setMovieHandler={setMovieHandler}
-          setMovieInputHandler={setMovieInputHandler}
+          fetchMoviesHandler={fetchMoviesHandler}
           movieInput={movieInput}
         ></MovieSearch>
-        {movieList && <MovieList movie={movie}></MovieList>}
+        <MovieList
+          isLoading={isLoading}
+          movie={movie}
+          movieInput={movieInput}
+        ></MovieList>
       </main>
     </React.Fragment>
   );
