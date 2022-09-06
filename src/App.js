@@ -1,21 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import debounce from "lodash.debounce";
 import MovieSearch from "./components/MovieSearch";
 import styles from "./App.module.css";
 import MovieList from "./components/MovieList";
 import SpinnerModal from "./components/SpinnerModal";
 import Header from "./components/Header";
-import { useEffect } from "react";
+import { Route } from "react-router-dom";
+import FavoriteMovies from "./components/FavoriteMovies";
 
 function App() {
-  const [movieInput, setMovieInput] = useState("");
+  const [searchInput, setsearchInput] = useState("");
   const [movie, setMovie] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [moviesToDisplay, setMoviesToDisplay] = useState(true);
   const [error, setError] = useState(null);
-
-  const setInput = (content) => {
-    setMovieInput(content);
-  };
+  const [favoriteMovies, setFavoriteMovies] = useState([]);
 
   const handleFavoriteMovies = (id) => {
     setMovie((prev) =>
@@ -30,13 +29,18 @@ function App() {
     );
   };
 
-  async function fetchMoviesHandler(content) {
-    console.log(content);
+  const addFavMoviesToFavListPage = () => {
+    const clickedMovie = movie.filter((movie) => movie.favorite === true);
+    setFavoriteMovies(clickedMovie);
+  };
+
+  const fetchMoviesHandler = async (value) => {
+    console.log(value);
     setIsLoading(true);
     setError(null);
     try {
       const response = await fetch(
-        `https://api.tvmaze.com/search/shows?q=${content}`
+        `https://api.tvmaze.com/search/shows?q=${value}`
       );
       const data = await response.json();
 
@@ -61,30 +65,49 @@ function App() {
       setIsLoading(false);
       setError(error.message);
     }
-  }
+  };
+
+  const debouncedChangeHandler = useMemo(
+    () => debounce(fetchMoviesHandler, 300),
+    [searchInput]
+  );
 
   useEffect(() => {
     fetchMoviesHandler("girls");
   }, []);
+
+  useEffect(() => {
+    addFavMoviesToFavListPage();
+  }, [movie, searchInput]);
 
   return (
     <React.Fragment>
       {isLoading && <SpinnerModal />}
       <main className={styles.App}>
         <Header></Header>
-        <MovieSearch
-          fetchMoviesHandler={fetchMoviesHandler}
-          setInput={setInput}
-          movieInput={movieInput}
-        ></MovieSearch>
-        <MovieList
-          isLoading={isLoading}
-          movie={movie}
-          movieInput={movieInput}
-          moviesToDisplay={moviesToDisplay}
-          error={error}
-          handleFavoriteMovies={handleFavoriteMovies}
-        ></MovieList>
+        <Route path="/welcome">
+          <MovieSearch
+            fetchMoviesHandler={debouncedChangeHandler}
+            setsearchInput={setsearchInput}
+            searchInput={searchInput}
+          ></MovieSearch>
+          <MovieList
+            isLoading={isLoading}
+            movie={movie}
+            searchInput={searchInput}
+            moviesToDisplay={moviesToDisplay}
+            error={error}
+            handleFavoriteMovies={handleFavoriteMovies}
+          ></MovieList>
+        </Route>
+        <Route path="/favoritefilms">
+          <FavoriteMovies
+            isLoading={isLoading}
+            favoriteMovies={favoriteMovies}
+            moviesToDisplay={moviesToDisplay}
+            handleFavoriteMovies={handleFavoriteMovies}
+          ></FavoriteMovies>
+        </Route>
       </main>
     </React.Fragment>
   );

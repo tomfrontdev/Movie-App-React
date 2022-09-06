@@ -31,7 +31,6 @@ React, Redux-toolkit, Routing
 ### D - widok dodawania itemu
 
 - zawiera formularz oddawani nowego własnego filmu/serialu
-- korzysta z tego samego formularza co strona edycji danego itemu
 
 ### E - strona edycji własnego serialu
 

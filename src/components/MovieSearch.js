@@ -8,14 +8,14 @@ const MovieSearch = (props) => {
         <input
           onChange={(e) => {
             props.fetchMoviesHandler(e.target.value);
-            props.setInput(e.target.value);
+            props.setsearchInput(e.target.value);
           }}
-          value={props.movieInput}
+          value={props.searchInput}
           type="text"
           placeholder={"Enter movie title..."}
         ></input>
         <div className={styles.Refresh}>
-          <button onClick={(e) => props.fetchMoviesHandler(props.movieInput)}>
+          <button onClick={(e) => props.fetchMoviesHandler(props.searchInput)}>
             <p>Refresh</p>
           </button>
         </div>
