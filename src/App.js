@@ -17,12 +17,26 @@ function App() {
     setMovieInput(content);
   };
 
+  const handleFavoriteMovies = (id) => {
+    setMovie((prev) =>
+      prev.map((movie) => {
+        return {
+          ...movie,
+          ...(movie.id === id && {
+            favorite: !movie.favorite,
+          }),
+        };
+      })
+    );
+  };
+
   async function fetchMoviesHandler(content) {
+    console.log(content);
     setIsLoading(true);
     setError(null);
     try {
       const response = await fetch(
-        `https://api.tvvmaze.com/search/shows?q=${content}`
+        `https://api.tvmaze.com/search/shows?q=${content}`
       );
       const data = await response.json();
 
@@ -32,6 +46,7 @@ function App() {
           id: movie.id,
           year: movie.premiered,
           title: movie.name,
+          favorite: false,
         };
       });
       setMovie(transformedMovies);
@@ -68,6 +83,7 @@ function App() {
           movieInput={movieInput}
           moviesToDisplay={moviesToDisplay}
           error={error}
+          handleFavoriteMovies={handleFavoriteMovies}
         ></MovieList>
       </main>
     </React.Fragment>

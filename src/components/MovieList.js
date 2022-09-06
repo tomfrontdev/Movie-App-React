@@ -1,27 +1,35 @@
 import styles from "../components/MovieList.module.css";
-import { FaCheckCircle, FaRegCheckCircle } from "react-icons/fa";
 
 const MovieList = (props) => {
-  console.log(props.movie);
   return (
-    <section className={styles.Moviecontainer}>
-      <ul className={styles.Movielist}>
+    <section className={styles.Itemcontainer}>
+      <ul className={styles.Itemlist}>
         {props.moviesToDisplay &&
           props.movie.map((movie) => (
-            <li className={styles.Movie} onClick={() => console.log(movie.id)}>
-              <p className={styles.Movietitle}>Movie title:</p>
+            <li className={styles.Item}>
+              <p className={styles.Itemtitle}>Item title:</p>
               <p>{movie.title}</p>
-              <p className={styles.Movieyear}>Date of Premiere:</p>
+              <p className={styles.Itemyear}>Date of Premiere:</p>
               <p>{movie.year}</p>
+              <button
+                className={
+                  !movie.favorite
+                    ? styles.Itembtnfavorite
+                    : styles.Itembtnnonfavorite
+                }
+                onClick={() => props.handleFavoriteMovies(movie.id)}
+              >
+                {!movie.favorite ? "Add To Favorite" : "Remove From Favorite"}
+              </button>
             </li>
           ))}
         {!props.moviesToDisplay && !props.error && (
-          <li className={styles.Movie}>
-            <p>No movies found!</p>
+          <li className={styles.Item}>
+            <p>No Items found!</p>
           </li>
         )}
         {props.error && (
-          <li className={styles.Movie}>
+          <li className={styles.Item}>
             <p>{props.error}</p>
           </li>
         )}

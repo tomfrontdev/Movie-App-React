@@ -14,6 +14,11 @@ const MovieSearch = (props) => {
           type="text"
           placeholder={"Enter movie title..."}
         ></input>
+        <div className={styles.Refresh}>
+          <button onClick={(e) => props.fetchMoviesHandler(props.movieInput)}>
+            <p>Refresh</p>
+          </button>
+        </div>
       </form>
     </section>
   );

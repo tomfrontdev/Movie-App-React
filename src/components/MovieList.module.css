@@ -1,15 +1,39 @@
-.Moviecontainer {
+.Itemcontainer {
   display: flex;
   margin: auto;
   width: 40rem;
   margin-top: 25px;
 }
 
-.Movielist {
+.Itemlist {
   width: 100%;
 }
 
-.Movie {
+.Itembtnfavorite {
+  background-color: rgb(1, 178, 1);
+  cursor: pointer;
+  color: white;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.Itembtnfavorite:hover {
+  filter: brightness(120%);
+}
+
+.Itembtnnonfavorite {
+  background-color: rgb(178, 16, 1);
+  cursor: pointer;
+  color: white;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.Itembtnnonfavorite:hover {
+  filter: brightness(120%);
+}
+
+.Item {
   list-style-type: none;
   background-color: white;
   width: 100%;
@@ -19,7 +43,7 @@
   border-radius: 10px;
 }
 
-.Movietitle,
-.Movieyear {
+.Itemtitle,
+.Itemyear {
   font-weight: bold;
 }

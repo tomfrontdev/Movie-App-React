@@ -15,10 +15,22 @@
   font-size: 1.5rem;
 }
 
+.Refresh {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
 .Form button {
   margin-left: 10px;
   font-size: 1.5rem;
-  background-color: purple;
+  background-color: rgb(1, 178, 1);
   color: white;
   border-radius: 10px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.Form button:hover {
+  filter: brightness(120%);
 }
