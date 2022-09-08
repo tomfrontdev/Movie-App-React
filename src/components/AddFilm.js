@@ -12,7 +12,6 @@ const AddFilm = () => {
 
   const incrementHandler = () => {
     dispatch({ type: "addData", payload: "Samochod" });
-    console.log(counter);
   };
 
   return (

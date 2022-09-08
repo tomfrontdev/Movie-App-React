@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useMemo } from "react";
 import debounce from "lodash.debounce";
-import MovieSearch from "./components/MovieSearch";
 import styles from "./App.module.css";
-import MovieList from "./components/MovieList";
 import SpinnerModal from "./components/SpinnerModal";
 import Header from "./components/Header";
 import { Route } from "react-router-dom";
 import FavoriteMovies from "./components/FavoriteMovies";
 import AddFilm from "./components/AddFilm";
+import MainPage from "./pages/MainSite";
 
 function App() {
   const [searchInput, setsearchInput] = useState("");
@@ -87,19 +86,16 @@ function App() {
       <main className={styles.App}>
         <Header></Header>
         <Route path="/welcome">
-          <MovieSearch
+          <MainPage
             fetchMoviesHandler={debouncedChangeHandler}
             setsearchInput={setsearchInput}
             searchInput={searchInput}
-          ></MovieSearch>
-          <MovieList
             isLoading={isLoading}
             movie={movie}
-            searchInput={searchInput}
             moviesToDisplay={moviesToDisplay}
             error={error}
             handleFavoriteMovies={handleFavoriteMovies}
-          ></MovieList>
+          ></MainPage>
         </Route>
         <Route path="/favoritefilms">
           <FavoriteMovies
