@@ -7,6 +7,7 @@ import SpinnerModal from "./components/SpinnerModal";
 import Header from "./components/Header";
 import { Route } from "react-router-dom";
 import FavoriteMovies from "./components/FavoriteMovies";
+import AddFilm from "./components/AddFilm";
 
 function App() {
   const [searchInput, setsearchInput] = useState("");
@@ -107,6 +108,9 @@ function App() {
             moviesToDisplay={moviesToDisplay}
             handleFavoriteMovies={handleFavoriteMovies}
           ></FavoriteMovies>
+        </Route>
+        <Route path="/addfilm">
+          <AddFilm></AddFilm>
         </Route>
       </main>
     </React.Fragment>

@@ -21,6 +21,10 @@
   margin-top: 20px;
 }
 
+.Form input {
+  margin: 5px;
+}
+
 .Form button {
   margin-left: 10px;
   font-size: 1.5rem;
