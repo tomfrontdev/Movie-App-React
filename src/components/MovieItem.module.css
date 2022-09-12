@@ -1,0 +1,29 @@
+.Moviedatacontainer {
+  flex-grow: 3;
+}
+
+.Moviecontainer {
+  margin-bottom: 10px;
+  background-color: white;
+  border-radius: 10px;
+  height: 8rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.Moviedata {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.MovieItemButtonWrapper {
+  position: absolute;
+  right: 25px;
+}
+
+.Movietitle,
+.Movieyear {
+  font-weight: bold;
+}

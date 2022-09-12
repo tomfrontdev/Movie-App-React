@@ -1,0 +1,16 @@
+.Button {
+  font-size: 1rem;
+  padding: 5px;
+  background-color: rgb(1, 178, 1);
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.Removefromfavorite {
+  background-color: red;
+}
+
+.Button:hover {
+  filter: brightness(120%);
+}

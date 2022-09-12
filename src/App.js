@@ -4,9 +4,11 @@ import styles from "./App.module.css";
 import SpinnerModal from "./components/SpinnerModal";
 import Header from "./components/Header";
 import { Route } from "react-router-dom";
-import FavoriteMovies from "./components/FavoriteMovies";
-import AddFilm from "./components/AddFilm";
-import MainPage from "./pages/MainSite";
+import MainPage from "./pages/MainPage";
+import FavoriteMoviesPage from "./pages/FavoriteMoviesPage";
+import AddedOwnMoviePage from "./pages/AddedOwnMoviePage";
+import MovieContentWrapper from "./components/MovieContentWrapper";
+import AddOwnMoviePage from "./pages/AddOwnMoviePage";
 
 function App() {
   const [searchInput, setsearchInput] = useState("");
@@ -17,6 +19,8 @@ function App() {
   const [favoriteMovies, setFavoriteMovies] = useState([]);
 
   const handleFavoriteMovies = (id) => {
+    console.log(id);
+
     setMovie((prev) =>
       prev.map((movie) => {
         return {
@@ -55,7 +59,7 @@ function App() {
       });
       setMovie(transformedMovies);
       setIsLoading(false);
-      if (transformedMovies.length == 0) {
+      if (transformedMovies.length === 0) {
         setMoviesToDisplay(false);
       }
       if (transformedMovies.length > 0) {
@@ -85,29 +89,38 @@ function App() {
       {isLoading && <SpinnerModal />}
       <main className={styles.App}>
         <Header></Header>
-        <Route path="/welcome">
-          <MainPage
-            fetchMoviesHandler={debouncedChangeHandler}
-            setsearchInput={setsearchInput}
-            searchInput={searchInput}
-            isLoading={isLoading}
-            movie={movie}
-            moviesToDisplay={moviesToDisplay}
-            error={error}
-            handleFavoriteMovies={handleFavoriteMovies}
-          ></MainPage>
-        </Route>
-        <Route path="/favoritefilms">
-          <FavoriteMovies
-            isLoading={isLoading}
-            favoriteMovies={favoriteMovies}
-            moviesToDisplay={moviesToDisplay}
-            handleFavoriteMovies={handleFavoriteMovies}
-          ></FavoriteMovies>
-        </Route>
-        <Route path="/addfilm">
-          <AddFilm></AddFilm>
-        </Route>
+        <MovieContentWrapper>
+          <Route path="/welcome">
+            <MainPage
+              fetchMoviesHandler={debouncedChangeHandler}
+              setsearchInput={setsearchInput}
+              searchInput={searchInput}
+              isLoading={isLoading}
+              movie={movie}
+              moviesToDisplay={moviesToDisplay}
+              error={error}
+              handleFavoriteMovies={handleFavoriteMovies}
+            ></MainPage>
+          </Route>
+          <Route path="/favoritemovies">
+            <FavoriteMoviesPage
+              isLoading={isLoading}
+              favoriteMovies={favoriteMovies}
+              moviesToDisplay={moviesToDisplay}
+              handleFavoriteMovies={handleFavoriteMovies}
+            ></FavoriteMoviesPage>
+          </Route>
+          <Route path="/addfilm">
+            <AddOwnMoviePage
+              searchInput={searchInput}
+              setsearchInput={setsearchInput}
+              handleFavoriteMovies={handleFavoriteMovies}
+            ></AddOwnMoviePage>
+          </Route>
+          <Route path="/addedfilms">
+            <AddedOwnMoviePage></AddedOwnMoviePage>
+          </Route>
+        </MovieContentWrapper>
       </main>
     </React.Fragment>
   );

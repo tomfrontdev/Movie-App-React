@@ -1,21 +1,26 @@
-import { createStore } from "redux";
+import { createSlice, configureStore } from "@reduxjs/toolkit";
 
 const initialState = {
   arr: [],
 };
 
-const counterReducer = (state = initialState, action) => {
-  console.log(action.payload);
-  if (action.type === "addData") {
-    return {
-      ...state,
-      arr: [...state.arr, action.payload],
-    };
-  }
+const counterSlice = createSlice({
+  name: "movieReducer",
+  initialState,
+  reducers: {
+    addData(state, action) {
+      return {
+        ...state,
+        arr: [...state.arr, action.payload],
+      };
+    },
+  },
+});
 
-  return state;
-};
+//
 
-const store = createStore(counterReducer);
+const store = configureStore({ reducer: counterSlice.reducer });
+
+export const counterActions = counterSlice.actions;
 
 export default store;

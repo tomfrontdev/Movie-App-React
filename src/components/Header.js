@@ -20,7 +20,7 @@ const Header = () => {
             <NavLink
               activeClassName={classes.active}
               className={classes.navlink}
-              to="/favoritefilms"
+              to="/favoritemovies"
             >
               Lista ulubionych filmów
             </NavLink>

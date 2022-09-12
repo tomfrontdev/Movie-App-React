@@ -1,40 +1,53 @@
 import styles from "../components/MovieList.module.css";
+import MovieItem from "./MovieItem";
+import React from "react";
+import AddedMovieItemList from "../components/AddedMovieItemList";
 
-const MovieList = (props) => {
+const MovieList = ({
+  handleFavoriteMovies,
+  favoriteButton,
+  movie,
+  favoriteMovies,
+  addedOwnMovies,
+  addedOwnMoviesData,
+}) => {
   return (
-    <section className={styles.Itemcontainer}>
-      <ul className={styles.Itemlist}>
-        {props.moviesToDisplay &&
-          props.movie.map((movie) => (
-            <li className={styles.Item}>
-              <p className={styles.Itemtitle}>Item title:</p>
-              <p>{movie.title}</p>
-              <p className={styles.Itemyear}>Date of Premiere:</p>
-              <p>{movie.year}</p>
-              <button
-                className={
-                  !movie.favorite
-                    ? styles.Itembtnfavorite
-                    : styles.Itembtnnonfavorite
-                }
-                onClick={() => props.handleFavoriteMovies(movie.id)}
-              >
-                {!movie.favorite ? "Add To Favorite" : "Remove From Favorite"}
-              </button>
-            </li>
-          ))}
-        {!props.moviesToDisplay && !props.error && (
-          <li className={styles.Item}>
-            <p>No Items found!</p>
-          </li>
-        )}
-        {props.error && (
-          <li className={styles.Item}>
-            <p>{props.error}</p>
-          </li>
-        )}
-      </ul>
-    </section>
+    <React.Fragment>
+      <div className={styles.MovieList}>
+        <ul>
+          {movie &&
+            !addedOwnMovies &&
+            movie.map((movie) => (
+              <MovieItem
+                title={movie.title}
+                year={movie.year}
+                id={movie.id}
+                favorite={movie.favorite}
+                favoriteButton={favoriteButton}
+                handleFavoriteMovies={handleFavoriteMovies}
+              ></MovieItem>
+            ))}
+          {favoriteMovies &&
+            favoriteMovies.map((movie) => (
+              <MovieItem
+                title={movie.title}
+                year={movie.year}
+                id={movie.id}
+                favorite={movie.favorite}
+                favoriteButton={favoriteButton}
+                handleFavoriteMovies={handleFavoriteMovies}
+              ></MovieItem>
+            ))}
+          {addedOwnMovies &&
+            addedOwnMoviesData.map((ownMovies) => (
+              <MovieItem
+                title={ownMovies.title}
+                addedOwnMovies={true}
+              ></MovieItem>
+            ))}
+        </ul>
+      </div>
+    </React.Fragment>
   );
 };
 
