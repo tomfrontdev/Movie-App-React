@@ -1,8 +1,6 @@
 import React from "react";
 import styles from "../components/MovieForm.module.css";
 import Button from "../UI/Button";
-import FetchButton from "../UI/FetchButton";
-import AddMovieButton from "../UI/AddMovieButton";
 
 const MovieForm = ({
   fetchMoviesHandler,

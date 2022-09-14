@@ -4,11 +4,11 @@ const initialState = {
   arr: [],
 };
 
-const counterSlice = createSlice({
-  name: "movieReducer",
+const FavMovies = createSlice({
+  name: "AddFavMovieSlice",
   initialState,
   reducers: {
-    addData(state, action) {
+    addFavMovie(state, action) {
       return {
         ...state,
         arr: [...state.arr, action.payload],
@@ -19,8 +19,8 @@ const counterSlice = createSlice({
 
 //
 
-const store = configureStore({ reducer: counterSlice.reducer });
+const store = configureStore({ reducer: FavMovies.reducer });
 
-export const counterActions = counterSlice.actions;
+export const counterActions = FavMovies.actions;
 
 export default store;
