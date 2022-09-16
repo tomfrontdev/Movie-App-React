@@ -2,10 +2,8 @@ import MovieForm from "../components/MovieForm";
 import MovieList from "../components/MovieList";
 import React from "react";
 import { useState, useMemo, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { moviesActions } from "../store/Movies";
-import { useSelector } from "react-redux";
-
 import debounce from "lodash.debounce";
 
 const MainPage = () => {
@@ -13,27 +11,11 @@ const MainPage = () => {
   const movieList = useSelector((state) => state.movieList);
   const favMovieList = useSelector((state) => state.favMovieList);
   const [searchInput, setsearchInput] = useState("");
-  const [movie, setMovie] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [moviesToDisplay, setMoviesToDisplay] = useState(true);
   const [error, setError] = useState(null);
 
-  const handleFavoriteMovies = (id) => {
-    const clickedMovie = movieList.find((movie) => movie.id === id);
-    if (!favMovieList.includes((item) => item.id === id)) {
-      dispatch(moviesActions.AddMovieToFav(clickedMovie));
-    }
-
-    // if (favMovieList.includes(clickedMovie))
-    //   dispatch(moviesActions.RemoveMovieFromFav(clickedMovie));
-  };
-
-  console.log(favMovieList);
-
-  // const addFavMoviesToFavListPage = () => {
-  //   const clickedMovie = movie.filter((movie) => movie.favorite);
-  //   setFavoriteMovies(clickedMovie);
-  // };
+  console.log(movieList);
 
   const fetchMoviesHandler = async (value) => {
     setIsLoading(true);
@@ -45,12 +27,14 @@ const MainPage = () => {
       const data = await response.json();
 
       const movieData = data.map((movie) => movie.show);
+      console.log(movieData);
       const transformedMovies = movieData.map((movie) => {
         return {
           id: movie.id,
           year: movie.premiered,
           title: movie.name,
           favorite: false,
+          img: movie.image.medium,
         };
       });
       dispatch(moviesActions.AddMovies(transformedMovies));
@@ -67,18 +51,13 @@ const MainPage = () => {
     }
   };
 
-  const debouncedChangeHandler = useMemo(
-    () => debounce(fetchMoviesHandler, 300),
-    []
+  const debouncedChangeHandler = useMemo(() =>
+    debounce(fetchMoviesHandler, 300)
   );
 
   useEffect(() => {
     fetchMoviesHandler("girls");
   }, []);
-
-  // useEffect(() => {
-  //   addFavMoviesToFavListPage();
-  // }, [movie, searchInput, addFavMoviesToFavListPage]);
 
   return (
     <React.Fragment>
@@ -91,7 +70,6 @@ const MainPage = () => {
         isLoading={isLoading}
         movie={movieList}
         searchInput={searchInput}
-        handleFavoriteMovies={handleFavoriteMovies}
         favoriteButton={true}
         moviesToDisplay={moviesToDisplay}
         error={error}

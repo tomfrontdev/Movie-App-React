@@ -1,20 +1,15 @@
 import React from "react";
 import styles from "../UI/Button.module.css";
-import { useDispatch } from "react-redux";
-const Button = ({ text, favorite, id, handleFavoriteMovies, searchInput }) => {
-  const dispatch = useDispatch();
-
-  // const addNewMovieToList = () => {
-  //   dispatch(counterActions.addFavMovie({ title: searchInput }));
-  // };
+const Button = ({ isFav, text, id, handleFavoriteMovies }) => {
   return (
     <React.Fragment>
       <button
-        className={`${styles.Button} ${favorite && styles.Removefromfavorite}`}
-        onClick={() => handleFavoriteMovies(id)}
+        className={!isFav ? styles.Addtofavorite : styles.Removefromfavorite}
+        onClick={() => {
+          handleFavoriteMovies(id);
+        }}
       >
-        {!favorite && <p>{text}</p>}
-        {favorite && <p>{"Remove From Favorite"}</p>}
+        <p>{text}</p>
       </button>
     </React.Fragment>
   );

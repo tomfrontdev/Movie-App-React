@@ -1,18 +1,48 @@
 .FormWrapper {
-  background-color: white;
   margin-bottom: 25px;
   display: flex;
-  justify-content: center;
   border-radius: 10px;
-  padding: 20px;
+  justify-content: center;
+  width: 75%;
+  margin: auto;
+  height: 80px;
+  background-color: #202020;
 }
 
-.MovieFormButtonWrapper {
+.Form {
+  margin: auto;
+}
+
+.FormSearchIconWrapper {
+  width: 4rem;
+  height: 100%;
+  background-color: #323232;
+  margin-left: -0.3rem;
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+.FormSearchIcon {
+  color: white;
+  font-size: 1.5rem;
 }
 
 .Form input {
-  font-size: 1.5rem;
-  margin-bottom: 20px;
+  height: 3rem;
+  font-size: 1.3rem;
+  width: 35rem;
+  outline: none;
+  background-color: black;
+  color: white;
+  border: 1px solid black;
+}
+
+.Form input:focus {
+  box-shadow: 0 0 10px #719ece;
+}
+
+.FormSearchWrapper {
+  display: flex;
+  justify-content: center;
 }

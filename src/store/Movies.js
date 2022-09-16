@@ -10,11 +10,7 @@ const Movies = createSlice({
   initialState,
   reducers: {
     AddMovies(state, action) {
-      const movieList = action.payload;
-      return {
-        ...state,
-        movieList,
-      };
+      state.movieList = action.payload;
     },
     AddMovieToFav(state, action) {
       const movieItem = action.payload;

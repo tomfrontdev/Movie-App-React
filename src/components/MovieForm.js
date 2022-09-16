@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "../components/MovieForm.module.css";
 import Button from "../UI/Button";
+import { FaSearch } from "react-icons/fa";
 
 const MovieForm = ({
   fetchMoviesHandler,
@@ -11,9 +12,9 @@ const MovieForm = ({
   return (
     <React.Fragment>
       <div className={styles.FormWrapper}>
-        <form className={styles.Form} onSubmit={(e) => e.preventDefault()}>
-          {fetchMoviesHandler && (
-            <div>
+        <form className={styles.Form}>
+          <div className={styles.FormSearchWrapper}>
+            <div className={styles.FormInputWrapper}>
               <input
                 onChange={(e) => {
                   fetchMoviesHandler(e.target.value);
@@ -24,38 +25,12 @@ const MovieForm = ({
                 placeholder={"Enter movie title..."}
               ></input>
             </div>
-          )}
-          {!fetchMoviesHandler && (
             <div>
-              <input
-                onChange={(e) => {
-                  setsearchInput(e.target.value);
-                }}
-                value={searchInput}
-                type="text"
-                placeholder={"Add New Movie..."}
-              ></input>
+              <div className={styles.FormSearchIconWrapper}>
+                <FaSearch className={styles.FormSearchIcon} />
+              </div>
             </div>
-          )}
-          {fetchMoviesHandler && (
-            <div className={styles.MovieFormButtonWrapper}>
-              <Button
-                text={"Refresh"}
-                searchInput={searchInput}
-                onClick={() => console.log("Hi")}
-                fetchMoviesHandler={fetchMoviesHandler}
-              ></Button>
-            </div>
-          )}
-          {!fetchMoviesHandler && (
-            <div className={styles.MovieFormButtonWrapper}>
-              <Button
-                text={"Add New Movie"}
-                searchInput={searchInput}
-                addNewMovie={addNewMovie}
-              ></Button>
-            </div>
-          )}
+          </div>
         </form>
       </div>
     </React.Fragment>

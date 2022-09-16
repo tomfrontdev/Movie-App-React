@@ -18,11 +18,6 @@
   flex-direction: column;
 }
 
-.MovieItemButtonWrapper {
-  position: absolute;
-  right: 25px;
-}
-
 .Movietitle,
 .Movieyear {
   font-weight: bold;
