@@ -7,8 +7,16 @@ import Button from "../UI/Button";
 import MovieItemContainer from "../components/MovieItemContainer.js";
 import ButtonContainer from "../components/ButtonContainer.js";
 import ImageContainer from "../components/ImageContainer.js";
+import SpinnerModal from "../components/SpinnerModal";
+import MovieFetchError from "../components/MovieFetchError.js";
 
-const MovieList = ({ movie }) => {
+const MovieList = ({
+  isLoading,
+  movie,
+  moviesToDisplay,
+  searchInput,
+  httpError,
+}) => {
   const dispatch = useDispatch();
 
   const movieList = useSelector((state) => state.movieList);
@@ -27,49 +35,58 @@ const MovieList = ({ movie }) => {
   return (
     <React.Fragment>
       <div className={styles.MovieList}>
-        <ul>
-          {movie.map((movie) =>
-            favMovieList.find((favMovie) => favMovie.id === movie.id) ? (
-              <React.Fragment>
-                <MovieItemContainer>
-                  <MovieItem
-                    title={movie.title}
-                    year={movie.year}
-                    id={movie.id}
-                  ></MovieItem>
-                  <ImageContainer imgSrc={movie.img}></ImageContainer>
-                  <ButtonContainer>
-                    <Button
+        {isLoading && <SpinnerModal></SpinnerModal>}
+        {!moviesToDisplay && searchInput !== "" && !httpError && (
+          <MovieFetchError text={"No Movies Found! :("}></MovieFetchError>
+        )}
+        {httpError && !moviesToDisplay && (
+          <MovieFetchError text={httpError}></MovieFetchError>
+        )}
+        {!isLoading && (
+          <ul>
+            {movie.map((movie) =>
+              favMovieList.find((favMovie) => favMovie.id === movie.id) ? (
+                <React.Fragment>
+                  <MovieItemContainer>
+                    <MovieItem
+                      title={movie.title}
+                      year={movie.year}
                       id={movie.id}
-                      text={"Remove From Favorite"}
-                      isFav={true}
-                      handleFavoriteMovies={handleFavoriteMovies}
-                    ></Button>
-                  </ButtonContainer>
-                </MovieItemContainer>
-              </React.Fragment>
-            ) : (
-              <React.Fragment>
-                <MovieItemContainer>
-                  <MovieItem
-                    title={movie.title}
-                    year={movie.year}
-                    id={movie.id}
-                  ></MovieItem>
-                  <ImageContainer imgSrc={movie.img}></ImageContainer>
-                  <ButtonContainer>
-                    <Button
+                    ></MovieItem>
+                    <ImageContainer imgSrc={movie.img}></ImageContainer>
+                    <ButtonContainer>
+                      <Button
+                        id={movie.id}
+                        text={"Remove From Favorite"}
+                        isFav={true}
+                        handleFavoriteMovies={handleFavoriteMovies}
+                      ></Button>
+                    </ButtonContainer>
+                  </MovieItemContainer>
+                </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  <MovieItemContainer>
+                    <MovieItem
+                      title={movie.title}
+                      year={movie.year}
                       id={movie.id}
-                      text={"Add To Favorite"}
-                      isFav={false}
-                      handleFavoriteMovies={handleFavoriteMovies}
-                    ></Button>
-                  </ButtonContainer>
-                </MovieItemContainer>
-              </React.Fragment>
-            )
-          )}
-        </ul>
+                    ></MovieItem>
+                    <ImageContainer imgSrc={movie.img}></ImageContainer>
+                    <ButtonContainer>
+                      <Button
+                        id={movie.id}
+                        text={"Add To Favorite"}
+                        isFav={false}
+                        handleFavoriteMovies={handleFavoriteMovies}
+                      ></Button>
+                    </ButtonContainer>
+                  </MovieItemContainer>
+                </React.Fragment>
+              )
+            )}
+          </ul>
+        )}
       </div>
     </React.Fragment>
   );

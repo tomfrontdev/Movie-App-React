@@ -1,0 +1,10 @@
+.ErrorTextWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.ErrorText {
+  color: white;
+  font-size: 1.4rem;
+}

@@ -9,17 +9,14 @@ import debounce from "lodash.debounce";
 const MainPage = () => {
   const dispatch = useDispatch();
   const movieList = useSelector((state) => state.movieList);
-  const favMovieList = useSelector((state) => state.favMovieList);
   const [searchInput, setsearchInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [moviesToDisplay, setMoviesToDisplay] = useState(true);
-  const [error, setError] = useState(null);
-
-  console.log(movieList);
+  const [httpError, sethttpError] = useState(null);
 
   const fetchMoviesHandler = async (value) => {
     setIsLoading(true);
-    setError(null);
+    sethttpError(null);
     try {
       const response = await fetch(
         `https://api.tvmaze.com/search/shows?q=${value}`
@@ -39,18 +36,13 @@ const MainPage = () => {
       });
       dispatch(moviesActions.AddMovies(transformedMovies));
       setIsLoading(false);
-      if (transformedMovies.length === 0) {
-        setMoviesToDisplay(false);
-      }
-      if (transformedMovies.length > 0) {
-        setMoviesToDisplay(true);
-      }
     } catch (error) {
       setIsLoading(false);
-      setError(error.message);
+      sethttpError(error.message);
     }
   };
 
+  console.log(searchInput);
   const debouncedChangeHandler = useMemo(() =>
     debounce(fetchMoviesHandler, 300)
   );
@@ -59,20 +51,27 @@ const MainPage = () => {
     fetchMoviesHandler("girls");
   }, []);
 
+  useEffect(() => {
+    if (movieList.length === 0) {
+      setMoviesToDisplay(false);
+    }
+    if (movieList.length > 0) {
+      setMoviesToDisplay(true);
+    }
+  }, [movieList]);
   return (
     <React.Fragment>
       <MovieForm
-        fetchMoviesHandler={debouncedChangeHandler}
+        fetchMoviesHandler={fetchMoviesHandler}
         setsearchInput={setsearchInput}
         searchInput={searchInput}
       ></MovieForm>
       <MovieList
+        moviesToDisplay={moviesToDisplay}
         isLoading={isLoading}
         movie={movieList}
         searchInput={searchInput}
-        favoriteButton={true}
-        moviesToDisplay={moviesToDisplay}
-        error={error}
+        httpError={httpError}
       ></MovieList>
     </React.Fragment>
   );

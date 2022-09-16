@@ -1,11 +1,11 @@
 import React from "react";
+import styles from "../components/MovieFetchError.module.css";
 
-const MovieFetchError = (props) => {
+const MovieFetchError = ({ text }) => {
   return (
     <React.Fragment>
-      <div>
-        {!props.moviesToDisplay && !props.error && <p>No movies found!</p>}
-        {props.error && <p>Wrong URL! </p>}
+      <div className={styles.ErrorTextWrapper}>
+        <p className={styles.ErrorText}>{text}</p>
       </div>
     </React.Fragment>
   );

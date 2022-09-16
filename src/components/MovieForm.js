@@ -26,7 +26,10 @@ const MovieForm = ({
               ></input>
             </div>
             <div>
-              <div className={styles.FormSearchIconWrapper}>
+              <div
+                className={styles.FormSearchIconWrapper}
+                onClick={() => fetchMoviesHandler(searchInput)}
+              >
                 <FaSearch className={styles.FormSearchIcon} />
               </div>
             </div>
