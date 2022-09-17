@@ -11,7 +11,6 @@ import AddOwnMoviePage from "./pages/AddOwnMoviePage";
 function App() {
   return (
     <React.Fragment>
-      {/* {isLoading && <SpinnerModal />} */}
       <main className={styles.App}>
         <Header></Header>
         <Route path="/welcome">

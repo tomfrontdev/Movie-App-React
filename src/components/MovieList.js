@@ -7,16 +7,8 @@ import Button from "../UI/Button";
 import MovieItemContainer from "../components/MovieItemContainer.js";
 import ButtonContainer from "../components/ButtonContainer.js";
 import ImageContainer from "../components/ImageContainer.js";
-import SpinnerModal from "../components/SpinnerModal";
-import MovieFetchError from "../components/MovieFetchError.js";
 
-const MovieList = ({
-  isLoading,
-  movie,
-  moviesToDisplay,
-  searchInput,
-  httpError,
-}) => {
+const MovieList = ({ movie, moviesToDisplay }) => {
   const dispatch = useDispatch();
 
   const movieList = useSelector((state) => state.movieList);
@@ -34,15 +26,8 @@ const MovieList = ({
 
   return (
     <React.Fragment>
-      <div className={styles.MovieList}>
-        {isLoading && <SpinnerModal></SpinnerModal>}
-        {!moviesToDisplay && searchInput !== "" && !httpError && (
-          <MovieFetchError text={"No Movies Found! :("}></MovieFetchError>
-        )}
-        {httpError && !moviesToDisplay && (
-          <MovieFetchError text={httpError}></MovieFetchError>
-        )}
-        {!isLoading && (
+      {moviesToDisplay && (
+        <div className={styles.MovieList}>
           <ul>
             {movie.map((movie) =>
               favMovieList.find((favMovie) => favMovie.id === movie.id) ? (
@@ -86,8 +71,8 @@ const MovieList = ({
               )
             )}
           </ul>
-        )}
-      </div>
+        </div>
+      )}
     </React.Fragment>
   );
 };

@@ -2,12 +2,12 @@ import React from "react";
 import MovieList from "../components/MovieList";
 import { useSelector } from "react-redux";
 
-const FavoriteMoviesPage = ({ handleFavoriteMovies }) => {
-  const movieList = useSelector((state) => state.favMovieList);
-  console.log(movieList);
+const FavoriteMoviesPage = () => {
+  const favMovieList = useSelector((state) => state.favMovieList);
+
   return (
     <React.Fragment>
-      <MovieList movie={movieList}></MovieList>
+      <MovieList movie={favMovieList} moviesToDisplay={true}></MovieList>
     </React.Fragment>
   );
 };

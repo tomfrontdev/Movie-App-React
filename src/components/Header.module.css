@@ -18,15 +18,15 @@
   list-style-type: none;
 }
 
+.header li:hover {
+  transform: scale(1.2);
+  transition: 0.2s;
+}
+
 .navlink {
   text-decoration: none;
   color: white;
   margin: 10px;
   cursor: pointer;
   color: white;
-}
-
-.navlink:hover {
-  text-decoration: underline;
-  color: rgb(222, 238, 246);
 }

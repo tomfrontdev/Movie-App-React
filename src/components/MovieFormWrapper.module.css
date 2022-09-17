@@ -1,0 +1,14 @@
+.FormWrapper {
+  margin-bottom: 25px;
+  display: flex;
+  border-radius: 10px;
+  justify-content: center;
+  width: 75%;
+  padding: 20px;
+  margin: auto;
+  background-color: #202020;
+}
+
+.Form {
+  margin: auto;
+}

@@ -1,18 +1,3 @@
-.FormWrapper {
-  margin-bottom: 25px;
-  display: flex;
-  border-radius: 10px;
-  justify-content: center;
-  width: 75%;
-  margin: auto;
-  height: 80px;
-  background-color: #202020;
-}
-
-.Form {
-  margin: auto;
-}
-
 .FormSearchIconWrapper {
   width: 4rem;
   height: 100%;
@@ -28,7 +13,7 @@
   font-size: 1.5rem;
 }
 
-.Form input {
+.FormInputWrapper input {
   height: 3rem;
   font-size: 1.3rem;
   width: 35rem;
@@ -38,7 +23,7 @@
   border: 1px solid black;
 }
 
-.Form input:focus {
+.FormInputWrapper input:focus {
   box-shadow: 0 0 10px #719ece;
 }
 

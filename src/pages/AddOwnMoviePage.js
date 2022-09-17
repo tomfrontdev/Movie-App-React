@@ -1,14 +1,13 @@
-import MovieForm from "../components/MovieForm";
 import React from "react";
+import MovieFormWrapper from "../components/MovieFormWrapper";
+import MovieAddFilmForm from "../components/MovieAddFilmForm";
 
 const AddOwnMoviePage = () => {
   return (
     <React.Fragment>
-      <MovieForm
-      // addNewMovie={true}
-      // searchInput={searchInput}
-      // setsearchInput={setsearchInput}
-      ></MovieForm>
+      <MovieFormWrapper>
+        <MovieAddFilmForm></MovieAddFilmForm>
+      </MovieFormWrapper>
     </React.Fragment>
   );
 };

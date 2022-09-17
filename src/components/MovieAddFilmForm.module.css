@@ -1,0 +1,14 @@
+.FormInputWrapper input {
+  height: 3rem;
+  font-size: 1.3rem;
+  width: 35rem;
+  outline: none;
+  background-color: black;
+  color: white;
+  border: 1px solid black;
+  margin: 5px;
+}
+
+.FormInputWrapper input:focus {
+  box-shadow: 0 0 10px #719ece;
+}
