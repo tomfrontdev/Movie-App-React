@@ -1,20 +1,10 @@
 import styles from "../components/MovieFormWrapper.module.css";
 import React from "react";
 
-const MovieFormWrapper = ({ children, searchInput, fetchMoviesHandler }) => {
+const MovieFormWrapper = ({ children }) => {
   return (
     <React.Fragment>
-      <div className={styles.FormWrapper}>
-        <form
-          className={styles.Form}
-          onSubmit={(e) => {
-            fetchMoviesHandler(searchInput);
-            e.preventDefault();
-          }}
-        >
-          {children}
-        </form>
-      </div>
+      <div className={styles.FormWrapper}>{children}</div>
     </React.Fragment>
   );
 };

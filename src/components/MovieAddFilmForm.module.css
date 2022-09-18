@@ -12,3 +12,20 @@
 .FormInputWrapper input:focus {
   box-shadow: 0 0 10px #719ece;
 }
+
+.FormSubmitBtnWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.FormSubmitBtn {
+  font-size: 1rem;
+  padding: 5px 15px;
+  background-color: black;
+  border-color: green;
+  border-width: 0.3em;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 20px;
+}

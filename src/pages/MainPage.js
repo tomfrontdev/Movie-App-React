@@ -64,13 +64,11 @@ const MainPage = () => {
   }, [movieList]);
   return (
     <React.Fragment>
-      <MovieFormWrapper
-        fetchMoviesHandler={debouncedChangeHandler}
-        searchInput={searchInput}
-      >
+      <MovieFormWrapper>
         <MovieSearchForm
           setsearchInput={setsearchInput}
           fetchMoviesHandler={debouncedChangeHandler}
+          searchInput={searchInput}
         ></MovieSearchForm>
       </MovieFormWrapper>
       <MovieList

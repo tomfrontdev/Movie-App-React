@@ -2,14 +2,14 @@ import React from "react";
 import MovieFormWrapper from "../components/MovieFormWrapper";
 import MovieAddFilmForm from "../components/MovieAddFilmForm";
 
-const AddOwnMoviePage = () => {
+const EditOwnMoviePage = () => {
   return (
     <React.Fragment>
       <MovieFormWrapper>
-        <MovieAddFilmForm text={"Add"}></MovieAddFilmForm>
+        <MovieAddFilmForm text={"Edit"}></MovieAddFilmForm>
       </MovieFormWrapper>
     </React.Fragment>
   );
 };
 
-export default AddOwnMoviePage;
+export default EditOwnMoviePage;

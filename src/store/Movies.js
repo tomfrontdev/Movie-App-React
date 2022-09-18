@@ -3,6 +3,9 @@ import { createSlice, configureStore } from "@reduxjs/toolkit";
 const initialState = {
   movieList: [],
   favMovieList: [],
+  ownMovieList: [],
+  showModal: true,
+  lastClickedMovieToRemove: [],
 };
 
 const Movies = createSlice({
@@ -12,15 +15,26 @@ const Movies = createSlice({
     AddMovies(state, action) {
       state.movieList = action.payload;
     },
+    AddOwnMovies(state, action) {
+      state.ownMovieList = [...state.ownMovieList, action.payload];
+    },
+    HandleModal(state, action) {
+      state.showModal = !state.showModal;
+    },
+    addlastClickedMovieToRemove(state, action) {
+      state.lastClickedMovieToRemove = action.payload;
+    },
+    removelastClickedMovie(state, action) {
+      state.ownMovieList = state.ownMovieList.filter(
+        (movie) => movie.id !== state.lastClickedMovieToRemove.id
+      );
+    },
     AddMovieToFav(state, action) {
-      const movieItem = action.payload;
-      state.favMovieList = [...state.favMovieList, movieItem];
+      state.favMovieList = [...state.favMovieList, action.payload];
     },
     RemoveMovieFromFav(state, action) {
-      const movieItem = action.payload;
-      console.log(movieItem);
       state.favMovieList = state.favMovieList.filter(
-        (movie) => movie.id !== movieItem.id
+        (movie) => movie.id !== action.payload.id
       );
     },
   },

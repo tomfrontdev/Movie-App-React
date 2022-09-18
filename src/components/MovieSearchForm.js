@@ -9,24 +9,32 @@ const MovieSearchForm = ({
 }) => {
   return (
     <React.Fragment>
-      <div className={styles.FormSearchWrapper}>
-        <div className={styles.FormInputWrapper}>
-          <input
-            onChange={(e) => {
-              fetchMoviesHandler(e.target.value);
-              setsearchInput(e.target.value);
-            }}
-            value={searchInput}
-            type="text"
-            placeholder={"Enter movie title..."}
-          ></input>
+      <form
+        className={styles.Form}
+        onSubmit={(e) => {
+          fetchMoviesHandler(searchInput);
+          e.preventDefault();
+        }}
+      >
+        <div className={styles.FormSearchWrapper}>
+          <div className={styles.FormInputWrapper}>
+            <input
+              onChange={(e) => {
+                fetchMoviesHandler(e.target.value);
+                setsearchInput(e.target.value);
+              }}
+              value={searchInput}
+              type="text"
+              placeholder={"Enter movie title..."}
+            ></input>
+          </div>
+          <div>
+            <button className={styles.FormSearchIconWrapper} type="submit">
+              <FaSearch className={styles.FormSearchIcon} />
+            </button>
+          </div>
         </div>
-        <div>
-          <button className={styles.FormSearchIconWrapper} type="submit">
-            <FaSearch className={styles.FormSearchIcon} />
-          </button>
-        </div>
-      </div>
+      </form>
     </React.Fragment>
   );
 };

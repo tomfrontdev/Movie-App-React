@@ -1,12 +1,13 @@
 import React from "react";
 import styles from "./App.module.css";
-import SpinnerModal from "./components/SpinnerModal";
+import RemoveItemModal from "./components/RemoveItemModal";
 import Header from "./components/Header";
 import { Route } from "react-router-dom";
 import MainPage from "./pages/MainPage";
 import FavoriteMoviesPage from "./pages/FavoriteMoviesPage";
 import AddedOwnMoviePage from "./pages/AddedOwnMoviePage";
 import AddOwnMoviePage from "./pages/AddOwnMoviePage";
+import EditOwnMoviePage from "./pages/EditOwnMoviePage";
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
         </Route>
         <Route path="/addedfilms">
           <AddedOwnMoviePage></AddedOwnMoviePage>
+        </Route>
+        <Route path="/editfilm">
+          <EditOwnMoviePage></EditOwnMoviePage>
         </Route>
       </main>
     </React.Fragment>

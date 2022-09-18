@@ -4,7 +4,7 @@ const Button = ({ isFav, text, id, handleFavoriteMovies }) => {
   return (
     <React.Fragment>
       <button
-        className={!isFav ? styles.Addtofavorite : styles.Removefromfavorite}
+        className={!isFav ? styles.Greenborder : styles.Redborder}
         onClick={() => {
           handleFavoriteMovies(id);
         }}

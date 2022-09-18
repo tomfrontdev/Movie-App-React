@@ -43,6 +43,15 @@ const Header = () => {
               Lista Dodanych Filmów
             </NavLink>
           </li>
+          <li>
+            <NavLink
+              activeClassName={classes.active}
+              className={classes.navlink}
+              to="/editfilm"
+            >
+              Edytuj Dodany Film
+            </NavLink>
+          </li>
         </ul>
       </header>
     </React.Fragment>
