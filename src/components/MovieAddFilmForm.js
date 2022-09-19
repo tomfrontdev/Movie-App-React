@@ -2,9 +2,7 @@ import styles from "../components/MovieAddFilmForm.module.css";
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { moviesActions } from "../store/Movies";
-import { useSelector } from "react-redux";
-import RemoveItemModal from "../components/RemoveItemModal";
+import { moviesActions } from "../store/movies-slice";
 
 const MovieAddFilmForm = ({ text }) => {
   const dispatch = useDispatch();
@@ -18,7 +16,7 @@ const MovieAddFilmForm = ({ text }) => {
         onSubmit={(e) => {
           e.preventDefault();
           dispatch(
-            moviesActions.AddOwnMovies({
+            moviesActions.addOwnMovies({
               title: movieTitle,
               description: movieDescription,
               id: Math.random(),

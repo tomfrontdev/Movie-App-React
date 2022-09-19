@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./App.module.css";
-import RemoveItemModal from "./components/RemoveItemModal";
 import Header from "./components/Header";
 import { Route } from "react-router-dom";
 import MainPage from "./pages/MainPage";

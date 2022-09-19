@@ -2,18 +2,22 @@ import ReactDOM from "react-dom";
 import React from "react";
 import classes from "../components/RemoveItemModal.module.css";
 import Button from "../UI/Button";
-import { moviesActions } from "../store/Movies";
-import { useSelector, useDispatch } from "react-redux";
+import { moviesActions } from "../store/movies-slice";
+import { uiActions } from "../store/ui-slice";
+import { useDispatch } from "react-redux";
 
-const RemoveItemModal = ({ movie }) => {
+const RemoveItemModal = () => {
   const dispatch = useDispatch();
 
+  const toggleModal = () => {
+    dispatch(uiActions.toggleRemoveModal());
+  };
   const handleModal = () => {
-    dispatch(moviesActions.HandleModal());
+    toggleModal();
   };
 
   const removeMovie = () => {
-    dispatch(moviesActions.HandleModal());
+    toggleModal();
     dispatch(moviesActions.removelastClickedMovie());
   };
   return (

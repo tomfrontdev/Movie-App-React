@@ -3,84 +3,65 @@ import MovieList from "../components/MovieList";
 import React from "react";
 import { useState, useMemo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { moviesActions } from "../store/Movies";
+import { moviesActions } from "../store/movies-slice.js";
 import debounce from "lodash.debounce";
 import SpinnerModal from "../components/SpinnerModal";
 import MovieFetchError from "../components/MovieFetchError.js";
 import MovieFormWrapper from "../components/MovieFormWrapper";
+import { fetchMoviesData } from "../store/movies-actions";
 
 const MainPage = () => {
   const dispatch = useDispatch();
-  const movieList = useSelector((state) => state.movieList);
+  const moviesList = useSelector((state) => state.movies.movieList);
+  const fetchingError = useSelector((state) => state.ui.error);
+  const isdataLoading = useSelector((state) => state.ui.isdataLoading);
   const [moviesToDisplay, setMoviesToDisplay] = useState(true);
   const [searchInput, setsearchInput] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [httpError, sethttpError] = useState(null);
 
-  console.log(movieList);
-
-  const fetchMoviesHandler = async (value) => {
-    setIsLoading(true);
-    sethttpError(null);
-    try {
-      const response = await fetch(
-        `https://api.tvmaze.com/search/shows?q=${value}`
-      );
-      const data = await response.json();
-
-      const movieData = data.map((movie) => movie.show);
-      const transformedMovies = movieData.map((movie) => {
-        return {
-          id: movie.id,
-          year: movie.premiered,
-          title: movie.name,
-          favorite: false,
-          img: movie.image.medium,
-        };
-      });
-      dispatch(moviesActions.AddMovies(transformedMovies));
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
-      sethttpError(error.message);
-    }
+  const fetchMoviesHandler = (value) => {
+    dispatch(fetchMoviesData(value));
   };
 
-  const debouncedChangeHandler = useMemo(() =>
-    debounce(fetchMoviesHandler, 300)
+  const debouncedEventHandler = useMemo(
+    () => debounce(fetchMoviesHandler, 300),
+    []
   );
 
-  useEffect(() => {
-    fetchMoviesHandler("girls");
-  }, []);
+  // const debouncedChangeHandler = useMemo((value) =>
+  //   debounce(dispatch(fetchMoviesData(value)), 300)
+  // );
 
   useEffect(() => {
-    if (movieList.length === 0 && searchInput !== "") {
+    dispatch(fetchMoviesData("girls"));
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (moviesList.length === 0 && searchInput !== "") {
       setMoviesToDisplay(false);
     }
-    if (movieList.length > 0) {
+    if (moviesList.length > 0) {
       setMoviesToDisplay(true);
     }
-  }, [movieList]);
+  }, [moviesList]);
   return (
     <React.Fragment>
       <MovieFormWrapper>
         <MovieSearchForm
           setsearchInput={setsearchInput}
-          fetchMoviesHandler={debouncedChangeHandler}
+          fetchMoviesHandler={debouncedEventHandler}
           searchInput={searchInput}
         ></MovieSearchForm>
       </MovieFormWrapper>
       <MovieList
         moviesToDisplay={moviesToDisplay}
-        movie={movieList}
+        movie={moviesList}
       ></MovieList>
-      {isLoading && <SpinnerModal></SpinnerModal>}
+      {isdataLoading && <SpinnerModal></SpinnerModal>}
       {!moviesToDisplay && (
         <MovieFetchError text={"No Movies Found! :("}></MovieFetchError>
       )}
-      {httpError && !moviesToDisplay && (
-        <MovieFetchError text={httpError}></MovieFetchError>
+      {fetchingError && !moviesToDisplay && (
+        <MovieFetchError text={fetchingError}></MovieFetchError>
       )}
     </React.Fragment>
   );

@@ -1,38 +1,36 @@
-import { createSlice, configureStore } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   movieList: [],
   favMovieList: [],
   ownMovieList: [],
-  showModal: true,
   lastClickedMovieToRemove: [],
 };
 
-const Movies = createSlice({
-  name: "Movies",
+const moviesSlice = createSlice({
+  name: "movies",
   initialState,
   reducers: {
-    AddMovies(state, action) {
+    addMovies(state, action) {
       state.movieList = action.payload;
+      console.log(action.payload);
     },
-    AddOwnMovies(state, action) {
+    addOwnMovies(state, action) {
       state.ownMovieList = [...state.ownMovieList, action.payload];
     },
-    HandleModal(state, action) {
-      state.showModal = !state.showModal;
-    },
+
     addlastClickedMovieToRemove(state, action) {
       state.lastClickedMovieToRemove = action.payload;
     },
-    removelastClickedMovie(state, action) {
+    removelastClickedMovie(state) {
       state.ownMovieList = state.ownMovieList.filter(
         (movie) => movie.id !== state.lastClickedMovieToRemove.id
       );
     },
-    AddMovieToFav(state, action) {
+    addMovieToFav(state, action) {
       state.favMovieList = [...state.favMovieList, action.payload];
     },
-    RemoveMovieFromFav(state, action) {
+    removeMovieFromFav(state, action) {
       state.favMovieList = state.favMovieList.filter(
         (movie) => movie.id !== action.payload.id
       );
@@ -40,8 +38,6 @@ const Movies = createSlice({
   },
 });
 
-const store = configureStore({ reducer: Movies.reducer });
+export const moviesActions = moviesSlice.actions;
 
-export const moviesActions = Movies.actions;
-
-export default store;
+export default moviesSlice;
