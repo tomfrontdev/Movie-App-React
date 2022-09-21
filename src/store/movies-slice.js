@@ -4,7 +4,10 @@ const initialState = {
   movieList: [],
   favMovieList: [],
   ownMovieList: [],
-  lastClickedMovieToRemove: [],
+  clickedMovie: [],
+  movieTitle: "",
+  movieDescription: "",
+  editMovie: false,
 };
 
 const moviesSlice = createSlice({
@@ -15,16 +18,30 @@ const moviesSlice = createSlice({
       state.movieList = action.payload;
       console.log(action.payload);
     },
+    setEditMovie(state, action) {
+      state.editMovie = action.payload;
+    },
+    setTitle(state, action) {
+      state.movieTitle = action.payload;
+    },
+    setDescription(state, action) {
+      state.movieDescription = action.payload;
+    },
     addOwnMovies(state, action) {
       state.ownMovieList = [...state.ownMovieList, action.payload];
     },
 
-    addlastClickedMovieToRemove(state, action) {
-      state.lastClickedMovieToRemove = action.payload;
+    setclickedMovie(state, action) {
+      state.clickedMovie = action.payload;
     },
-    removelastClickedMovie(state) {
+    removeMovie(state) {
       state.ownMovieList = state.ownMovieList.filter(
-        (movie) => movie.id !== state.lastClickedMovieToRemove.id
+        (movie) => movie.id !== state.clickedMovie.id
+      );
+    },
+    removeMovieTwo(state, action) {
+      state.ownMovieList = state.ownMovieList.filter(
+        (movie) => movie.id !== action.payload
       );
     },
     addMovieToFav(state, action) {

@@ -5,10 +5,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { moviesActions } from "../store/movies-slice";
 import { uiActions } from "../store/ui-slice";
 import Button from "../UI/Button";
+import { Redirect } from "react-router-dom";
 import MovieItemContainer from "../components/MovieItemContainer.js";
 import ButtonContainer from "../components/ButtonContainer.js";
 import ImageContainer from "../components/ImageContainer.js";
 import { useState } from "react";
+
 import RemoveItemModal from "../components/RemoveItemModal";
 
 const MovieList = ({ movie, moviesToDisplay, addedMovies }) => {
@@ -17,18 +19,20 @@ const MovieList = ({ movie, moviesToDisplay, addedMovies }) => {
   const movieList = useSelector((state) => state.movies.movieList);
   const favMovieList = useSelector((state) => state.movies.favMovieList);
   const ownMovieList = useSelector((state) => state.movies.ownMovieList);
+  const clickedMovie = useSelector((state) => state.movies.clickedMovie);
+  const [redirect, setRedirect] = useState(true);
   const showRemoveItemModal = useSelector(
     (state) => state.ui.showRemoveItemModal
   );
 
   const handleFavoriteMovies = (id) => {
-    const clickedMovie = movieList.find((movie) => movie.id === id);
+    const selectedMovie = movieList.find((movie) => movie.id === id);
 
     if (!favMovieList.find((movie) => movie.id === id)) {
-      dispatch(moviesActions.addMovieToFav(clickedMovie));
+      dispatch(moviesActions.addMovieToFav(selectedMovie));
     }
     if (favMovieList.find((movie) => movie.id === id)) {
-      dispatch(moviesActions.removeMovieFromFav(clickedMovie));
+      dispatch(moviesActions.removeMovieFromFav(selectedMovie));
     }
   };
 
@@ -36,21 +40,27 @@ const MovieList = ({ movie, moviesToDisplay, addedMovies }) => {
     dispatch(uiActions.toggleRemoveModal());
   };
 
-  const removeFromAddedMovies = () => {
-    toggleModal();
+  const redirectToForm = (id) => {
+    setRedirect(false);
+    const selectedMovie = ownMovieList.find((movie) => movie.id === id);
+    dispatch(moviesActions.setEditMovie(true));
+    dispatch(moviesActions.setclickedMovie(selectedMovie));
+    dispatch(moviesActions.setTitle(selectedMovie.title));
+    dispatch(moviesActions.setDescription(selectedMovie.description));
   };
 
   const handleMovieToDelete = (id) => {
     toggleModal();
 
-    const clickedMovie = ownMovieList.find((movie) => movie.id === id);
-    dispatch(moviesActions.addlastClickedMovieToRemove(clickedMovie));
+    const selectedMovie = ownMovieList.find((movie) => movie.id === id);
+
+    dispatch(moviesActions.setclickedMovie(selectedMovie));
   };
 
   return (
     <React.Fragment>
       {moviesToDisplay && (
-        <div className={styles.MovieList}>
+        <section className={styles.MovieList}>
           <ul>
             {movie.map((movie) =>
               favMovieList.find((favMovie) => favMovie.id === movie.id) ? (
@@ -92,10 +102,10 @@ const MovieList = ({ movie, moviesToDisplay, addedMovies }) => {
               )
             )}
           </ul>
-        </div>
+        </section>
       )}
       {addedMovies && (
-        <div className={styles.MovieList}>
+        <section className={styles.MovieList}>
           <ul>
             {movie.map((movie) => (
               <MovieItemContainer>
@@ -109,7 +119,7 @@ const MovieList = ({ movie, moviesToDisplay, addedMovies }) => {
                     id={movie.id}
                     isFav={false}
                     text={"Edit Movie"}
-                    handleFavoriteMovies={removeFromAddedMovies}
+                    handleFavoriteMovies={redirectToForm}
                   ></Button>
                   <Button
                     id={movie.id}
@@ -121,13 +131,14 @@ const MovieList = ({ movie, moviesToDisplay, addedMovies }) => {
               </MovieItemContainer>
             ))}
           </ul>
-        </div>
+        </section>
       )}
       {showRemoveItemModal && (
         <React.Fragment>
           <RemoveItemModal movie={ownMovieList}></RemoveItemModal>
         </React.Fragment>
       )}
+      {!redirect && <Redirect to={`/editfilm/${clickedMovie.id}`}></Redirect>}
     </React.Fragment>
   );
 };

@@ -12,13 +12,14 @@ const RemoveItemModal = () => {
   const toggleModal = () => {
     dispatch(uiActions.toggleRemoveModal());
   };
+
   const handleModal = () => {
     toggleModal();
   };
 
   const removeMovie = () => {
     toggleModal();
-    dispatch(moviesActions.removelastClickedMovie());
+    dispatch(moviesActions.removeMovie());
   };
   return (
     <React.Fragment>
@@ -31,6 +32,7 @@ const RemoveItemModal = () => {
                 text={"No"}
                 isFav={false}
                 handleFavoriteMovies={handleModal}
+                redirect={false}
               ></Button>
               <Button
                 text={"Yes"}

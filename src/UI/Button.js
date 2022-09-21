@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "../UI/Button.module.css";
-const Button = ({ isFav, text, id, handleFavoriteMovies }) => {
+import { NavLink } from "react-router-dom";
+
+const Button = ({ isFav, text, id, handleFavoriteMovies, redirect }) => {
   return (
     <React.Fragment>
       <button

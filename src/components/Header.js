@@ -43,7 +43,7 @@ const Header = () => {
               Lista Dodanych Filmów
             </NavLink>
           </li>
-          <li>
+          {/* <li>
             <NavLink
               activeClassName={classes.active}
               className={classes.navlink}
@@ -51,7 +51,7 @@ const Header = () => {
             >
               Edytuj Dodany Film
             </NavLink>
-          </li>
+          </li> */}
         </ul>
       </header>
     </React.Fragment>

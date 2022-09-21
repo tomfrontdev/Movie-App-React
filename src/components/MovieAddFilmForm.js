@@ -1,13 +1,20 @@
 import styles from "../components/MovieAddFilmForm.module.css";
 import React from "react";
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { moviesActions } from "../store/movies-slice";
+import { useSelector } from "react-redux";
 
-const MovieAddFilmForm = ({ text }) => {
+const MovieAddFilmForm = ({
+  text,
+  title,
+  description,
+  submitHandlerDispatch,
+}) => {
+  const movieTitle = useSelector((state) => state.movies.movieTitle);
+  const movieDescription = useSelector(
+    (state) => state.movies.movieDescription
+  );
   const dispatch = useDispatch();
-  const [movieTitle, setMovieTitle] = useState();
-  const [movieDescription, setMovieDescription] = useState();
 
   return (
     <React.Fragment>
@@ -15,28 +22,28 @@ const MovieAddFilmForm = ({ text }) => {
         className={styles.Form}
         onSubmit={(e) => {
           e.preventDefault();
-          dispatch(
-            moviesActions.addOwnMovies({
-              title: movieTitle,
-              description: movieDescription,
-              id: Math.random(),
-            })
-          );
+          submitHandlerDispatch();
+          dispatch(moviesActions.setTitle(""));
+          dispatch(moviesActions.setDescription(""));
         }}
       >
         <div className={styles.FormAddFilmWrapper}>
           <div className={styles.FormInputWrapper}>
             <input
               type="text"
-              onChange={(e) => setMovieTitle(e.target.value)}
+              onChange={(e) => dispatch(moviesActions.setTitle(e.target.value))}
               placeholder={"Enter movie title..."}
+              value={title}
             ></input>
           </div>
           <div className={styles.FormInputWrapper}>
             <input
               type="text"
-              onChange={(e) => setMovieDescription(e.target.value)}
+              onChange={(e) =>
+                dispatch(moviesActions.setDescription(e.target.value))
+              }
               placeholder={"Enter movie description..."}
+              value={description}
             ></input>
           </div>
           <div className={styles.FormSubmitBtnWrapper}>

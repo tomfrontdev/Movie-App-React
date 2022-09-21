@@ -27,10 +27,6 @@ const MainPage = () => {
     []
   );
 
-  // const debouncedChangeHandler = useMemo((value) =>
-  //   debounce(dispatch(fetchMoviesData(value)), 300)
-  // );
-
   useEffect(() => {
     dispatch(fetchMoviesData("girls"));
   }, [dispatch]);
@@ -57,10 +53,10 @@ const MainPage = () => {
         movie={moviesList}
       ></MovieList>
       {isdataLoading && <SpinnerModal></SpinnerModal>}
-      {!moviesToDisplay && (
+      {!moviesToDisplay && !fetchingError && (
         <MovieFetchError text={"No Movies Found! :("}></MovieFetchError>
       )}
-      {fetchingError && !moviesToDisplay && (
+      {fetchingError && (
         <MovieFetchError text={fetchingError}></MovieFetchError>
       )}
     </React.Fragment>

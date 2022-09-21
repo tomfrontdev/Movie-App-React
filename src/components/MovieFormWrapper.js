@@ -4,7 +4,7 @@ import React from "react";
 const MovieFormWrapper = ({ children }) => {
   return (
     <React.Fragment>
-      <div className={styles.FormWrapper}>{children}</div>
+      <section className={styles.FormWrapper}>{children}</section>
     </React.Fragment>
   );
 };

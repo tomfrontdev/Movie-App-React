@@ -2,7 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const uiSlice = createSlice({
   name: "ui",
-  initialState: { showRemoveItemModal: false, error: "", isdataLoading: false },
+  initialState: {
+    showRemoveItemModal: false,
+    error: false,
+    isdataLoading: false,
+  },
   reducers: {
     toggleRemoveModal(state) {
       state.showRemoveItemModal = !state.showRemoveItemModal;

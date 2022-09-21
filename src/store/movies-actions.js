@@ -17,7 +17,7 @@ export const fetchMoviesData = (value) => {
           year: movie.premiered,
           title: movie.name,
           favorite: false,
-          img: movie.image.medium,
+          img: movie.image ? movie.image.medium : "brokenimage.svg",
         };
       });
       return transformedMovies;
@@ -28,6 +28,7 @@ export const fetchMoviesData = (value) => {
       dispatch(moviesActions.addMovies(transformedMoviesData));
       dispatch(uiActions.showLoadingSpinner(false));
     } catch (error) {
+      console.log(error);
       dispatch(uiActions.showLoadingSpinner(false));
       dispatch(uiActions.errorFetchingData(error.message));
     }

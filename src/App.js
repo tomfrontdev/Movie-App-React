@@ -25,7 +25,7 @@ function App() {
         <Route path="/addedfilms">
           <AddedOwnMoviePage></AddedOwnMoviePage>
         </Route>
-        <Route path="/editfilm">
+        <Route path={`/editfilm/:productId`}>
           <EditOwnMoviePage></EditOwnMoviePage>
         </Route>
       </main>
