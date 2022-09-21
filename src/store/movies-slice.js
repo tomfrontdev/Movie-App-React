@@ -39,10 +39,9 @@ const moviesSlice = createSlice({
         (movie) => movie.id !== state.clickedMovie.id
       );
     },
-    removeMovieTwo(state, action) {
-      state.ownMovieList = state.ownMovieList.filter(
-        (movie) => movie.id !== action.payload
-      );
+    editMovie(state, action) {
+      const id = action.payload.id;
+      state.ownMovieList[id] = action.payload;
     },
     addMovieToFav(state, action) {
       state.favMovieList = [...state.favMovieList, action.payload];

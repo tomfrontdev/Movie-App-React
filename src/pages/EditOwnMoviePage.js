@@ -12,18 +12,20 @@ const EditOwnMoviePage = () => {
   const movieDescription = useSelector(
     (state) => state.movies.movieDescription
   );
+  const ownMovieList = useSelector((state) => state.movies.ownMovieList);
 
   const params = useParams();
 
   const urlID = Number(params.productId);
 
+  const index = ownMovieList.findIndex((movie) => movie.id === urlID);
+
   const submitHandlerDispatch = () => {
-    dispatch(moviesActions.removeMovieTwo(urlID));
     dispatch(
-      moviesActions.addOwnMovies({
+      moviesActions.editMovie({
+        id: index,
         title: movieTitle,
         description: movieDescription,
-        id: urlID,
       })
     );
   };
