@@ -1,13 +1,15 @@
-import React from "react";
+import { Fragment } from "react";
 import classes from "../components/Header.module.css";
 import { NavLink } from "react-router-dom";
+import MovieFormWrapper from "../components/MovieFormWrapper";
+import MovieSearchForm from "../components/MovieSearchForm";
 
 const Header = () => {
   return (
-    <React.Fragment>
+    <Fragment>
       <header className={classes.header}>
-        <ul>
-          <li>
+        <ul className={classes.headerlist}>
+          <li className={classes.headerlink}>
             <NavLink
               activeClassName={classes.active}
               className={classes.navlink}
@@ -16,7 +18,7 @@ const Header = () => {
               Strona Główna
             </NavLink>
           </li>
-          <li>
+          <li className={classes.headerlink}>
             <NavLink
               activeClassName={classes.active}
               className={classes.navlink}
@@ -25,7 +27,7 @@ const Header = () => {
               Lista ulubionych filmów
             </NavLink>
           </li>
-          <li>
+          <li className={classes.headerlink}>
             <NavLink
               activeClassName={classes.active}
               className={classes.navlink}
@@ -34,7 +36,7 @@ const Header = () => {
               Dodaj film
             </NavLink>
           </li>
-          <li>
+          <li className={classes.headerlink}>
             <NavLink
               activeClassName={classes.active}
               className={classes.navlink}
@@ -43,18 +45,12 @@ const Header = () => {
               Lista Dodanych Filmów
             </NavLink>
           </li>
-          {/* <li>
-            <NavLink
-              activeClassName={classes.active}
-              className={classes.navlink}
-              to="/editfilm"
-            >
-              Edytuj Dodany Film
-            </NavLink>
-          </li> */}
         </ul>
+        <MovieFormWrapper>
+          <MovieSearchForm></MovieSearchForm>
+        </MovieFormWrapper>
       </header>
-    </React.Fragment>
+    </Fragment>
   );
 };
 

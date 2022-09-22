@@ -6,11 +6,8 @@ import { moviesActions } from "../store/movies-slice";
 import { uiActions } from "../store/ui-slice";
 import Button from "../UI/Button";
 import { Redirect } from "react-router-dom";
-import MovieItemContainer from "../components/MovieItemContainer.js";
-import ButtonContainer from "../components/ButtonContainer.js";
 import ImageContainer from "../components/ImageContainer.js";
 import { useState } from "react";
-
 import RemoveItemModal from "../components/RemoveItemModal";
 
 const MovieList = ({ movie, moviesToDisplay, addedMovies }) => {
@@ -24,17 +21,6 @@ const MovieList = ({ movie, moviesToDisplay, addedMovies }) => {
   const showRemoveItemModal = useSelector(
     (state) => state.ui.showRemoveItemModal
   );
-
-  const handleFavoriteMovies = (id) => {
-    const selectedMovie = movieList.find((movie) => movie.id === id);
-
-    if (!favMovieList.find((movie) => movie.id === id)) {
-      dispatch(moviesActions.addMovieToFav(selectedMovie));
-    }
-    if (favMovieList.find((movie) => movie.id === id)) {
-      dispatch(moviesActions.removeMovieFromFav(selectedMovie));
-    }
-  };
 
   const toggleModal = () => {
     dispatch(uiActions.toggleRemoveModal());
@@ -62,59 +48,50 @@ const MovieList = ({ movie, moviesToDisplay, addedMovies }) => {
       {moviesToDisplay && (
         <section className={styles.MovieList}>
           <ul>
-            {movie.map((movie) =>
-              favMovieList.find((favMovie) => favMovie.id === movie.id) ? (
-                <MovieItemContainer>
-                  <MovieItem
-                    title={movie.title}
-                    year={movie.year}
-                    id={movie.id}
-                    moviesToDisplay={moviesToDisplay}
-                  ></MovieItem>
-                  <ImageContainer imgSrc={movie.img}></ImageContainer>
-                  <ButtonContainer>
-                    <Button
+            <div className={styles.MovieListcontainer}>
+              {movie.map((movie) =>
+                favMovieList.find((favMovie) => favMovie.id === movie.id) ? (
+                  <React.Fragment>
+                    <MovieItem
+                      title={movie.title}
+                      year={movie.year}
                       id={movie.id}
-                      text={"Remove From Favorite"}
+                      text={"Remove From Fav"}
                       isFav={true}
-                      handleFavoriteMovies={handleFavoriteMovies}
-                    ></Button>
-                  </ButtonContainer>
-                </MovieItemContainer>
-              ) : (
-                <MovieItemContainer>
-                  <MovieItem
-                    title={movie.title}
-                    moviesToDisplay={moviesToDisplay}
-                    year={movie.year}
-                    id={movie.id}
-                  ></MovieItem>
-                  <ImageContainer imgSrc={movie.img}></ImageContainer>
-                  <ButtonContainer>
-                    <Button
-                      id={movie.id}
-                      text={"Add To Favorite"}
+                      moviesToDisplay={moviesToDisplay}
+                      imgSrc={movie.img}
+                    ></MovieItem>
+                  </React.Fragment>
+                ) : (
+                  <React.Fragment>
+                    <MovieItem
+                      title={movie.title}
+                      moviesToDisplay={moviesToDisplay}
+                      year={movie.year}
+                      text={"Add To Fav"}
                       isFav={false}
-                      handleFavoriteMovies={handleFavoriteMovies}
-                    ></Button>
-                  </ButtonContainer>
-                </MovieItemContainer>
-              )
-            )}
+                      id={movie.id}
+                      imgSrc={movie.img}
+                    ></MovieItem>
+                  </React.Fragment>
+                )
+              )}
+            </div>
           </ul>
         </section>
       )}
       {addedMovies && (
         <section className={styles.MovieList}>
           <ul>
-            {movie.map((movie) => (
-              <MovieItemContainer>
-                <MovieItem
-                  title={movie.title}
-                  addedMovies={true}
-                  description={movie.description}
-                ></MovieItem>
-                <ButtonContainer>
+            <div className={styles.MovieListcontainer}>
+              {movie.map((movie) => (
+                <React.Fragment>
+                  <MovieItem
+                    title={movie.title}
+                    addedMovies={true}
+                    description={movie.description}
+                  ></MovieItem>
+
                   <Button
                     id={movie.id}
                     isFav={false}
@@ -127,9 +104,9 @@ const MovieList = ({ movie, moviesToDisplay, addedMovies }) => {
                     text={"Remove Movie"}
                     handleFavoriteMovies={handleMovieToDelete}
                   ></Button>
-                </ButtonContainer>
-              </MovieItemContainer>
-            ))}
+                </React.Fragment>
+              ))}
+            </div>
           </ul>
         </section>
       )}

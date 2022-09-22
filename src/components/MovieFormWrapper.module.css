@@ -3,10 +3,8 @@
   display: flex;
   border-radius: 10px;
   justify-content: center;
-  width: 75%;
-  padding: 20px;
   margin: auto;
-  background-color: #202020;
+  box-shadow: 0 0 15px #719ece;
 }
 
 .Form {

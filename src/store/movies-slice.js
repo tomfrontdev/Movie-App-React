@@ -8,6 +8,7 @@ const initialState = {
   movieTitle: "",
   movieDescription: "",
   editMovie: false,
+  searchInput: "",
 };
 
 const moviesSlice = createSlice({
@@ -20,6 +21,9 @@ const moviesSlice = createSlice({
     },
     setEditMovie(state, action) {
       state.editMovie = action.payload;
+    },
+    setsearchInput(state, action) {
+      state.searchInput = action.payload;
     },
     setTitle(state, action) {
       state.movieTitle = action.payload;

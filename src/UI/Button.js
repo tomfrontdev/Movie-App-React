@@ -1,17 +1,22 @@
 import React from "react";
 import styles from "../UI/Button.module.css";
-import { NavLink } from "react-router-dom";
+import { MdFavoriteBorder } from "react-icons/md";
+import { MdFavorite } from "react-icons/md";
 
-const Button = ({ isFav, text, id, handleFavoriteMovies, redirect }) => {
+const Button = ({ isFav, text, id, handleFavoriteMovies }) => {
   return (
     <React.Fragment>
       <button
-        className={!isFav ? styles.Greenborder : styles.Redborder}
+        className={styles.Button}
         onClick={() => {
           handleFavoriteMovies(id);
         }}
       >
-        <p>{text}</p>
+        {!isFav ? (
+          <MdFavoriteBorder className={styles.heartIcon}></MdFavoriteBorder>
+        ) : (
+          <MdFavorite className={styles.heartIcon}></MdFavorite>
+        )}
       </button>
     </React.Fragment>
   );

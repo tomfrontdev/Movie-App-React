@@ -1,24 +1,67 @@
 .Moviedatacontainer {
-  flex-grow: 3;
+  width: 100%;
 }
 
 .Moviecontainer {
-  margin-bottom: 10px;
-  background-color: white;
   border-radius: 10px;
-  height: 8rem;
-  display: flex;
+  height: 500px;
+  max-width: 330px;
+  background-position: center;
+  background-size: cover;
   align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+
+.Moviedatacontainer {
+  width: 100%;
+  height: 100%;
   position: relative;
 }
 
-.Moviedata {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+.Moviedatacontainer .Moviedatacontainer p {
+  position: relative;
 }
 
-.Movietitle,
-.Movieyear {
+.Movieanimateddiv {
+  display: none;
+  width: 100%;
+  height: 8rem;
+  opacity: 0.2;
+  background-color: black;
+  position: absolute;
+  bottom: 0;
+  animation-name: animateddiv;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+@keyframes animateddiv {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.2;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+}
+
+.Moviedatacontainer:hover > div {
+  display: block;
+  text-align: center;
+  align-items: center;
+  display: flex;
+}
+
+.Movietitle {
+  color: white;
   font-weight: bold;
+  margin: auto;
 }
