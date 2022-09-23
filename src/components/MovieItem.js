@@ -1,21 +1,19 @@
 import React from "react";
 import styles from "../components/MovieItem.module.css";
 import Button from "../UI/Button";
-import ImageContainer from "../components/ImageContainer";
 import { useSelector, useDispatch } from "react-redux";
 import { moviesActions } from "../store/movies-slice";
-import { MdFavoriteBorder } from "react-icons/md";
 
 const MovieItem = ({
   title,
   year,
   moviesToDisplay,
   addedMovies,
-  description,
   id,
   imgSrc,
   text,
   isFav,
+  score,
 }) => {
   const IMAGE_BASE_URL = imgSrc;
   const movieList = useSelector((state) => state.movies.movieList);
@@ -23,7 +21,6 @@ const MovieItem = ({
   const dispatch = useDispatch();
 
   const handleFavoriteMovies = (id) => {
-    console.log(id);
     const selectedMovie = movieList.find((movie) => movie.id === id);
 
     if (!favMovieList.find((movie) => movie.id === id)) {
@@ -45,8 +42,12 @@ const MovieItem = ({
             )`,
             }}
             className={styles.Moviecontainer}
+            onClick={() => handleFavoriteMovies(id)}
           >
             <div className={styles.Moviedatacontainer}>
+              <div className={styles.Moviescorecontainer}>
+                <p>{score}/10</p>
+              </div>
               <div className={styles.Moviebtncontainer}>
                 <Button
                   id={id}

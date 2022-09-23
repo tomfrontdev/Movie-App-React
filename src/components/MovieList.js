@@ -6,14 +6,12 @@ import { moviesActions } from "../store/movies-slice";
 import { uiActions } from "../store/ui-slice";
 import Button from "../UI/Button";
 import { Redirect } from "react-router-dom";
-import ImageContainer from "../components/ImageContainer.js";
 import { useState } from "react";
 import RemoveItemModal from "../components/RemoveItemModal";
 
 const MovieList = ({ movie, moviesToDisplay, addedMovies }) => {
   const dispatch = useDispatch();
 
-  const movieList = useSelector((state) => state.movies.movieList);
   const favMovieList = useSelector((state) => state.movies.favMovieList);
   const ownMovieList = useSelector((state) => state.movies.ownMovieList);
   const clickedMovie = useSelector((state) => state.movies.clickedMovie);
@@ -60,6 +58,7 @@ const MovieList = ({ movie, moviesToDisplay, addedMovies }) => {
                       isFav={true}
                       moviesToDisplay={moviesToDisplay}
                       imgSrc={movie.img}
+                      score={movie.rating ? movie.rating : 0}
                     ></MovieItem>
                   </React.Fragment>
                 ) : (
@@ -72,6 +71,7 @@ const MovieList = ({ movie, moviesToDisplay, addedMovies }) => {
                       isFav={false}
                       id={movie.id}
                       imgSrc={movie.img}
+                      score={movie.rating ? movie.rating : 0}
                     ></MovieItem>
                   </React.Fragment>
                 )

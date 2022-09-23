@@ -18,6 +18,7 @@ export const fetchMoviesData = (value) => {
           title: movie.name,
           favorite: false,
           img: movie.image ? movie.image.medium : "brokenimage.svg",
+          rating: movie.rating.average,
         };
       });
       return transformedMovies;

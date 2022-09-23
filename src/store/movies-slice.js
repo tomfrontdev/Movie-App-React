@@ -17,7 +17,6 @@ const moviesSlice = createSlice({
   reducers: {
     addMovies(state, action) {
       state.movieList = action.payload;
-      console.log(action.payload);
     },
     setEditMovie(state, action) {
       state.editMovie = action.payload;

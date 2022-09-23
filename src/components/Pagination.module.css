@@ -1,0 +1,29 @@
+.Pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+.Btn {
+  margin: 10px;
+  font-size: 25px;
+  height: 40px;
+  width: 50px;
+  border-radius: 10px;
+  background-color: transparent;
+  color: white;
+  border: none;
+}
+
+.Greenbtn {
+  border: 2px solid #323232;
+}
+
+.Paginationbtn:hover {
+  transform: scale(1.1);
+  transition: 1s;
+}
+
+.Redbtn {
+  box-shadow: 0 0 15px #719ece;
+}
