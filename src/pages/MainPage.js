@@ -7,6 +7,7 @@ import MovieFetchError from "../components/MovieFetchError.js";
 import { fetchMoviesData } from "../store/movies-actions";
 import Pagination from "../components/Pagination";
 import { uiActions } from "../store/ui-slice";
+import SortTypeList from "../components/SortTypeList";
 
 const MainPage = () => {
   const dispatch = useDispatch();
@@ -41,6 +42,7 @@ const MainPage = () => {
 
   return (
     <React.Fragment>
+      <SortTypeList></SortTypeList>
       <MovieList
         moviesToDisplay={moviesToDisplay}
         movie={currentPosts}

@@ -1,7 +1,9 @@
 .Pagination {
   display: flex;
   justify-content: center;
-  margin-top: 25px;
+  position: absolute;
+  left: 50%;
+  bottom: 5%;
 }
 
 .Btn {

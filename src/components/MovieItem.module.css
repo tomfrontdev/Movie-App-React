@@ -4,7 +4,7 @@
 
 .Moviecontainer {
   border-radius: 10px;
-  height: 500px;
+  height: 350px;
   max-width: 330px;
   background-position: center;
   background-size: cover;
@@ -40,19 +40,21 @@
 
 .Moviescorecontainer {
   position: absolute;
-  right: -10px;
-  top: -10px;
+  right: -3px;
+  top: -15px;
   font-size: 20px;
   font-weight: bold;
-  color: orange;
-  background-color: white;
-  width: 80px;
-  height: 80px;
+  width: 75px;
+  height: 75px;
   border-radius: 100%;
   z-index: 5;
   opacity: 0.8;
   display: flex;
   justify-content: center;
+  background-color: black;
+  box-shadow: -11px 12px 14px -11px rgba(0, 0, 0, 1);
+  color: white;
+  opacity: 0.9;
 }
 
 .Moviescorecontainer p {

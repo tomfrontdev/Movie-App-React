@@ -6,7 +6,7 @@ const uiSlice = createSlice({
     showRemoveItemModal: false,
     error: false,
     isdataLoading: false,
-    postsPerPage: 4,
+    postsPerPage: 8,
     currentPage: 1,
   },
   reducers: {

@@ -18,6 +18,26 @@ const moviesSlice = createSlice({
     addMovies(state, action) {
       state.movieList = action.payload;
     },
+    ratingAscending(state) {
+      state.movieList = state.movieList.sort((a, b) =>
+        a.rating > b.rating ? 1 : -1
+      );
+    },
+    ratingDescending(state) {
+      state.movieList = state.movieList.sort((a, b) =>
+        a.rating > b.rating ? -1 : 1
+      );
+    },
+    nameAscending(state) {
+      state.movieList = state.movieList.sort((a, b) =>
+        a.title > b.title ? 1 : -1
+      );
+    },
+    nameDescending(state) {
+      state.movieList = state.movieList.sort((a, b) =>
+        a.title > b.title ? -1 : 1
+      );
+    },
     setEditMovie(state, action) {
       state.editMovie = action.payload;
     },

@@ -1,0 +1,25 @@
+.sorttypelistform {
+  width: 10rem;
+}
+
+.sortytypeselect {
+  font-size: 15px;
+  background-color: black;
+  color: white;
+  border: none;
+  margin-bottom: 20px;
+  box-shadow: 0 0 5px #719ece;
+}
+
+.sorttypelistcontainer {
+  width: 85%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.label {
+  color: white;
+  font-size: 15px;
+  margin-right: 10px;
+}
