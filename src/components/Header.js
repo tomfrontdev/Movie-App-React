@@ -1,7 +1,6 @@
 import { Fragment } from "react";
 import classes from "../components/Header.module.css";
 import { NavLink } from "react-router-dom";
-import MovieFormWrapper from "../components/MovieFormWrapper";
 import MovieSearchForm from "../components/MovieSearchForm";
 
 const Header = () => {
@@ -46,9 +45,7 @@ const Header = () => {
             </NavLink>
           </li>
         </ul>
-        <MovieFormWrapper>
-          <MovieSearchForm></MovieSearchForm>
-        </MovieFormWrapper>
+        <MovieSearchForm></MovieSearchForm>
       </header>
     </Fragment>
   );

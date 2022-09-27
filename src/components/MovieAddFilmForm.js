@@ -18,41 +18,45 @@ const MovieAddFilmForm = ({
 
   return (
     <React.Fragment>
-      <form
-        className={styles.Form}
-        onSubmit={(e) => {
-          e.preventDefault();
-          submitHandlerDispatch();
-          dispatch(moviesActions.setTitle(""));
-          dispatch(moviesActions.setDescription(""));
-        }}
-      >
-        <div className={styles.FormAddFilmWrapper}>
-          <div className={styles.FormInputWrapper}>
-            <input
-              type="text"
-              onChange={(e) => dispatch(moviesActions.setTitle(e.target.value))}
-              placeholder={"Enter movie title..."}
-              value={title}
-            ></input>
+      <section className={styles.FormWrapper}>
+        <form
+          className={styles.Form}
+          onSubmit={(e) => {
+            e.preventDefault();
+            submitHandlerDispatch();
+            dispatch(moviesActions.setTitle(""));
+            dispatch(moviesActions.setDescription(""));
+          }}
+        >
+          <div className={styles.FormAddFilmWrapper}>
+            <div className={styles.FormInputWrapper}>
+              <input
+                type="text"
+                onChange={(e) =>
+                  dispatch(moviesActions.setTitle(e.target.value))
+                }
+                placeholder={"Enter movie title..."}
+                value={title}
+              ></input>
+            </div>
+            <div className={styles.FormInputWrapper}>
+              <input
+                type="text"
+                onChange={(e) =>
+                  dispatch(moviesActions.setDescription(e.target.value))
+                }
+                placeholder={"Enter movie description..."}
+                value={description}
+              ></input>
+            </div>
+            <div className={styles.FormSubmitBtnWrapper}>
+              <button className={styles.FormSubmitBtn} type="submit">
+                {text}
+              </button>
+            </div>
           </div>
-          <div className={styles.FormInputWrapper}>
-            <input
-              type="text"
-              onChange={(e) =>
-                dispatch(moviesActions.setDescription(e.target.value))
-              }
-              placeholder={"Enter movie description..."}
-              value={description}
-            ></input>
-          </div>
-          <div className={styles.FormSubmitBtnWrapper}>
-            <button className={styles.FormSubmitBtn} type="submit">
-              {text}
-            </button>
-          </div>
-        </div>
-      </form>
+        </form>
+      </section>
     </React.Fragment>
   );
 };

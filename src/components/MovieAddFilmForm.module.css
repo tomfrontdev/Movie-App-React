@@ -6,7 +6,21 @@
   background-color: black;
   color: white;
   border: 1px solid black;
-  margin: 5px;
+  margin-top: 10px;
+}
+
+.FormWrapper {
+  margin-bottom: 25px;
+  width: 75%;
+  display: flex;
+  border-radius: 10px;
+  justify-content: center;
+  margin: auto;
+  background-color: #323232;
+}
+
+.Form {
+  margin: auto;
 }
 
 .FormInputWrapper input:focus {
@@ -16,6 +30,7 @@
 .FormSubmitBtnWrapper {
   display: flex;
   justify-content: center;
+  padding: 10px;
 }
 
 .FormSubmitBtn {
@@ -27,5 +42,4 @@
   color: white;
   border-radius: 10px;
   cursor: pointer;
-  margin-top: 20px;
 }

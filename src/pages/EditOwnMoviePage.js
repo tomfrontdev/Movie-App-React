@@ -1,5 +1,4 @@
 import React from "react";
-import MovieFormWrapper from "../components/MovieFormWrapper";
 import MovieAddFilmForm from "../components/MovieAddFilmForm";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -32,15 +31,13 @@ const EditOwnMoviePage = () => {
 
   return (
     <React.Fragment>
-      <MovieFormWrapper>
-        <MovieAddFilmForm
-          text={"Edit"}
-          title={movieTitle}
-          description={movieDescription}
-          editedMovieID={urlID}
-          submitHandlerDispatch={submitHandlerDispatch}
-        ></MovieAddFilmForm>
-      </MovieFormWrapper>
+      <MovieAddFilmForm
+        text={"Edit"}
+        title={movieTitle}
+        description={movieDescription}
+        editedMovieID={urlID}
+        submitHandlerDispatch={submitHandlerDispatch}
+      ></MovieAddFilmForm>
     </React.Fragment>
   );
 };

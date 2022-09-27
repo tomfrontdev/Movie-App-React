@@ -4,7 +4,6 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { moviesActions } from "../store/movies-slice";
 import { uiActions } from "../store/ui-slice";
-import Button from "../UI/Button";
 import { Redirect } from "react-router-dom";
 import { useState } from "react";
 import RemoveItemModal from "../components/RemoveItemModal";
@@ -20,10 +19,6 @@ const MovieList = ({ movie, moviesToDisplay, addedMovies }) => {
     (state) => state.ui.showRemoveItemModal
   );
 
-  const toggleModal = () => {
-    dispatch(uiActions.toggleRemoveModal());
-  };
-
   const redirectToForm = (id) => {
     setRedirect(false);
     const selectedMovie = ownMovieList.find((movie) => movie.id === id);
@@ -34,7 +29,7 @@ const MovieList = ({ movie, moviesToDisplay, addedMovies }) => {
   };
 
   const handleMovieToDelete = (id) => {
-    toggleModal();
+    dispatch(uiActions.toggleRemoveModal());
 
     const selectedMovie = ownMovieList.find((movie) => movie.id === id);
 
@@ -54,7 +49,6 @@ const MovieList = ({ movie, moviesToDisplay, addedMovies }) => {
                       title={movie.title}
                       year={movie.year}
                       id={movie.id}
-                      text={"Remove From Fav"}
                       isFav={true}
                       moviesToDisplay={moviesToDisplay}
                       imgSrc={movie.img}
@@ -67,7 +61,6 @@ const MovieList = ({ movie, moviesToDisplay, addedMovies }) => {
                       title={movie.title}
                       moviesToDisplay={moviesToDisplay}
                       year={movie.year}
-                      text={"Add To Fav"}
                       isFav={false}
                       id={movie.id}
                       imgSrc={movie.img}
@@ -88,22 +81,13 @@ const MovieList = ({ movie, moviesToDisplay, addedMovies }) => {
                 <React.Fragment>
                   <MovieItem
                     title={movie.title}
-                    addedMovies={true}
-                    description={movie.description}
+                    year={movie.year}
+                    id={movie.id}
+                    addedMovies={addedMovies}
+                    moviesToDisplay={moviesToDisplay}
+                    imgSrc={movie.img}
+                    score={movie.rating ? movie.rating : 0}
                   ></MovieItem>
-
-                  <Button
-                    id={movie.id}
-                    isFav={false}
-                    text={"Edit Movie"}
-                    handleFavoriteMovies={redirectToForm}
-                  ></Button>
-                  <Button
-                    id={movie.id}
-                    isFav={true}
-                    text={"Remove Movie"}
-                    handleFavoriteMovies={handleMovieToDelete}
-                  ></Button>
                 </React.Fragment>
               ))}
             </div>

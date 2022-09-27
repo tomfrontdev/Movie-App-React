@@ -15,6 +15,12 @@
   background-color: transparent;
   color: white;
   border: none;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.Btn:hover {
+  transform: scale(1.2);
 }
 
 .Greenbtn {

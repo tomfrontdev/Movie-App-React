@@ -30,13 +30,13 @@ const RemoveItemModal = () => {
             <div className={classes.modalbtns}>
               <Button
                 text={"No"}
-                isFav={false}
                 handleFavoriteMovies={handleModal}
+                modalBtn={true}
                 redirect={false}
               ></Button>
               <Button
                 text={"Yes"}
-                isFav={true}
+                modalBtn={true}
                 handleFavoriteMovies={removeMovie}
               ></Button>
             </div>

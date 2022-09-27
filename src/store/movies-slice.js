@@ -16,7 +16,9 @@ const moviesSlice = createSlice({
   initialState,
   reducers: {
     addMovies(state, action) {
-      state.movieList = action.payload;
+      state.movieList = action.payload.sort((a, b) =>
+        a.title > b.title ? 1 : -1
+      );
     },
     ratingAscending(state) {
       state.movieList = state.movieList.sort((a, b) =>

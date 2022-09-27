@@ -1,3 +1,16 @@
+.FormWrapper {
+  margin-bottom: 25px;
+  display: flex;
+  border-radius: 10px;
+  justify-content: center;
+  margin: auto;
+  box-shadow: 0 0 5px #719ece;
+}
+
+.Form {
+  margin: auto;
+}
+
 .FormSearchIconWrapper {
   width: 4rem;
   height: 100%;

@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import MovieFormWrapper from "../components/MovieFormWrapper";
+import React from "react";
 import MovieAddFilmForm from "../components/MovieAddFilmForm";
 import { useDispatch } from "react-redux";
 import { moviesActions } from "../store/movies-slice";
@@ -25,14 +24,12 @@ const AddOwnMoviePage = () => {
 
   return (
     <React.Fragment>
-      <MovieFormWrapper>
-        <MovieAddFilmForm
-          text={"Add"}
-          title={movieTitle}
-          description={movieDescription}
-          submitHandlerDispatch={submitHandlerDispatch}
-        ></MovieAddFilmForm>
-      </MovieFormWrapper>
+      <MovieAddFilmForm
+        text={"Add"}
+        title={movieTitle}
+        description={movieDescription}
+        submitHandlerDispatch={submitHandlerDispatch}
+      ></MovieAddFilmForm>
     </React.Fragment>
   );
 };
