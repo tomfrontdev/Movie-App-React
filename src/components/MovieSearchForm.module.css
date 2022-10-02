@@ -21,6 +21,20 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 10px;
+}
+
+.FormSearchEmptyWrapper {
+  width: 4rem;
+  height: 100%;
+  background-color: black;
+  border: none;
+  cursor: pointer;
+  margin-left: -0.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
 }
 
 .FormSearchIcon {

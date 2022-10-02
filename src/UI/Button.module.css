@@ -1,16 +1,33 @@
+.Btn {
+  border-radius: 50%;
+  font-size: 1rem;
+  border-width: 0.3em;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  background: black;
+}
+
+.Btn:hover {
+  transform: scale(1.1);
+  transition: 2s;
+}
+
+.noBorder {
+  border: none;
+}
+
 .Icon {
   font-size: 30px;
   margin: auto;
 }
 
-.Icon:hover {
-  transform: scale(1.2);
-  transition: 2s;
+.greenBorder {
+  padding: 5px 10px;
+  border: 2px solid green;
 }
-.Button {
-  background-color: white;
-  border-radius: 100%;
-  display: flex;
-  justify-content: center;
-  border: none;
+
+.redBorder {
+  padding: 5px 10px;
+  border: 2px solid red;
 }

@@ -4,11 +4,13 @@ const initialState = {
   movieList: [],
   favMovieList: [],
   ownMovieList: [],
+  filteredMovies: [],
   clickedMovie: [],
   movieTitle: "",
   movieDescription: "",
   editMovie: false,
   searchInput: "",
+  isDataFetched: false,
 };
 
 const moviesSlice = createSlice({
@@ -16,29 +18,33 @@ const moviesSlice = createSlice({
   initialState,
   reducers: {
     addMovies(state, action) {
+      state.movieList = action.payload;
       state.movieList = action.payload.sort((a, b) =>
         a.title > b.title ? 1 : -1
       );
     },
-    ratingAscending(state) {
-      state.movieList = state.movieList.sort((a, b) =>
-        a.rating > b.rating ? 1 : -1
-      );
+    setFetchedData(state, action) {
+      state.isDataFetched = action.payload;
     },
-    ratingDescending(state) {
-      state.movieList = state.movieList.sort((a, b) =>
-        a.rating > b.rating ? -1 : 1
-      );
+
+    sort(state, action) {
+      const order = action.payload.sortDirection;
+      const title = action.payload.sortBy;
+      console.log(order);
+      console.log(title);
+      if (order === "asc") {
+        state.movieList = state.movieList.sort((a, b) =>
+          a[title] > b[title] ? 1 : -1
+        );
+      }
+      if (order === "desc") {
+        state.movieList = state.movieList.sort((a, b) =>
+          a[title] > b[title] ? -1 : 1
+        );
+      }
     },
-    nameAscending(state) {
-      state.movieList = state.movieList.sort((a, b) =>
-        a.title > b.title ? 1 : -1
-      );
-    },
-    nameDescending(state) {
-      state.movieList = state.movieList.sort((a, b) =>
-        a.title > b.title ? -1 : 1
-      );
+    filterMovies(state, action) {
+      state.filteredMovies = action.payload;
     },
     setEditMovie(state, action) {
       state.editMovie = action.payload;
@@ -70,10 +76,12 @@ const moviesSlice = createSlice({
     },
     addMovieToFav(state, action) {
       state.favMovieList = [...state.favMovieList, action.payload];
+      state.filteredMovies = state.favMovieList;
     },
     removeMovieFromFav(state, action) {
+      console.log(action.payload);
       state.favMovieList = state.favMovieList.filter(
-        (movie) => movie.id !== action.payload.id
+        (movie) => movie.id !== action.payload
       );
     },
   },

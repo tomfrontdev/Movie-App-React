@@ -2,6 +2,8 @@ import ReactDOM from "react-dom";
 import React from "react";
 import classes from "../components/RemoveItemModal.module.css";
 import Button from "../UI/Button";
+import btn from "../UI/Button.module.css";
+
 import { moviesActions } from "../store/movies-slice";
 import { uiActions } from "../store/ui-slice";
 import { useDispatch } from "react-redux";
@@ -21,24 +23,26 @@ const RemoveItemModal = () => {
     toggleModal();
     dispatch(moviesActions.removeMovie());
   };
+
+  const handleClick = (e) => {
+    console.log(e.target);
+  };
   return (
     <React.Fragment>
-      <div className={classes.backdrop}>
-        <div className={classes.modal}>
+      <div className={classes.backdrop} onClick={() => handleModal()}>
+        <div className={classes.modal} onClick={(e) => e.stopPropagation()}>
           <div className={classes.modaltext}>
             <p>Are you sure to delete?</p>
             <div className={classes.modalbtns}>
               <Button
-                text={"No"}
-                handleFavoriteMovies={handleModal}
-                modalBtn={true}
-                redirect={false}
-              ></Button>
-              <Button
-                text={"Yes"}
-                modalBtn={true}
-                handleFavoriteMovies={removeMovie}
-              ></Button>
+                onClick={() => handleModal()}
+                classTitle={btn.greenBorder}
+              >
+                No
+              </Button>
+              <Button onClick={() => removeMovie()} classTitle={btn.redBorder}>
+                Yes
+              </Button>
             </div>
           </div>
         </div>

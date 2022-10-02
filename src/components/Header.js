@@ -10,7 +10,7 @@ const Header = () => {
         <ul className={classes.headerlist}>
           <li className={classes.headerlink}>
             <NavLink
-              activeClassName={classes.active}
+              // activeClassName={classes.active}
               className={classes.navlink}
               to="/welcome"
             >
@@ -19,7 +19,7 @@ const Header = () => {
           </li>
           <li className={classes.headerlink}>
             <NavLink
-              activeClassName={classes.active}
+              // activeClassName={classes.active}
               className={classes.navlink}
               to="/favoritemovies"
             >
@@ -28,7 +28,7 @@ const Header = () => {
           </li>
           <li className={classes.headerlink}>
             <NavLink
-              activeClassName={classes.active}
+              // activeClassName={classes.active}
               className={classes.navlink}
               to="/addfilm"
             >
@@ -37,7 +37,7 @@ const Header = () => {
           </li>
           <li className={classes.headerlink}>
             <NavLink
-              activeClassName={classes.active}
+              // activeClassName={classes.active}
               className={classes.navlink}
               to="/addedfilms"
             >

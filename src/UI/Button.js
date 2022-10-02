@@ -1,49 +1,13 @@
 import React from "react";
-import styles from "../UI/Button.module.css";
-import { MdFavoriteBorder, MdFavorite, MdDeleteOutline } from "react-icons/md";
+import btn from "../UI/Button.module.css";
 
-const Button = ({
-  addedMovies,
-  isFav,
-  id,
-  handleFavoriteMovies,
-  text,
-  modalBtn,
-}) => {
+const Button = ({ children, onClick, classTitle }) => {
+  console.log(classTitle);
   return (
     <React.Fragment>
-      {!addedMovies && (
-        <button
-          className={styles.Button}
-          onClick={() => {
-            handleFavoriteMovies(id);
-          }}
-        >
-          {!isFav ? (
-            <MdFavoriteBorder className={styles.Icon}></MdFavoriteBorder>
-          ) : (
-            <MdFavorite className={styles.Icon}></MdFavorite>
-          )}
-        </button>
-      )}
-      {addedMovies && (
-        <button
-          className={styles.Button}
-          onClick={() => handleFavoriteMovies(id)}
-        >
-          <MdDeleteOutline className={styles.Icon}></MdDeleteOutline>
-        </button>
-      )}
-      {modalBtn && (
-        <button
-          className={styles.Button}
-          onClick={() => {
-            handleFavoriteMovies(id);
-          }}
-        >
-          {text}
-        </button>
-      )}
+      <button className={`${btn.Btn} ${classTitle}`} onClick={onClick}>
+        {children}
+      </button>
     </React.Fragment>
   );
 };

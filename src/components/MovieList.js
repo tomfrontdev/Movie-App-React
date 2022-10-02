@@ -4,11 +4,11 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { moviesActions } from "../store/movies-slice";
 import { uiActions } from "../store/ui-slice";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useState } from "react";
 import RemoveItemModal from "../components/RemoveItemModal";
 
-const MovieList = ({ movie, moviesToDisplay, addedMovies }) => {
+const MovieList = ({ movie, foundMovies, addedMovies }) => {
   const dispatch = useDispatch();
 
   const favMovieList = useSelector((state) => state.movies.favMovieList);
@@ -38,7 +38,7 @@ const MovieList = ({ movie, moviesToDisplay, addedMovies }) => {
 
   return (
     <React.Fragment>
-      {moviesToDisplay && (
+      {!addedMovies && (
         <section className={styles.MovieList}>
           <ul>
             <div className={styles.MovieListcontainer}>
@@ -50,7 +50,7 @@ const MovieList = ({ movie, moviesToDisplay, addedMovies }) => {
                       year={movie.year}
                       id={movie.id}
                       isFav={true}
-                      moviesToDisplay={moviesToDisplay}
+                      addedMovies={false}
                       imgSrc={movie.img}
                       score={movie.rating ? movie.rating : 0}
                     ></MovieItem>
@@ -59,9 +59,10 @@ const MovieList = ({ movie, moviesToDisplay, addedMovies }) => {
                   <React.Fragment>
                     <MovieItem
                       title={movie.title}
-                      moviesToDisplay={moviesToDisplay}
+                      foundMovies={foundMovies}
                       year={movie.year}
                       isFav={false}
+                      addedMovies={false}
                       id={movie.id}
                       imgSrc={movie.img}
                       score={movie.rating ? movie.rating : 0}
@@ -83,9 +84,8 @@ const MovieList = ({ movie, moviesToDisplay, addedMovies }) => {
                     title={movie.title}
                     year={movie.year}
                     id={movie.id}
-                    addedMovies={addedMovies}
-                    moviesToDisplay={moviesToDisplay}
-                    imgSrc={movie.img}
+                    addedMovies={true}
+                    imgSrc={"brokenimage.png"}
                     score={movie.rating ? movie.rating : 0}
                   ></MovieItem>
                 </React.Fragment>
@@ -99,7 +99,7 @@ const MovieList = ({ movie, moviesToDisplay, addedMovies }) => {
           <RemoveItemModal movie={ownMovieList}></RemoveItemModal>
         </React.Fragment>
       )}
-      {!redirect && <Redirect to={`/editfilm/${clickedMovie.id}`}></Redirect>}
+      {!redirect && <Navigate to={`/editfilm/${clickedMovie.id}`}></Navigate>}
     </React.Fragment>
   );
 };

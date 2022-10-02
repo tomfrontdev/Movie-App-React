@@ -36,3 +36,11 @@
 .modalbtns > * {
   margin: 10px;
 }
+
+.redBorder {
+  border-color: red;
+}
+
+.greenBorder {
+  border-color: green;
+}

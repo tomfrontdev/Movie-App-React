@@ -1,19 +1,13 @@
 import React from "react";
 import styles from "../components/MovieItem.module.css";
 import Button from "../UI/Button";
+import btn from "../UI/Button.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { moviesActions } from "../store/movies-slice";
 import { uiActions } from "../store/ui-slice";
+import { MdFavoriteBorder, MdFavorite, MdDeleteOutline } from "react-icons/md";
 
-const MovieItem = ({
-  title,
-  moviesToDisplay,
-  addedMovies,
-  id,
-  imgSrc,
-  isFav,
-  score,
-}) => {
+const MovieItem = ({ title, addedMovies, id, imgSrc, isFav, score }) => {
   const IMAGE_BASE_URL = imgSrc;
   const movieList = useSelector((state) => state.movies.movieList);
   const favMovieList = useSelector((state) => state.movies.favMovieList);
@@ -27,8 +21,9 @@ const MovieItem = ({
     if (!favMovieList.find((movie) => movie.id === id)) {
       dispatch(moviesActions.addMovieToFav(selectedMovie));
     }
+
     if (favMovieList.find((movie) => movie.id === id)) {
-      dispatch(moviesActions.removeMovieFromFav(selectedMovie));
+      dispatch(moviesActions.removeMovieFromFav(id));
     }
   };
 
@@ -42,63 +37,51 @@ const MovieItem = ({
 
   return (
     <React.Fragment>
-      {moviesToDisplay && (
-        <li>
-          <div
-            style={{
-              backgroundImage: `url(
+      <li>
+        <div
+          style={{
+            backgroundImage: `url(
               ${IMAGE_BASE_URL}
             )`,
-            }}
-            className={styles.Moviecontainer}
-            onClick={() => handleFavoriteMovies(id)}
-          >
-            <div className={styles.Moviedatacontainer}>
-              <div className={styles.Moviescorecontainer}>
-                <p>{score}/10</p>
-              </div>
-              <div className={styles.Moviebtncontainer}>
+          }}
+          className={styles.Moviecontainer}
+          onClick={
+            !addedMovies
+              ? () => handleFavoriteMovies(id)
+              : () => handleMovieToDelete(id)
+          }
+        >
+          <div className={styles.Moviedatacontainer}>
+            <div className={styles.Moviescorecontainer}>
+              <p>{score}/10</p>
+            </div>
+            <div className={styles.Moviebtncontainer}>
+              {!addedMovies ? (
                 <Button
-                  id={id}
-                  isFav={isFav}
-                  addedMovies={false}
-                  handleFavoriteMovies={handleFavoriteMovies}
-                ></Button>
-              </div>
-              <div className={styles.Movieanimateddiv}>
-                <p className={styles.Movietitle}> {title}</p>
-              </div>
+                  onClick={() => handleFavoriteMovies(id)}
+                  classTitle={btn.noBorder}
+                >
+                  {isFav ? (
+                    <MdFavorite className={btn.Icon}></MdFavorite>
+                  ) : (
+                    <MdFavoriteBorder className={btn.Icon}></MdFavoriteBorder>
+                  )}
+                </Button>
+              ) : (
+                <Button
+                  onClick={() => handleMovieToDelete(id)}
+                  classTitle={btn.noBorder}
+                >
+                  <MdDeleteOutline className={btn.Icon}></MdDeleteOutline>
+                </Button>
+              )}
+            </div>
+            <div className={styles.Movieanimateddiv}>
+              <p className={styles.Movietitle}> {title}</p>
             </div>
           </div>
-        </li>
-      )}
-      {addedMovies && (
-        <li>
-          <div
-            style={{
-              backgroundImage:
-                "url(https://static.tvmaze.com/uploads/images/medium_portrait/31/78286.jpg)",
-            }}
-            className={styles.Moviecontainer}
-          >
-            <div className={styles.Moviedatacontainer}>
-              <div className={styles.Moviescorecontainer}>
-                <p>{score}/10</p>
-              </div>
-              <div className={styles.Moviebtncontainer}>
-                <Button
-                  id={id}
-                  addedMovies={true}
-                  handleFavoriteMovies={handleMovieToDelete}
-                ></Button>
-              </div>
-              <div className={styles.Movieanimateddiv}>
-                <p className={styles.Movietitle}> {title}</p>
-              </div>
-            </div>
-          </div>
-        </li>
-      )}
+        </div>
+      </li>
     </React.Fragment>
   );
 };

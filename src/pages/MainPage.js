@@ -8,6 +8,7 @@ import { fetchMoviesData } from "../store/movies-actions";
 import Pagination from "../components/Pagination";
 import { uiActions } from "../store/ui-slice";
 import SortTypeList from "../components/SortTypeList";
+import { moviesActions } from "../store/movies-slice";
 
 const MainPage = () => {
   const dispatch = useDispatch();
@@ -17,18 +18,19 @@ const MainPage = () => {
   const searchInput = useSelector((state) => state.movies.searchInput);
   const currentPage = useSelector((state) => state.ui.currentPage);
   const postsPerPage = useSelector((state) => state.ui.postsPerPage);
-  const [moviesToDisplay, setMoviesToDisplay] = useState(true);
+  const [foundMovies, setfoundMovies] = useState(true);
 
   useEffect(() => {
     dispatch(fetchMoviesData("girls"));
+    dispatch(moviesActions.setFetchedData(true));
   }, [dispatch]);
 
   useEffect(() => {
     if (moviesList.length === 0 && searchInput !== "") {
-      setMoviesToDisplay(false);
+      setfoundMovies(false);
     }
     if (moviesList.length > 0) {
-      setMoviesToDisplay(true);
+      setfoundMovies(true);
     }
   }, [moviesList]);
 
@@ -43,10 +45,7 @@ const MainPage = () => {
   return (
     <React.Fragment>
       <SortTypeList></SortTypeList>
-      <MovieList
-        moviesToDisplay={moviesToDisplay}
-        movie={currentPosts}
-      ></MovieList>
+      <MovieList addedMovies={false} movie={currentPosts}></MovieList>
       <Pagination
         totalPosts={moviesList.length}
         postsPerPage={postsPerPage}
@@ -54,7 +53,7 @@ const MainPage = () => {
         handlePageChange={changePage}
       ></Pagination>
       {isdataLoading && <SpinnerModal></SpinnerModal>}
-      {!moviesToDisplay && !fetchingError && (
+      {!foundMovies && !fetchingError && (
         <MovieFetchError text={"No Movies Found! :("}></MovieFetchError>
       )}
       {fetchingError && (

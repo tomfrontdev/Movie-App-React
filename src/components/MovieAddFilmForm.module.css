@@ -32,14 +32,3 @@
   justify-content: center;
   padding: 10px;
 }
-
-.FormSubmitBtn {
-  font-size: 1rem;
-  padding: 5px 15px;
-  background-color: black;
-  border-color: green;
-  border-width: 0.3em;
-  color: white;
-  border-radius: 10px;
-  cursor: pointer;
-}

@@ -3,13 +3,10 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { moviesActions } from "../store/movies-slice";
 import { useSelector } from "react-redux";
+import Button from "../UI/Button";
+import btn from "../UI/Button.module.css";
 
-const MovieAddFilmForm = ({
-  text,
-  title,
-  description,
-  submitHandlerDispatch,
-}) => {
+const MovieAddFilmForm = ({ title, description, submitHandlerDispatch }) => {
   const movieTitle = useSelector((state) => state.movies.movieTitle);
   const movieDescription = useSelector(
     (state) => state.movies.movieDescription
@@ -50,9 +47,9 @@ const MovieAddFilmForm = ({
               ></input>
             </div>
             <div className={styles.FormSubmitBtnWrapper}>
-              <button className={styles.FormSubmitBtn} type="submit">
-                {text}
-              </button>
+              <Button type="submit" classTitle={btn.greenBorder}>
+                Add
+              </Button>
             </div>
           </div>
         </form>
