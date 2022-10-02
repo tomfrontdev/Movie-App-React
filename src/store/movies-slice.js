@@ -79,10 +79,10 @@ const moviesSlice = createSlice({
       state.filteredMovies = state.favMovieList;
     },
     removeMovieFromFav(state, action) {
-      console.log(action.payload);
       state.favMovieList = state.favMovieList.filter(
         (movie) => movie.id !== action.payload
       );
+      state.filteredMovies = state.favMovieList;
     },
   },
 });
