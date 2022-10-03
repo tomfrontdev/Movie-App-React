@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "../components/Pagination.module.css";
+import { useDispatch } from "react-redux";
+import { moviesActions } from "../store/movies-slice";
 
 const Pagination = ({
   totalPosts,
@@ -8,6 +10,7 @@ const Pagination = ({
   currentPage,
 }) => {
   let pages = [];
+  const dispatch = useDispatch();
 
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
     pages.push(i);

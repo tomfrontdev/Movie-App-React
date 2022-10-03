@@ -1,9 +1,12 @@
 import { Fragment } from "react";
 import classes from "../components/Header.module.css";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import MovieSearchForm from "../components/MovieSearchForm";
 
 const Header = () => {
+  const isFormActive = useSelector((state) => state.movies.isFormActive);
+
   return (
     <Fragment>
       <header className={classes.header}>
@@ -45,7 +48,7 @@ const Header = () => {
             </NavLink>
           </li>
         </ul>
-        <MovieSearchForm></MovieSearchForm>
+        {isFormActive && <MovieSearchForm></MovieSearchForm>}
       </header>
     </Fragment>
   );

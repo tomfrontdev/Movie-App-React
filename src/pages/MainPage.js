@@ -23,6 +23,7 @@ const MainPage = () => {
   useEffect(() => {
     dispatch(fetchMoviesData("girls"));
     dispatch(moviesActions.setFetchedData(true));
+    dispatch(moviesActions.setForm(true));
   }, [dispatch]);
 
   useEffect(() => {

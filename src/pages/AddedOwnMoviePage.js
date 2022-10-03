@@ -1,10 +1,16 @@
 import MovieList from "../components/MovieList";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { moviesActions } from "../store/movies-slice";
+import { useEffect } from "react";
 
 const AddedFilms = () => {
+  const dispatch = useDispatch();
   const ownMovieList = useSelector((state) => state.movies.ownMovieList);
 
-  console.log(ownMovieList);
+  useEffect(() => {
+    dispatch(moviesActions.setFetchedData(false));
+    dispatch(moviesActions.setForm(true));
+  }, [dispatch]);
 
   return <MovieList movie={ownMovieList} addedMovies={true}></MovieList>;
 };

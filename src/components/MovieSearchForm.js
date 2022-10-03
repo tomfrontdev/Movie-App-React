@@ -18,7 +18,6 @@ const MovieSearchForm = () => {
     dispatch(fetchMoviesData(value));
   };
 
-  console.log(isDataFetched);
   const debouncedEventHandler = useMemo(
     () => debounce(fetchMoviesHandler, 300),
     []
@@ -33,57 +32,48 @@ const MovieSearchForm = () => {
 
   return (
     <Fragment>
-      {isDataFetched && (
-        <section className={styles.FormWrapper}>
-          <form
-            className={styles.Form}
-            onSubmit={(e) => {
-              debouncedEventHandler(searchInput);
-              e.preventDefault();
-            }}
-          >
-            <div className={styles.FormSearchWrapper}>
-              <div className={styles.FormInputWrapper}>
-                <input
-                  onChange={(e) => {
-                    debouncedEventHandler(e.target.value);
-                    dispatch(moviesActions.setsearchInput(e.target.value));
-                  }}
-                  value={searchInput}
-                  type="text"
-                  placeholder={"Search for movies.."}
-                ></input>
-              </div>
+      <section className={styles.FormWrapper}>
+        <form
+          className={styles.Form}
+          onSubmit={
+            isDataFetched
+              ? (e) => {
+                  debouncedEventHandler(searchInput);
+                  e.preventDefault();
+                }
+              : (e) => e.preventDefault()
+          }
+        >
+          <div className={styles.FormSearchWrapper}>
+            <div className={styles.FormInputWrapper}>
+              <input
+                onChange={
+                  isDataFetched
+                    ? (e) => {
+                        debouncedEventHandler(e.target.value);
+                        dispatch(moviesActions.setsearchInput(e.target.value));
+                      }
+                    : (e) => filterMoviesArray(e.target.value)
+                }
+                // value={isDataFetched ? searchInput : event.target.value}
+                type="text"
+                placeholder={
+                  isDataFetched ? "Search for movies.." : "Filter movies..."
+                }
+              ></input>
+            </div>
+            {isDataFetched ? (
               <div>
                 <button className={styles.FormSearchIconWrapper} type="submit">
                   <FaSearch className={styles.FormSearchIcon} />
                 </button>
               </div>
-            </div>
-          </form>
-        </section>
-      )}
-      {!isDataFetched && (
-        <section className={styles.FormWrapper}>
-          <form
-            className={styles.Form}
-            onSubmit={(e) => {
-              e.preventDefault();
-            }}
-          >
-            <div className={styles.FormSearchWrapper}>
-              <div className={styles.FormInputWrapper}>
-                <input
-                  onChange={(e) => filterMoviesArray(e.target.value)}
-                  type="text"
-                  placeholder={"Filter movies..."}
-                ></input>
-              </div>
+            ) : (
               <div className={styles.FormSearchEmptyWrapper}></div>
-            </div>
-          </form>
-        </section>
-      )}
+            )}
+          </div>
+        </form>
+      </section>
     </Fragment>
   );
 };

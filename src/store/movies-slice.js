@@ -7,10 +7,11 @@ const initialState = {
   filteredMovies: [],
   clickedMovie: [],
   movieTitle: "",
-  movieDescription: "",
+  movieRating: "",
   editMovie: false,
   searchInput: "",
   isDataFetched: false,
+  isFormActive: true,
 };
 
 const moviesSlice = createSlice({
@@ -25,6 +26,9 @@ const moviesSlice = createSlice({
     },
     setFetchedData(state, action) {
       state.isDataFetched = action.payload;
+    },
+    setForm(state, action) {
+      state.isFormActive = action.payload;
     },
 
     sort(state, action) {
@@ -55,8 +59,8 @@ const moviesSlice = createSlice({
     setTitle(state, action) {
       state.movieTitle = action.payload;
     },
-    setDescription(state, action) {
-      state.movieDescription = action.payload;
+    setRating(state, action) {
+      state.movieRating = action.payload;
     },
     addOwnMovies(state, action) {
       state.ownMovieList = [...state.ownMovieList, action.payload];

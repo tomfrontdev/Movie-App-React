@@ -9,6 +9,15 @@
   margin-top: 10px;
 }
 
+.FormInputWrapper.invalid input {
+  background-color: rgb(236, 186, 186);
+}
+
+.error-text {
+  margin-top: 10px;
+  color: rgb(199, 69, 69);
+}
+
 .FormWrapper {
   margin-bottom: 25px;
   width: 75%;

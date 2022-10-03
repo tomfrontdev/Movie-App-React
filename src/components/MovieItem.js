@@ -8,12 +8,11 @@ import { uiActions } from "../store/ui-slice";
 import { MdFavoriteBorder, MdFavorite, MdDeleteOutline } from "react-icons/md";
 
 const MovieItem = ({ title, addedMovies, id, imgSrc, isFav, score }) => {
+  const dispatch = useDispatch();
   const IMAGE_BASE_URL = imgSrc;
   const movieList = useSelector((state) => state.movies.movieList);
   const favMovieList = useSelector((state) => state.movies.favMovieList);
   const ownMovieList = useSelector((state) => state.movies.ownMovieList);
-
-  const dispatch = useDispatch();
 
   const handleFavoriteMovies = (id) => {
     const selectedMovie = movieList.find((movie) => movie.id === id);
@@ -28,6 +27,7 @@ const MovieItem = ({ title, addedMovies, id, imgSrc, isFav, score }) => {
   };
 
   const handleMovieToDelete = (id) => {
+    console.log(id);
     dispatch(uiActions.toggleRemoveModal());
 
     const selectedMovie = ownMovieList.find((movie) => movie.id === id);
@@ -57,10 +57,7 @@ const MovieItem = ({ title, addedMovies, id, imgSrc, isFav, score }) => {
             </div>
             <div className={styles.Moviebtncontainer}>
               {!addedMovies ? (
-                <Button
-                  onClick={() => handleFavoriteMovies(id)}
-                  classTitle={btn.noBorder}
-                >
+                <Button classTitle={btn.noBorder}>
                   {isFav ? (
                     <MdFavorite className={btn.Icon}></MdFavorite>
                   ) : (
@@ -68,10 +65,7 @@ const MovieItem = ({ title, addedMovies, id, imgSrc, isFav, score }) => {
                   )}
                 </Button>
               ) : (
-                <Button
-                  onClick={() => handleMovieToDelete(id)}
-                  classTitle={btn.noBorder}
-                >
+                <Button classTitle={btn.noBorder}>
                   <MdDeleteOutline className={btn.Icon}></MdDeleteOutline>
                 </Button>
               )}

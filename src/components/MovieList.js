@@ -1,6 +1,6 @@
 import styles from "../components/MovieList.module.css";
 import MovieItem from "./MovieItem";
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { moviesActions } from "../store/movies-slice";
 import { uiActions } from "../store/ui-slice";

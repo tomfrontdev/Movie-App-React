@@ -9,10 +9,8 @@ import { useEffect } from "react";
 const FavoriteMoviesPage = () => {
   const dispatch = useDispatch();
 
-  const favMovieList = useSelector((state) => state.movies.favMovieList);
   const currentPage = useSelector((state) => state.ui.currentPage);
   const postsPerPage = useSelector((state) => state.ui.postsPerPage);
-  const isFormFetching = useSelector((state) => state.movies.isFormFetching);
   const filteredMovies = useSelector((state) => state.movies.filteredMovies);
 
   const lastPostIndex = currentPage * postsPerPage;
@@ -25,9 +23,9 @@ const FavoriteMoviesPage = () => {
 
   useEffect(() => {
     dispatch(moviesActions.setFetchedData(false));
+    dispatch(moviesActions.setForm(true));
   }, [dispatch]);
 
-  console.log(filteredMovies);
   return (
     <React.Fragment>
       <MovieList movie={currentPosts} addedMovies={false}></MovieList>
