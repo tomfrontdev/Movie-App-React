@@ -2,30 +2,28 @@ import styles from "../components/MovieAddFilmForm.module.css";
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { moviesActions } from "../store/movies-slice";
-
 import Button from "../UI/Button";
 import btn from "../UI/Button.module.css";
-import { FaBullseye } from "react-icons/fa";
 
 const MovieAddFilmForm = () => {
   const dispatch = useDispatch();
 
   const [movieTitle, setMovieTitle] = useState("");
   const [movieRating, setMovieRating] = useState("");
-  const [enteredMovieTitleisEmpty, setenteredMovieTitleisEmpty] =
+  const [enteredMovieTitleIsTouched, setenteredMovieTitleIsTouched] =
     useState(false);
-  const [enteredMovieRatingisEmpty, setenteredMovieRatingisEmpty] =
+  const [enteredMovieRatingIsTouched, setenteredMovieRatingIsTouched] =
     useState(false);
-  const [enteredMovieTitleIsValid, setenteredMovieTitleIsValid] =
-    useState(false);
-  const [enteredMovieRatingIsValid, setenteredMovieRatingIsValid] =
-    useState(false);
+  const [enteredMovieTitleIsInvalid, setenteredMovieTitleIsValid] =
+    useState(true);
+  const [enteredMovieRatingIsInvalid, setenteredMovieRatingIsValid] =
+    useState(true);
 
   const enteredInputDataIsValid =
-    enteredMovieTitleIsValid &&
-    !enteredMovieTitleisEmpty &&
-    enteredMovieRatingIsValid &&
-    !enteredMovieRatingisEmpty;
+    !enteredMovieTitleIsInvalid &&
+    !enteredMovieTitleIsTouched &&
+    !enteredMovieRatingIsInvalid &&
+    !enteredMovieRatingIsTouched;
 
   const submitformValidation = (event) => {
     event.preventDefault();
@@ -41,16 +39,16 @@ const MovieAddFilmForm = () => {
   };
 
   const movieRatingBlurHandler = () => {
-    if (movieRating == "") setenteredMovieRatingisEmpty(true);
+    if (movieRating == "") setenteredMovieRatingIsTouched(true);
   };
 
   const movieTitleBlurHandler = () => {
-    if (movieTitle == "") setenteredMovieTitleisEmpty(true);
+    if (movieTitle == "") setenteredMovieTitleIsTouched(true);
   };
 
   const checkInputs = () => {
-    if (movieRating !== "") setenteredMovieRatingisEmpty(false);
-    if (movieTitle !== "") setenteredMovieTitleisEmpty(false);
+    if (movieRating !== "") setenteredMovieRatingIsTouched(false);
+    if (movieTitle !== "") setenteredMovieTitleIsTouched(false);
     if (
       (movieRating >= 11 && 0 <= movieRating) ||
       isNaN(movieRating) ||
@@ -58,13 +56,9 @@ const MovieAddFilmForm = () => {
     )
       setenteredMovieRatingIsValid(false);
     else setenteredMovieRatingIsValid(true);
-    setenteredMovieTitleIsValid(true);
     if (!isNaN(movieTitle) && movieTitle !== "") {
       setenteredMovieTitleIsValid(false);
-    }
-    if (isNaN(movieTitle)) {
-      setenteredMovieTitleIsValid(true);
-    }
+    } else setenteredMovieTitleIsValid(true);
   };
 
   useEffect(() => {
@@ -86,12 +80,12 @@ const MovieAddFilmForm = () => {
                 placeholder={"Enter movie title..."}
                 // value={title}
               ></input>
-              {!enteredMovieTitleIsValid && (
+              {!enteredMovieTitleIsInvalid && (
                 <p className={styles["error-text"]}>
                   Movie title must not contain numbers!
                 </p>
               )}
-              {enteredMovieTitleisEmpty && (
+              {enteredMovieTitleIsTouched && (
                 <p className={styles["error-text"]}>
                   Movie title must not be empty!
                 </p>
@@ -107,12 +101,12 @@ const MovieAddFilmForm = () => {
                 placeholder={"Enter movie rating..."}
               ></input>
 
-              {!enteredMovieRatingIsValid && (
+              {!enteredMovieRatingIsInvalid && (
                 <p className={styles["error-text"]}>
                   Movie rating must be a number between 0 and 10!
                 </p>
               )}
-              {enteredMovieRatingisEmpty && (
+              {enteredMovieRatingIsTouched && (
                 <p className={styles["error-text"]}>
                   Movie rating must not be empty!
                 </p>
