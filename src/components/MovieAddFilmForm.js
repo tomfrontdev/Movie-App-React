@@ -1,36 +1,36 @@
 import styles from "../components/MovieAddFilmForm.module.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { moviesActions } from "../store/movies-slice";
-import { useSelector } from "react-redux";
+
 import Button from "../UI/Button";
 import btn from "../UI/Button.module.css";
+import { FaBullseye } from "react-icons/fa";
 
 const MovieAddFilmForm = () => {
-  const [movieTitle, setMovieTitle] = useState("");
-  const [movieRating, setMovieRating] = useState("");
-  const [enteredMovieTitleIsValid, setenteredMovieTitleIsValid] =
-    useState(true);
-  const [enteredRatingIsValid, setenteredRatingIsValid] = useState(true);
-
   const dispatch = useDispatch();
 
-  let validation = true;
+  const [movieTitle, setMovieTitle] = useState("");
+  const [movieRating, setMovieRating] = useState("");
+  const [enteredMovieTitleisEmpty, setenteredMovieTitleisEmpty] =
+    useState(false);
+  const [enteredMovieRatingisEmpty, setenteredMovieRatingisEmpty] =
+    useState(false);
+  const [enteredMovieTitleIsValid, setenteredMovieTitleIsValid] =
+    useState(false);
+  const [enteredMovieRatingIsValid, setenteredMovieRatingIsValid] =
+    useState(false);
 
-  const submitHandlerDispatch = (e) => {
-    e.preventDefault();
+  const enteredInputDataIsValid =
+    enteredMovieTitleIsValid &&
+    !enteredMovieTitleisEmpty &&
+    enteredMovieRatingIsValid &&
+    !enteredMovieRatingisEmpty;
 
-    if (!movieTitle) {
-      setenteredMovieTitleIsValid(false);
-      validation = false;
-    }
+  const submitformValidation = (event) => {
+    event.preventDefault();
 
-    if (!movieRating || (movieRating >= 10 && 0 <= movieRating)) {
-      setenteredRatingIsValid(false);
-      validation = false;
-    }
-
-    if (validation)
+    if (enteredInputDataIsValid)
       dispatch(
         moviesActions.addOwnMovies({
           title: movieTitle,
@@ -40,25 +40,58 @@ const MovieAddFilmForm = () => {
       );
   };
 
+  const movieRatingBlurHandler = () => {
+    if (movieRating == "") setenteredMovieRatingisEmpty(true);
+  };
+
+  const movieTitleBlurHandler = () => {
+    if (movieTitle == "") setenteredMovieTitleisEmpty(true);
+  };
+
+  const checkInputs = () => {
+    if (movieRating !== "") setenteredMovieRatingisEmpty(false);
+    if (movieTitle !== "") setenteredMovieTitleisEmpty(false);
+    if (
+      (movieRating >= 11 && 0 <= movieRating) ||
+      isNaN(movieRating) ||
+      movieRating < 0
+    )
+      setenteredMovieRatingIsValid(false);
+    else setenteredMovieRatingIsValid(true);
+    setenteredMovieTitleIsValid(true);
+    if (!isNaN(movieTitle) && movieTitle !== "") {
+      setenteredMovieTitleIsValid(false);
+    }
+    if (isNaN(movieTitle)) {
+      setenteredMovieTitleIsValid(true);
+    }
+  };
+
+  useEffect(() => {
+    checkInputs();
+  });
+
   return (
     <React.Fragment>
       <section className={styles.FormWrapper}>
-        <form
-          className={styles.Form}
-          onSubmit={(e) => submitHandlerDispatch(e)}
-        >
+        <form className={styles.Form} onSubmit={submitformValidation}>
           <div className={styles.FormAddFilmWrapper}>
             <div className={styles.FormInputWrapper}>
               <input
                 type="text"
                 onChange={(e) => {
                   setMovieTitle(e.target.value);
-                  setenteredMovieTitleIsValid(true);
                 }}
+                onBlur={movieTitleBlurHandler}
                 placeholder={"Enter movie title..."}
                 // value={title}
               ></input>
               {!enteredMovieTitleIsValid && (
+                <p className={styles["error-text"]}>
+                  Movie title must not contain numbers!
+                </p>
+              )}
+              {enteredMovieTitleisEmpty && (
                 <p className={styles["error-text"]}>
                   Movie title must not be empty!
                 </p>
@@ -67,14 +100,21 @@ const MovieAddFilmForm = () => {
             <div className={styles.FormInputWrapper}>
               <input
                 type="text"
-                onChange={(e) => setMovieRating(e.target.value)}
+                onChange={(e) => {
+                  setMovieRating(e.target.value);
+                }}
+                onBlur={movieRatingBlurHandler}
                 placeholder={"Enter movie rating..."}
-                // value={rating}
               ></input>
 
-              {!enteredRatingIsValid && (
+              {!enteredMovieRatingIsValid && (
                 <p className={styles["error-text"]}>
-                  Movie rate must be a number between 0 and 10!
+                  Movie rating must be a number between 0 and 10!
+                </p>
+              )}
+              {enteredMovieRatingisEmpty && (
+                <p className={styles["error-text"]}>
+                  Movie rating must not be empty!
                 </p>
               )}
             </div>
