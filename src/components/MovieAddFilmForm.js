@@ -1,5 +1,5 @@
 import styles from "../components/MovieAddFilmForm.module.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import { useDispatch } from "react-redux";
 import { moviesActions } from "../store/movies-slice";
 import Button from "../UI/Button";
@@ -14,21 +14,31 @@ const MovieAddFilmForm = () => {
     useState(false);
   const [enteredMovieRatingIsTouched, setenteredMovieRatingIsTouched] =
     useState(false);
-  const [enteredMovieTitleIsInvalid, setenteredMovieTitleIsValid] =
+  const [enteredMovieTitleIsInvalid, setenteredMovieTitleIsInvalid] =
     useState(true);
-  const [enteredMovieRatingIsInvalid, setenteredMovieRatingIsValid] =
+  const [enteredMovieRatingIsInValid, setenteredMovieRatingIsInValid] =
     useState(true);
 
-  const enteredInputDataIsValid =
+  const emptyTitleInput = movieTitle == "";
+  const emptyRatingInput = movieRating == "";
+
+  const isFormDataValid =
     !enteredMovieTitleIsInvalid &&
-    !enteredMovieTitleIsTouched &&
-    !enteredMovieRatingIsInvalid &&
-    !enteredMovieRatingIsTouched;
+    !enteredMovieRatingIsInValid &&
+    !emptyTitleInput &&
+    !emptyRatingInput;
 
   const submitformValidation = (event) => {
     event.preventDefault();
 
-    if (enteredInputDataIsValid)
+    if (emptyTitleInput) {
+      setenteredMovieTitleIsTouched(true);
+    }
+
+    if (emptyRatingInput) {
+      setenteredMovieRatingIsTouched(true);
+    }
+    if (isFormDataValid)
       dispatch(
         moviesActions.addOwnMovies({
           title: movieTitle,
@@ -39,31 +49,31 @@ const MovieAddFilmForm = () => {
   };
 
   const movieRatingBlurHandler = () => {
-    if (movieRating == "") setenteredMovieRatingIsTouched(true);
+    if (emptyRatingInput) setenteredMovieRatingIsTouched(true);
   };
 
   const movieTitleBlurHandler = () => {
-    if (movieTitle == "") setenteredMovieTitleIsTouched(true);
+    if (emptyTitleInput) setenteredMovieTitleIsTouched(true);
   };
 
-  const checkInputs = () => {
-    if (movieRating !== "") setenteredMovieRatingIsTouched(false);
-    if (movieTitle !== "") setenteredMovieTitleIsTouched(false);
+  const validateInputData = () => {
+    if (!emptyRatingInput) setenteredMovieRatingIsTouched(false);
+    if (!emptyTitleInput) setenteredMovieTitleIsTouched(false);
+    setenteredMovieRatingIsInValid(false);
     if (
       (movieRating >= 11 && 0 <= movieRating) ||
       isNaN(movieRating) ||
       movieRating < 0
     )
-      setenteredMovieRatingIsValid(false);
-    else setenteredMovieRatingIsValid(true);
-    if (!isNaN(movieTitle) && movieTitle !== "") {
-      setenteredMovieTitleIsValid(false);
-    } else setenteredMovieTitleIsValid(true);
+      setenteredMovieRatingIsInValid(true);
+    if (!isNaN(movieTitle) && movieTitle !== "")
+      setenteredMovieTitleIsInvalid(true);
+    else setenteredMovieTitleIsInvalid(false);
   };
 
-  useEffect(() => {
-    checkInputs();
-  });
+  useLayoutEffect(() => {
+    validateInputData();
+  }, [movieRating, movieTitle]);
 
   return (
     <React.Fragment>
@@ -80,7 +90,7 @@ const MovieAddFilmForm = () => {
                 placeholder={"Enter movie title..."}
                 // value={title}
               ></input>
-              {!enteredMovieTitleIsInvalid && (
+              {enteredMovieTitleIsInvalid && (
                 <p className={styles["error-text"]}>
                   Movie title must not contain numbers!
                 </p>
@@ -101,7 +111,7 @@ const MovieAddFilmForm = () => {
                 placeholder={"Enter movie rating..."}
               ></input>
 
-              {!enteredMovieRatingIsInvalid && (
+              {enteredMovieRatingIsInValid && (
                 <p className={styles["error-text"]}>
                   Movie rating must be a number between 0 and 10!
                 </p>
