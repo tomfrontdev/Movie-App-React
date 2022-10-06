@@ -1,5 +1,5 @@
 import styles from "../components/MovieAddFilmForm.module.css";
-import React, { useState, useLayoutEffect } from "react";
+import React, { useState, useLayoutEffect, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { moviesActions } from "../store/movies-slice";
 import Button from "../UI/Button";
@@ -20,8 +20,13 @@ const MovieAddFilmForm = () => {
     useState(true);
   const [isMovieAdded, setIsMovieAdded] = useState(false);
 
-  const emptyTitleInput = movieTitle == "";
-  const emptyRatingInput = movieRating == "";
+  const movieInput = useRef();
+  const movieRatingInput = useRef();
+
+  const focusInput = () => movieInput.current.focus();
+
+  const emptyTitleInput = movieTitle === "";
+  const emptyRatingInput = movieRating === "";
 
   const isFormDataValid =
     !enteredMovieTitleIsInvalid &&
@@ -42,7 +47,7 @@ const MovieAddFilmForm = () => {
     if (isFormDataValid) {
       setIsMovieAdded(true);
 
-      const hideSuccessMsg = setTimeout(function () {
+      setTimeout(function () {
         setIsMovieAdded(false);
       }, 1500);
 
@@ -53,6 +58,9 @@ const MovieAddFilmForm = () => {
           id: Math.floor(Math.random() * (999 - 1) + 1),
         })
       );
+      movieInput.current.value = "";
+      movieRatingInput.current.value = "";
+      focusInput();
     }
   };
 
@@ -83,6 +91,10 @@ const MovieAddFilmForm = () => {
     validateInputData();
   }, [movieRating, movieTitle]);
 
+  useEffect(() => {
+    focusInput();
+  }, []);
+
   return (
     <React.Fragment>
       <section className={styles.FormWrapper}>
@@ -94,9 +106,9 @@ const MovieAddFilmForm = () => {
                 onChange={(e) => {
                   setMovieTitle(e.target.value);
                 }}
+                ref={movieInput}
                 onBlur={movieTitleBlurHandler}
                 placeholder={"Enter movie title..."}
-                // value={title}
               ></input>
               {enteredMovieTitleIsInvalid && (
                 <p className={styles["error-text"]}>
@@ -112,6 +124,7 @@ const MovieAddFilmForm = () => {
             <div className={styles.FormInputWrapper}>
               <input
                 type="text"
+                ref={movieRatingInput}
                 onChange={(e) => {
                   setMovieRating(e.target.value);
                 }}

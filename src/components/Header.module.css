@@ -7,16 +7,13 @@
   margin: 0 auto;
 }
 
-.active {
-  border-bottom: 4px solid red;
-}
 .headerlist {
   display: flex;
   flex-direction: row;
   margin: auto;
 }
 .headerlink {
-  margin: 10px;
+  margin: 5px;
   color: white;
   list-style-type: none;
 }
