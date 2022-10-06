@@ -45,7 +45,7 @@ const MainPage = () => {
 
   return (
     <React.Fragment>
-      <SortTypeList></SortTypeList>
+      <SortTypeList movieListname={"movieList"}></SortTypeList>
       <MovieList addedMovies={false} movie={currentPosts}></MovieList>
       <Pagination
         totalPosts={moviesList.length}

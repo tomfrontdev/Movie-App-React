@@ -12,6 +12,7 @@ const initialState = {
   searchInput: "",
   isDataFetched: false,
   isFormActive: true,
+  sortFormInputValue: "",
 };
 
 const moviesSlice = createSlice({
@@ -20,9 +21,20 @@ const moviesSlice = createSlice({
   reducers: {
     addMovies(state, action) {
       state.movieList = action.payload;
-      state.movieList = action.payload.sort((a, b) =>
-        a.title > b.title ? 1 : -1
-      );
+      const sortParams = state.sortFormInputValue.split(" ");
+      const title = sortParams[0];
+      const titletoLowerCase = title.toLowerCase();
+      const order = sortParams[1];
+      if (order === "(ascending)") {
+        state.movieList = state.movieList.sort((a, b) =>
+          a[titletoLowerCase] > b[titletoLowerCase] ? 1 : -1
+        );
+      }
+      if (order === "(descending)") {
+        state.movieList = state.movieList.sort((a, b) =>
+          a[titletoLowerCase] > b[titletoLowerCase] ? -1 : 1
+        );
+      }
     },
     setFetchedData(state, action) {
       state.isDataFetched = action.payload;
@@ -30,19 +42,20 @@ const moviesSlice = createSlice({
     setForm(state, action) {
       state.isFormActive = action.payload;
     },
-
+    setInputValue(state, action) {
+      state.sortFormInputValue = action.payload;
+    },
     sort(state, action) {
-      const order = action.payload.sortDirection;
       const title = action.payload.sortBy;
-      console.log(order);
-      console.log(title);
-      if (order === "asc") {
-        state.movieList = state.movieList.sort((a, b) =>
+      const order = action.payload.sortDirection;
+      const movieList = action.payload.movieListname;
+      if (order === "(ascending)") {
+        state[movieList] = state[movieList].sort((a, b) =>
           a[title] > b[title] ? 1 : -1
         );
       }
-      if (order === "desc") {
-        state.movieList = state.movieList.sort((a, b) =>
+      if (order === "(descending)") {
+        state[movieList] = state[movieList].sort((a, b) =>
           a[title] > b[title] ? -1 : 1
         );
       }
@@ -65,7 +78,6 @@ const moviesSlice = createSlice({
     addOwnMovies(state, action) {
       state.ownMovieList = [...state.ownMovieList, action.payload];
     },
-
     setclickedMovie(state, action) {
       state.clickedMovie = action.payload;
     },

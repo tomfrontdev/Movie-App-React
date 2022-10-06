@@ -5,6 +5,7 @@ import Pagination from "../components/Pagination";
 import { uiActions } from "../store/ui-slice";
 import { moviesActions } from "../store/movies-slice";
 import { useEffect } from "react";
+import SortTypeList from "../components/SortTypeList";
 
 const FavoriteMoviesPage = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ const FavoriteMoviesPage = () => {
 
   return (
     <React.Fragment>
+      <SortTypeList movieListname={"filteredMovies"}></SortTypeList>
       <MovieList movie={currentPosts} addedMovies={false}></MovieList>
       <Pagination
         totalPosts={filteredMovies.length}

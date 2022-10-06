@@ -9,8 +9,11 @@
   margin-top: 10px;
 }
 
-.FormInputWrapper.invalid input {
-  background-color: rgb(236, 186, 186);
+.successmsg {
+  color: green;
+  font-size: 1.2rem;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 .error-text {

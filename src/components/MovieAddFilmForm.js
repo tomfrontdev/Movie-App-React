@@ -18,6 +18,7 @@ const MovieAddFilmForm = () => {
     useState(true);
   const [enteredMovieRatingIsInValid, setenteredMovieRatingIsInValid] =
     useState(true);
+  const [isMovieAdded, setIsMovieAdded] = useState(false);
 
   const emptyTitleInput = movieTitle == "";
   const emptyRatingInput = movieRating == "";
@@ -38,7 +39,13 @@ const MovieAddFilmForm = () => {
     if (emptyRatingInput) {
       setenteredMovieRatingIsTouched(true);
     }
-    if (isFormDataValid)
+    if (isFormDataValid) {
+      setIsMovieAdded(true);
+
+      const hideSuccessMsg = setTimeout(function () {
+        setIsMovieAdded(false);
+      }, 1500);
+
       dispatch(
         moviesActions.addOwnMovies({
           title: movieTitle,
@@ -46,6 +53,7 @@ const MovieAddFilmForm = () => {
           id: Math.floor(Math.random() * (999 - 1) + 1),
         })
       );
+    }
   };
 
   const movieRatingBlurHandler = () => {
@@ -127,6 +135,9 @@ const MovieAddFilmForm = () => {
                 Add
               </Button>
             </div>
+            {isMovieAdded && (
+              <p className={styles.successmsg}> Movie Added Successfully!</p>
+            )}
           </div>
         </form>
       </section>

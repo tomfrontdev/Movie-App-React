@@ -20,7 +20,7 @@ const MovieSearchForm = () => {
 
   const debouncedEventHandler = useMemo(
     () => debounce(fetchMoviesHandler, 300),
-    []
+    [searchInput]
   );
 
   const filterMoviesArray = (inputValue) => {
