@@ -24,7 +24,12 @@ const MainPage = () => {
     dispatch(fetchMoviesData("girls"));
     dispatch(moviesActions.setFetchedData(true));
     dispatch(moviesActions.setForm(true));
+    dispatch(moviesActions.setsearchInput(""));
   }, [dispatch]);
+
+  // useEffect(() => {
+  //   dispatch(moviesActions.setsearchInput(""));
+  // }, []);
 
   useEffect(() => {
     if (moviesList.length === 0 && searchInput !== "") {

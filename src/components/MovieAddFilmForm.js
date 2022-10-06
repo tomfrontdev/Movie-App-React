@@ -89,11 +89,11 @@ const MovieAddFilmForm = () => {
 
   useLayoutEffect(() => {
     validateInputData();
-  }, [movieRating, movieTitle]);
+  }, [movieTitle, movieRating]);
 
   useEffect(() => {
     focusInput();
-  }, []);
+  }, [isMovieAdded]);
 
   return (
     <React.Fragment>

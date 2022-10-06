@@ -4,7 +4,6 @@ import { moviesActions } from "../store/movies-slice";
 import { useEffect } from "react";
 
 const SortTypeList = ({ movieListname }) => {
-  console.log(movieListname);
   const dispatch = useDispatch();
   const sortInputValue = useSelector(
     (state) => state.movies.sortFormInputValue

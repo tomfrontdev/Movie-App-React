@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import styles from "../components/MovieSearchForm.module.css";
 import { FaSearch } from "react-icons/fa";
 import { Fragment, useMemo } from "react";
@@ -13,6 +13,12 @@ const MovieSearchForm = () => {
   const searchInput = useSelector((state) => state.movies.searchInput);
   const isDataFetched = useSelector((state) => state.movies.isDataFetched);
   const favMovieList = useSelector((state) => state.movies.favMovieList);
+  const filterInput = useSelector((state) => state.movies.filterInput);
+  const searchInputRef = useRef();
+
+  const focusInput = () => searchInputRef.current.focus();
+
+  useEffect(() => focusInput());
 
   const fetchMoviesHandler = (value) => {
     dispatch(fetchMoviesData(value));
@@ -40,6 +46,8 @@ const MovieSearchForm = () => {
               ? (e) => {
                   debouncedEventHandler(searchInput);
                   e.preventDefault();
+                  searchInputRef.current.value = "";
+                  focusInput();
                 }
               : (e) => e.preventDefault()
           }
@@ -47,19 +55,25 @@ const MovieSearchForm = () => {
           <div className={styles.FormSearchWrapper}>
             <div className={styles.FormInputWrapper}>
               <input
+                ref={searchInputRef}
                 onChange={
                   isDataFetched
                     ? (e) => {
                         debouncedEventHandler(e.target.value);
                         dispatch(moviesActions.setsearchInput(e.target.value));
                       }
-                    : (e) => filterMoviesArray(e.target.value)
+                    : (e) => {
+                        filterMoviesArray(e.target.value);
+                        dispatch(
+                          moviesActions.setfilterInputValue(e.target.value)
+                        );
+                      }
                 }
-                // value={isDataFetched ? searchInput : event.target.value}
                 type="text"
                 placeholder={
                   isDataFetched ? "Search for movies.." : "Filter movies..."
                 }
+                value={isDataFetched ? searchInput : filterInput}
               ></input>
             </div>
             {isDataFetched ? (

@@ -1,6 +1,5 @@
 import { uiActions } from "./ui-slice";
 import { moviesActions } from "./movies-slice";
-// import { sortInputValue } from "../components/SortTypeList";
 
 export const fetchMoviesData = (value) => {
   return async (dispatch) => {
@@ -29,11 +28,6 @@ export const fetchMoviesData = (value) => {
       const transformedMoviesData = await fetchData();
       dispatch(moviesActions.addMovies(transformedMoviesData));
       dispatch(uiActions.showLoadingSpinner(false));
-      // dispatch(
-      //   moviesActions.sort({
-      //     sortBy: sortInputValue,
-      //   })
-      // );
     } catch (error) {
       console.log(error);
       dispatch(uiActions.showLoadingSpinner(false));

@@ -13,6 +13,7 @@ const initialState = {
   isDataFetched: false,
   isFormActive: true,
   sortFormInputValue: "",
+  filterInput: "",
 };
 
 const moviesSlice = createSlice({
@@ -68,6 +69,9 @@ const moviesSlice = createSlice({
     },
     setsearchInput(state, action) {
       state.searchInput = action.payload;
+    },
+    setfilterInputValue(state, action) {
+      state.filterInput = action.payload;
     },
     setTitle(state, action) {
       state.movieTitle = action.payload;
