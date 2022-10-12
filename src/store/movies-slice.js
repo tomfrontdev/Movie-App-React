@@ -64,9 +64,6 @@ const moviesSlice = createSlice({
     filterMovies(state, action) {
       state.filteredMovies = action.payload;
     },
-    setEditMovie(state, action) {
-      state.editMovie = action.payload;
-    },
     setsearchInput(state, action) {
       state.searchInput = action.payload;
     },
@@ -91,6 +88,7 @@ const moviesSlice = createSlice({
       );
     },
     editMovie(state, action) {
+      console.log(action.payload);
       const id = action.payload.id;
       state.ownMovieList[id] = action.payload;
     },

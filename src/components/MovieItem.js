@@ -6,8 +6,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { moviesActions } from "../store/movies-slice";
 import { uiActions } from "../store/ui-slice";
 import { MdFavoriteBorder, MdFavorite, MdDeleteOutline } from "react-icons/md";
+import { FiEdit } from "react-icons/fi";
 
-const MovieItem = ({ title, addedMovies, id, imgSrc, isFav, score }) => {
+const MovieItem = ({
+  title,
+  addedMovies,
+  id,
+  imgSrc,
+  isFav,
+  score,
+  redirectToForm,
+}) => {
   const dispatch = useDispatch();
   const IMAGE_BASE_URL = imgSrc;
   const movieList = useSelector((state) => state.movies.movieList);
@@ -45,11 +54,7 @@ const MovieItem = ({ title, addedMovies, id, imgSrc, isFav, score }) => {
             )`,
           }}
           className={styles.Moviecontainer}
-          onClick={
-            !addedMovies
-              ? () => handleFavoriteMovies(id)
-              : () => handleMovieToDelete(id)
-          }
+          onClick={!addedMovies ? () => handleFavoriteMovies(id) : null}
         >
           <div className={styles.Moviedatacontainer}>
             <div className={styles.Moviescorecontainer}>
@@ -65,9 +70,20 @@ const MovieItem = ({ title, addedMovies, id, imgSrc, isFav, score }) => {
                   )}
                 </Button>
               ) : (
-                <Button classTitle={btn.noBorder}>
-                  <MdDeleteOutline className={btn.Icon}></MdDeleteOutline>
-                </Button>
+                <React.Fragment>
+                  <Button
+                    onClick={() => handleMovieToDelete(id)}
+                    classTitle={btn.noBorder}
+                  >
+                    <MdDeleteOutline className={btn.Icon}></MdDeleteOutline>
+                  </Button>
+                  <Button
+                    onClick={() => redirectToForm(id)}
+                    classTitle={btn.noBorder}
+                  >
+                    <FiEdit className={btn.Icon}></FiEdit>
+                  </Button>
+                </React.Fragment>
               )}
             </div>
             <div className={styles.Movieanimateddiv}>

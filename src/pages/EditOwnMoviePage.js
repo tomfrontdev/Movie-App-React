@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MovieAddFilmForm from "../components/MovieAddFilmForm";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -7,10 +7,7 @@ import { moviesActions } from "../store/movies-slice";
 
 const EditOwnMoviePage = () => {
   const dispatch = useDispatch();
-  const movieTitle = useSelector((state) => state.movies.movieTitle);
-  const movieDescription = useSelector(
-    (state) => state.movies.movieDescription
-  );
+
   const ownMovieList = useSelector((state) => state.movies.ownMovieList);
 
   const params = useParams();
@@ -19,24 +16,18 @@ const EditOwnMoviePage = () => {
 
   const index = ownMovieList.findIndex((movie) => movie.id === urlID);
 
-  const submitHandlerDispatch = () => {
-    dispatch(
-      moviesActions.editMovie({
-        id: index,
-        title: movieTitle,
-        description: movieDescription,
-      })
-    );
-  };
+  useEffect(() => {
+    dispatch(moviesActions.setFetchedData(true));
+    dispatch(moviesActions.setForm(false));
+  }, [dispatch]);
 
   return (
     <React.Fragment>
       <MovieAddFilmForm
         text={"Edit"}
-        title={movieTitle}
-        description={movieDescription}
+        editMovie={true}
+        index={index}
         editedMovieID={urlID}
-        submitHandlerDispatch={submitHandlerDispatch}
       ></MovieAddFilmForm>
     </React.Fragment>
   );

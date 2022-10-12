@@ -1,10 +1,83 @@
+@media (max-width: 812px) {
+  .headerlist.hidden {
+    display: none;
+  }
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 813px) {
+  .hamburgerContainer.hidden {
+    display: none;
+  }
+}
+
 .header {
-  width: 75%;
+  width: 85%;
   margin: auto;
   height: 5rem;
   list-style: none;
   display: flex;
   margin: 0 auto;
+}
+
+.dropdown {
+  height: 1000px;
+  margin: 0;
+  min-width: 200px;
+  background-color: black;
+  animation-duration: 0.5s;
+  display: block;
+  position: absolute;
+  z-index: 1;
+  left: -200px;
+  top: 0;
+  flex-direction: column;
+  font-weight: 700;
+  padding: 20px;
+}
+
+.dropdown.hideMenu {
+  animation-name: hideDropdawn;
+}
+
+.dropdown.showMenu {
+  animation-name: showDropdawn;
+  animation-fill-mode: forwards;
+}
+
+@keyframes showDropdawn {
+  from {
+    left: -200px;
+  }
+
+  to {
+    left: 200px;
+  }
+}
+
+@keyframes hideDropdawn {
+  from {
+    left: 0px;
+  }
+
+  to {
+    left: -200px;
+  }
+}
+
+.hamburger {
+  color: white;
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.hamburgerContainer {
+  display: flex;
+  margin: auto;
 }
 
 .headerlist {
@@ -13,9 +86,7 @@
   margin: auto;
 }
 .headerlink {
-  margin: 5px;
-  color: white;
-  list-style-type: none;
+  margin: 10px;
 }
 
 .headerlink:hover {
@@ -28,5 +99,4 @@
   color: white;
   margin: 10px;
   cursor: pointer;
-  color: white;
 }

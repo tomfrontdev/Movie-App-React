@@ -27,10 +27,6 @@ const MainPage = () => {
     dispatch(moviesActions.setsearchInput(""));
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   dispatch(moviesActions.setsearchInput(""));
-  // }, []);
-
   useEffect(() => {
     if (moviesList.length === 0 && searchInput !== "") {
       setfoundMovies(false);

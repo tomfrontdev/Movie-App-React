@@ -3,14 +3,36 @@ import classes from "../components/Header.module.css";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import MovieSearchForm from "../components/MovieSearchForm";
-
+import { GiClawSlashes, GiHamburgerMenu as Hamburger } from "react-icons/gi";
+import { useState } from "react";
 const Header = () => {
   const isFormActive = useSelector((state) => state.movies.isFormActive);
+  const [showMenu, setshowMenu] = useState("false");
+
+  const handleToggle = () => {
+    console.log("Hi");
+    setshowMenu(!showMenu);
+  };
 
   return (
     <Fragment>
       <header className={classes.header}>
-        <ul className={classes.headerlist}>
+        <div className={classes.hamburgerContainer + " " + classes.hidden}>
+          <Hamburger onClick={handleToggle} className={classes.hamburger} />
+        </div>
+        {/* <div
+          className={
+            classes.dropdown + " " + showMenu
+              ? classes.showMenu
+              : classes.hideMenu
+          }
+        ></div> */}
+        <div
+          className={`${classes.dropdown} ${
+            !showMenu ? classes.showMenu : classes.hideMenu
+          }`}
+        ></div>
+        <ul className={classes.headerlist + " " + classes.hidden}>
           <li className={classes.headerlink}>
             <NavLink className={classes.navlink} to="/welcome">
               Strona Główna

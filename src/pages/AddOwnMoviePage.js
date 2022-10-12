@@ -13,7 +13,7 @@ const AddOwnMoviePage = () => {
 
   return (
     <React.Fragment>
-      <MovieAddFilmForm></MovieAddFilmForm>
+      <MovieAddFilmForm text="Add" editMovie={false}></MovieAddFilmForm>
     </React.Fragment>
   );
 };

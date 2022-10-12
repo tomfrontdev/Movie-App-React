@@ -14,25 +14,14 @@ const MovieList = ({ movie, foundMovies, addedMovies }) => {
   const favMovieList = useSelector((state) => state.movies.favMovieList);
   const ownMovieList = useSelector((state) => state.movies.ownMovieList);
   const clickedMovie = useSelector((state) => state.movies.clickedMovie);
-  const [redirect, setRedirect] = useState(true);
+  const [redirect, setRedirect] = useState(false);
   const showRemoveItemModal = useSelector(
     (state) => state.ui.showRemoveItemModal
   );
 
   const redirectToForm = (id) => {
-    setRedirect(false);
+    setRedirect(true);
     const selectedMovie = ownMovieList.find((movie) => movie.id === id);
-    dispatch(moviesActions.setEditMovie(true));
-    dispatch(moviesActions.setclickedMovie(selectedMovie));
-    dispatch(moviesActions.setTitle(selectedMovie.title));
-    dispatch(moviesActions.setDescription(selectedMovie.description));
-  };
-
-  const handleMovieToDelete = (id) => {
-    dispatch(uiActions.toggleRemoveModal());
-
-    const selectedMovie = ownMovieList.find((movie) => movie.id === id);
-
     dispatch(moviesActions.setclickedMovie(selectedMovie));
   };
 
@@ -82,6 +71,7 @@ const MovieList = ({ movie, foundMovies, addedMovies }) => {
                 <React.Fragment>
                   <MovieItem
                     title={movie.title}
+                    redirectToForm={redirectToForm}
                     year={movie.year}
                     id={movie.id}
                     addedMovies={true}
@@ -99,7 +89,7 @@ const MovieList = ({ movie, foundMovies, addedMovies }) => {
           <RemoveItemModal movie={ownMovieList}></RemoveItemModal>
         </React.Fragment>
       )}
-      {!redirect && <Navigate to={`/editfilm/${clickedMovie.id}`}></Navigate>}
+      {redirect && <Navigate to={`/editfilm/${clickedMovie.id}`}></Navigate>}
     </React.Fragment>
   );
 };

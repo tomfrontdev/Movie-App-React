@@ -1,15 +1,15 @@
 import styles from "../components/MovieAddFilmForm.module.css";
 import React, { useState, useLayoutEffect, useRef, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { moviesActions } from "../store/movies-slice";
 import Button from "../UI/Button";
 import btn from "../UI/Button.module.css";
 
-const MovieAddFilmForm = () => {
+const MovieAddFilmForm = ({ text, editMovie, index }) => {
   const dispatch = useDispatch();
 
-  const [movieTitle, setMovieTitle] = useState("");
-  const [movieRating, setMovieRating] = useState("");
+  const movieTitle = useSelector((state) => state.movies.movieTitle);
+  const movieRating = useSelector((state) => state.movies.movieRating);
   const [enteredMovieTitleIsTouched, setenteredMovieTitleIsTouched] =
     useState(false);
   const [enteredMovieRatingIsTouched, setenteredMovieRatingIsTouched] =
@@ -19,11 +19,17 @@ const MovieAddFilmForm = () => {
   const [enteredMovieRatingIsInValid, setenteredMovieRatingIsInValid] =
     useState(true);
   const [isMovieAdded, setIsMovieAdded] = useState(false);
+  const [isMovieEdited, setIsMovieEdited] = useState(false);
 
   const movieInput = useRef();
   const movieRatingInput = useRef();
 
   const focusInput = () => movieInput.current.focus();
+
+  const cleanInputs = () => {
+    movieInput.current.value = "";
+    movieRatingInput.current.value = "";
+  };
 
   const emptyTitleInput = movieTitle === "";
   const emptyRatingInput = movieRating === "";
@@ -44,6 +50,7 @@ const MovieAddFilmForm = () => {
     if (emptyRatingInput) {
       setenteredMovieRatingIsTouched(true);
     }
+
     if (isFormDataValid) {
       setIsMovieAdded(true);
 
@@ -51,17 +58,35 @@ const MovieAddFilmForm = () => {
         setIsMovieAdded(false);
       }, 1500);
 
-      dispatch(
-        moviesActions.addOwnMovies({
-          title: movieTitle,
-          rating: movieRating,
-          id: Math.floor(Math.random() * (999 - 1) + 1),
-        })
-      );
-      movieInput.current.value = "";
-      movieRatingInput.current.value = "";
-      focusInput();
+      addMovies();
     }
+  };
+
+  const submitEditMovie = (e) => {
+    e.preventDefault();
+    dispatch(
+      moviesActions.editMovie({
+        id: index,
+        title: movieTitle,
+        rating: movieRating,
+      })
+    );
+    setIsMovieAdded(true);
+    setIsMovieEdited(true);
+    setTimeout(function () {
+      setIsMovieEdited(false);
+      setIsMovieAdded(false);
+    }, 1500);
+  };
+
+  const addMovies = () => {
+    dispatch(
+      moviesActions.addOwnMovies({
+        title: movieTitle,
+        rating: movieRating,
+        id: Math.floor(Math.random() * (999 - 1) + 1),
+      })
+    );
   };
 
   const movieRatingBlurHandler = () => {
@@ -93,22 +118,28 @@ const MovieAddFilmForm = () => {
 
   useEffect(() => {
     focusInput();
+    cleanInputs();
   }, [isMovieAdded]);
 
   return (
     <React.Fragment>
       <section className={styles.FormWrapper}>
-        <form className={styles.Form} onSubmit={submitformValidation}>
+        <form
+          className={styles.Form}
+          onSubmit={editMovie ? submitEditMovie : submitformValidation}
+        >
           <div className={styles.FormAddFilmWrapper}>
             <div className={styles.FormInputWrapper}>
               <input
                 type="text"
                 onChange={(e) => {
-                  setMovieTitle(e.target.value);
+                  dispatch(moviesActions.setTitle(e.target.value));
                 }}
                 ref={movieInput}
                 onBlur={movieTitleBlurHandler}
-                placeholder={"Enter movie title..."}
+                placeholder={
+                  editMovie ? "Edit movie title..." : "Enter movie title..."
+                }
               ></input>
               {enteredMovieTitleIsInvalid && (
                 <p className={styles["error-text"]}>
@@ -126,10 +157,12 @@ const MovieAddFilmForm = () => {
                 type="text"
                 ref={movieRatingInput}
                 onChange={(e) => {
-                  setMovieRating(e.target.value);
+                  dispatch(moviesActions.setRating(e.target.value));
                 }}
                 onBlur={movieRatingBlurHandler}
-                placeholder={"Enter movie rating..."}
+                placeholder={
+                  editMovie ? "Edit movie rating..." : "Enter movie rating..."
+                }
               ></input>
 
               {enteredMovieRatingIsInValid && (
@@ -145,11 +178,14 @@ const MovieAddFilmForm = () => {
             </div>
             <div className={styles.FormSubmitBtnWrapper}>
               <Button type="submit" classTitle={btn.greenBorder}>
-                Add
+                {text}
               </Button>
             </div>
-            {isMovieAdded && (
+            {isMovieAdded && !isMovieEdited && (
               <p className={styles.successmsg}> Movie Added Successfully!</p>
+            )}
+            {isMovieAdded && isMovieEdited && (
+              <p className={styles.successmsg}> Movie Edited Successfully!</p>
             )}
           </div>
         </form>
