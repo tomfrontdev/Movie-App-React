@@ -1,8 +1,6 @@
-import styles from "../components/ImageContainer.module.css";
-
 const ImageContainer = ({ imgSrc }) => {
   return (
-    <div className={styles.imgContainer}>
+    <div>
       <img src={`${imgSrc}`}></img>
     </div>
   );

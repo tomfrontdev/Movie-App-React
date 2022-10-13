@@ -6,8 +6,9 @@ const uiSlice = createSlice({
     showRemoveItemModal: false,
     error: false,
     isdataLoading: false,
-    postsPerPage: 8,
+    postsPerPage: 4,
     currentPage: 1,
+    postsPerPageMobile: 8,
   },
   reducers: {
     toggleRemoveModal(state) {

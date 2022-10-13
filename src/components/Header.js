@@ -1,37 +1,67 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import classes from "../components/Header.module.css";
 import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { useLocation, NavLink } from "react-router-dom";
 import MovieSearchForm from "../components/MovieSearchForm";
-import { GiClawSlashes, GiHamburgerMenu as Hamburger } from "react-icons/gi";
+import { GiHamburgerMenu as Hamburger } from "react-icons/gi";
 import { useState } from "react";
+import { AiOutlineClose } from "react-icons/ai";
+
 const Header = () => {
   const isFormActive = useSelector((state) => state.movies.isFormActive);
-  const [showMenu, setshowMenu] = useState("false");
+  const [showMenu, setshowMenu] = useState(false);
+  const location = useLocation();
 
-  const handleToggle = () => {
-    console.log("Hi");
+  const handleToggleDropDown = () => {
     setshowMenu(!showMenu);
   };
+
+  useEffect(() => {
+    setshowMenu(false);
+  }, [location]);
 
   return (
     <Fragment>
       <header className={classes.header}>
         <div className={classes.hamburgerContainer + " " + classes.hidden}>
-          <Hamburger onClick={handleToggle} className={classes.hamburger} />
+          <Hamburger
+            onClick={handleToggleDropDown}
+            className={classes.hamburger}
+          />
         </div>
-        {/* <div
-          className={
-            classes.dropdown + " " + showMenu
-              ? classes.showMenu
-              : classes.hideMenu
-          }
-        ></div> */}
+
         <div
           className={`${classes.dropdown} ${
-            !showMenu ? classes.showMenu : classes.hideMenu
+            showMenu ? classes.showMenu : classes.hidden
           }`}
-        ></div>
+        >
+          <ul className={classes.dropdownlist}>
+            <AiOutlineClose
+              onClick={handleToggleDropDown}
+              className={classes.closeIcon}
+            />
+            <li className={classes.headerlink}>
+              <NavLink className={classes.navlink} to="/welcome">
+                Strona Główna
+              </NavLink>
+            </li>
+            <li className={classes.headerlink}>
+              <NavLink className={classes.navlink} to="/favoritemovies">
+                Lista ulubionych filmów
+              </NavLink>
+            </li>
+            <li className={classes.headerlink}>
+              <NavLink className={classes.navlink} to="/addfilm">
+                Dodaj film
+              </NavLink>
+            </li>
+            <li className={classes.headerlink}>
+              <NavLink className={classes.navlink} to="/addedfilms">
+                Lista Dodanych Filmów
+              </NavLink>
+            </li>
+          </ul>
+        </div>
         <ul className={classes.headerlist + " " + classes.hidden}>
           <li className={classes.headerlink}>
             <NavLink className={classes.navlink} to="/welcome">

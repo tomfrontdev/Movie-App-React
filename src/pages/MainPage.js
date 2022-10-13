@@ -18,6 +18,10 @@ const MainPage = () => {
   const searchInput = useSelector((state) => state.movies.searchInput);
   const currentPage = useSelector((state) => state.ui.currentPage);
   const postsPerPage = useSelector((state) => state.ui.postsPerPage);
+  const postsPerPageMobile = useSelector(
+    (state) => state.ui.postsPerPageMobile
+  );
+  const [isUserOnMobile, setisUserOnMobile] = useState(false);
   const [foundMovies, setfoundMovies] = useState(true);
 
   useEffect(() => {
@@ -34,11 +38,21 @@ const MainPage = () => {
     if (moviesList.length > 0) {
       setfoundMovies(true);
     }
+
+    // if (window.innerWidth > 812) {
+    //   setisUserOnMobile(false);
+    // } else {
+    //   setisUserOnMobile(true);
+    //   console.log("Hi");
+    // }
   }, [moviesList]);
 
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
   const currentPosts = moviesList.slice(firstPostIndex, lastPostIndex);
+
+  // const postPerPage = 2;
+  // const postPerPageMobile = 2;
 
   const changePage = (value) => {
     dispatch(uiActions.setPage(value));

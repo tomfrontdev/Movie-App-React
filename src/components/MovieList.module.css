@@ -1,7 +1,17 @@
 .MovieListcontainer {
   width: 85%;
-  margin: auto;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin: auto;
+  grid-template-columns: 1fr;
   gap: 25px;
+}
+
+@media (min-width: 712px) {
+  .MovieListcontainer {
+    width: 85%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 25px;
+  }
 }

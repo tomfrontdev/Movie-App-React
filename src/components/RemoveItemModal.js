@@ -24,9 +24,6 @@ const RemoveItemModal = () => {
     dispatch(moviesActions.removeMovie());
   };
 
-  const handleClick = (e) => {
-    console.log(e.target);
-  };
   return (
     <React.Fragment>
       <div className={classes.backdrop} onClick={() => handleModal()}>

@@ -36,7 +36,6 @@ const MovieItem = ({
   };
 
   const handleMovieToDelete = (id) => {
-    console.log(id);
     dispatch(uiActions.toggleRemoveModal());
 
     const selectedMovie = ownMovieList.find((movie) => movie.id === id);
