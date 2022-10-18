@@ -1,8 +1,10 @@
 .Pagination {
-  display: flex;
-  justify-content: center;
   position: absolute;
-  left: 45%;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
   bottom: 3%;
 }
 

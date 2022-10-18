@@ -28,7 +28,7 @@ const MovieList = ({ movie, foundMovies, addedMovies }) => {
   return (
     <React.Fragment>
       {!addedMovies && (
-        <section className={styles.MovieList}>
+        <section>
           <ul>
             <div className={styles.MovieListcontainer}>
               {movie.map((movie) =>

@@ -16,13 +16,16 @@ const MainPage = () => {
   const fetchingError = useSelector((state) => state.ui.error);
   const isdataLoading = useSelector((state) => state.ui.isdataLoading);
   const searchInput = useSelector((state) => state.movies.searchInput);
-  const currentPage = useSelector((state) => state.ui.currentPage);
-  const postsPerPage = useSelector((state) => state.ui.postsPerPage);
-  const postsPerPageMobile = useSelector(
-    (state) => state.ui.postsPerPageMobile
+  // const currentPage = useSelector((state) => state.ui.currentPage);
+  const postsPerPageLargeScreen = useSelector(
+    (state) => state.ui.postsPerPageLargeScreen
   );
-  const [isUserOnMobile, setisUserOnMobile] = useState(false);
+  const postsPerPageSmallScreen = useSelector(
+    (state) => state.ui.postsPerPageSmallScreen
+  );
   const [foundMovies, setfoundMovies] = useState(true);
+  const [isScreenLarge, setisScreenLarge] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     dispatch(fetchMoviesData("girls"));
@@ -38,24 +41,30 @@ const MainPage = () => {
     if (moviesList.length > 0) {
       setfoundMovies(true);
     }
-
-    // if (window.innerWidth > 812) {
-    //   setisUserOnMobile(false);
-    // } else {
-    //   setisUserOnMobile(true);
-    //   console.log("Hi");
-    // }
+    if (window.innerWidth < 812) {
+      setisScreenLarge(false);
+    }
+    if (window.innerWidth > 812) {
+      setisScreenLarge(true);
+    }
   }, [moviesList]);
 
-  const lastPostIndex = currentPage * postsPerPage;
-  const firstPostIndex = lastPostIndex - postsPerPage;
-  const currentPosts = moviesList.slice(firstPostIndex, lastPostIndex);
+  let currentPosts = 0;
 
-  // const postPerPage = 2;
-  // const postPerPageMobile = 2;
+  if (window.innerWidth < 812) {
+    const lastPostIndex = currentPage * postsPerPageSmallScreen;
+    const firstPostIndex = lastPostIndex - postsPerPageSmallScreen;
+    currentPosts = moviesList.slice(firstPostIndex, lastPostIndex);
+  }
+
+  if (window.innerWidth > 812) {
+    const lastPostIndex = currentPage * postsPerPageLargeScreen;
+    const firstPostIndex = lastPostIndex - postsPerPageLargeScreen;
+    currentPosts = moviesList.slice(firstPostIndex, lastPostIndex);
+  }
 
   const changePage = (value) => {
-    dispatch(uiActions.setPage(value));
+    setCurrentPage(value);
   };
 
   return (
@@ -64,7 +73,9 @@ const MainPage = () => {
       <MovieList addedMovies={false} movie={currentPosts}></MovieList>
       <Pagination
         totalPosts={moviesList.length}
-        postsPerPage={postsPerPage}
+        postsPerPage={
+          isScreenLarge ? postsPerPageLargeScreen : postsPerPageSmallScreen
+        }
         currentPage={currentPage}
         handlePageChange={changePage}
       ></Pagination>

@@ -4,28 +4,49 @@ import { useSelector, useDispatch } from "react-redux";
 import Pagination from "../components/Pagination";
 import { uiActions } from "../store/ui-slice";
 import { moviesActions } from "../store/movies-slice";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import SortTypeList from "../components/SortTypeList";
 
 const FavoriteMoviesPage = () => {
   const dispatch = useDispatch();
-
-  const currentPage = useSelector((state) => state.ui.currentPage);
-  const postsPerPage = useSelector((state) => state.ui.postsPerPage);
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPageLargeScreen = useSelector(
+    (state) => state.ui.postsPerPageLargeScreen
+  );
+  const postsPerPageSmallScreen = useSelector(
+    (state) => state.ui.postsPerPageSmallScreen
+  );
   const filteredMovies = useSelector((state) => state.movies.filteredMovies);
-
-  const lastPostIndex = currentPage * postsPerPage;
-  const firstPostIndex = lastPostIndex - postsPerPage;
-  const currentPosts = filteredMovies.slice(firstPostIndex, lastPostIndex);
+  const [isScreenLarge, setisScreenLarge] = useState(true);
 
   const changePage = (value) => {
-    dispatch(uiActions.setPage(value));
+    setCurrentPage(value);
   };
 
   useEffect(() => {
     dispatch(moviesActions.setFetchedData(false));
     dispatch(moviesActions.setForm(true));
+    if (window.innerWidth < 812) {
+      setisScreenLarge(false);
+    }
+    if (window.innerWidth > 812) {
+      setisScreenLarge(true);
+    }
   }, [dispatch]);
+
+  let currentPosts = 0;
+
+  if (window.innerWidth < 812) {
+    const lastPostIndex = currentPage * postsPerPageSmallScreen;
+    const firstPostIndex = lastPostIndex - postsPerPageSmallScreen;
+    currentPosts = filteredMovies.slice(firstPostIndex, lastPostIndex);
+  }
+
+  if (window.innerWidth > 812) {
+    const lastPostIndex = currentPage * postsPerPageLargeScreen;
+    const firstPostIndex = lastPostIndex - postsPerPageLargeScreen;
+    currentPosts = filteredMovies.slice(firstPostIndex, lastPostIndex);
+  }
 
   return (
     <React.Fragment>
@@ -33,7 +54,9 @@ const FavoriteMoviesPage = () => {
       <MovieList movie={currentPosts} addedMovies={false}></MovieList>
       <Pagination
         totalPosts={filteredMovies.length}
-        postsPerPage={postsPerPage}
+        postsPerPage={
+          isScreenLarge ? postsPerPageLargeScreen : postsPerPageSmallScreen
+        }
         currentPage={currentPage}
         handlePageChange={changePage}
       ></Pagination>
