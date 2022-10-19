@@ -3,13 +3,16 @@
   display: flex;
   border-radius: 10px;
   justify-content: center;
+  position: absolute;
+  right: 0;
+  top: 25px;
   margin: auto;
   box-shadow: 0 0 5px #719ece;
 }
 
-.Form {
+/* .Form {
   margin: auto;
-}
+} */
 
 .FormSearchIconWrapper {
   width: 4rem;
@@ -49,7 +52,7 @@
 
 .FormInputWrapper input {
   height: 2em;
-  font-size: 1.2em;
+  font-size: 0.8rem;
   background-color: black;
   color: white;
   border: 1px solid black;

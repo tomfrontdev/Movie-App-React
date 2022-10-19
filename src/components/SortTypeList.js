@@ -2,6 +2,7 @@ import styles from "../components/SortTypeList.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { moviesActions } from "../store/movies-slice";
 import { useEffect } from "react";
+import ToggleSwitch from "../components/ToggleSwitch";
 
 const SortTypeList = ({ movieListname }) => {
   const dispatch = useDispatch();
@@ -70,6 +71,7 @@ const SortTypeList = ({ movieListname }) => {
           </option>
         </select>
       </form>
+      <ToggleSwitch />
     </div>
   );
 };

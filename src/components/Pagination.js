@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "../components/Pagination.module.css";
-import { useDispatch } from "react-redux";
 
 const Pagination = ({
   totalPosts,
@@ -9,8 +8,6 @@ const Pagination = ({
   currentPage,
 }) => {
   let pages = [];
-  console.log(currentPage);
-  console.log(pages);
 
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
     pages.push(i);

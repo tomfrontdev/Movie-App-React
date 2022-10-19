@@ -7,11 +7,16 @@ import FavoriteMoviesPage from "./pages/FavoriteMoviesPage";
 import AddedOwnMoviePage from "./pages/AddedOwnMoviePage";
 import AddOwnMoviePage from "./pages/AddOwnMoviePage";
 import EditOwnMoviePage from "./pages/EditOwnMoviePage";
+import { useSelector } from "react-redux";
 
 function App() {
+  const isdayModeActive = useSelector((state) => state.movies.dayMode);
+
+  console.log(isdayModeActive);
+
   return (
     <React.Fragment>
-      <main className={styles.App}>
+      <main className={isdayModeActive ? styles.dayMode : styles.nightMode}>
         <Header></Header>
         <Routes>
           <Route path="/" exact element={<Navigate replace to="/welcome" />} />

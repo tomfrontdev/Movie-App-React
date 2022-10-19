@@ -29,13 +29,12 @@ const Header = () => {
             className={classes.hamburger}
           />
         </div>
-
         <div
           className={`${classes.dropdown} ${
             showMenu ? classes.showMenu : classes.hidden
           }`}
         >
-          <ul className={classes.dropdownlist}>
+          <ul className={classes.dropdownlist + " " + classes.hidden}>
             <AiOutlineClose
               onClick={handleToggleDropDown}
               className={classes.closeIcon}

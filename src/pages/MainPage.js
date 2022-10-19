@@ -6,7 +6,6 @@ import SpinnerModal from "../components/SpinnerModal";
 import MovieFetchError from "../components/MovieFetchError.js";
 import { fetchMoviesData } from "../store/movies-actions";
 import Pagination from "../components/Pagination";
-import { uiActions } from "../store/ui-slice";
 import SortTypeList from "../components/SortTypeList";
 import { moviesActions } from "../store/movies-slice";
 
@@ -16,7 +15,6 @@ const MainPage = () => {
   const fetchingError = useSelector((state) => state.ui.error);
   const isdataLoading = useSelector((state) => state.ui.isdataLoading);
   const searchInput = useSelector((state) => state.movies.searchInput);
-  // const currentPage = useSelector((state) => state.ui.currentPage);
   const postsPerPageLargeScreen = useSelector(
     (state) => state.ui.postsPerPageLargeScreen
   );

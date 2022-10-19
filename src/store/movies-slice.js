@@ -14,6 +14,7 @@ const initialState = {
   isFormActive: true,
   sortFormInputValue: "",
   filterInput: "",
+  dayMode: false,
 };
 
 const moviesSlice = createSlice({
@@ -101,6 +102,9 @@ const moviesSlice = createSlice({
         (movie) => movie.id !== action.payload
       );
       state.filteredMovies = state.favMovieList;
+    },
+    toggledayMode(state) {
+      state.dayMode = !state.dayMode;
     },
   },
 });
