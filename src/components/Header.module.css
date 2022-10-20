@@ -2,6 +2,9 @@
   .headerlist.hidden {
     display: none;
   }
+  .headerlink {
+    margin-top: 10px;
+  }
 }
 
 @media (min-width: 813px) {
@@ -10,6 +13,16 @@
   }
   .dropdownlist.hidden {
     display: none;
+  }
+  .headerlink {
+    margin: auto;
+    padding: 7.5px;
+  }
+}
+
+@media only screen and (min-width: 813px) and (max-width: 1000px) {
+  body {
+    font-size: 1.5vw;
   }
 }
 
@@ -30,17 +43,16 @@
   display: block;
   position: absolute;
   z-index: 1;
-  left: -300px;
+  left: -260px;
   top: 0;
   font-weight: 700;
 }
 
 .dropdownlist {
-  margin-right: 25px;
-  margin-left: 25px;
   margin-top: 25px;
+  margin-right: 15px;
+  margin-left: 15px;
 }
-
 .dropdown.hideMenu {
   animation-name: hideDropdawn;
 }
@@ -56,7 +68,7 @@
   }
 
   to {
-    left: -50px;
+    left: -35px;
   }
 }
 
@@ -71,7 +83,6 @@
 }
 
 .hamburger {
-  color: white;
   width: 25px;
   height: 25px;
   margin-right: 10px;
@@ -93,25 +104,15 @@
   color: white;
   font-size: 1.5rem;
   cursor: pointer;
+  margin-bottom: 20px;
 }
 
+.headerlink:hover,
 .closeIcon:hover {
   transform: scale(1.1);
   transition: 0.3s;
 }
 
-.headerlink:hover {
-  transform: scale(1.2);
-  transition: 0.3s;
-}
-
 .navlink {
   text-decoration: none;
-  color: white;
-  cursor: pointer;
-  /* margin: 10px; */
-}
-
-.headerlink {
-  margin-top: 10px;
 }

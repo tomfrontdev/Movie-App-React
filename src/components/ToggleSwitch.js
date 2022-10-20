@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 const ToggleSwitch = () => {
   const dispatch = useDispatch();
-  const isdayModeActive = useSelector((state) => state.movies.dayMode);
 
   const toggledayMode = () => {
     dispatch(moviesActions.toggledayMode());

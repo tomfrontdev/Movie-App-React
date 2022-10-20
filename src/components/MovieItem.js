@@ -61,7 +61,7 @@ const MovieItem = ({
             </div>
             <div className={styles.Moviebtncontainer}>
               {!addedMovies ? (
-                <Button classTitle={btn.noBorder}>
+                <Button classTitle={btn.Btn + " " + btn.noBorder}>
                   {isFav ? (
                     <MdFavorite className={btn.Icon}></MdFavorite>
                   ) : (
@@ -72,13 +72,13 @@ const MovieItem = ({
                 <React.Fragment>
                   <Button
                     onClick={() => handleMovieToDelete(id)}
-                    classTitle={btn.noBorder}
+                    classTitle={btn.Btn + " " + btn.noBorder}
                   >
                     <MdDeleteOutline className={btn.Icon}></MdDeleteOutline>
                   </Button>
                   <Button
                     onClick={() => redirectToForm(id)}
-                    classTitle={btn.noBorder}
+                    classTitle={btn.Btn + " " + btn.noBorder}
                   >
                     <FiEdit className={btn.Icon}></FiEdit>
                   </Button>

@@ -1,34 +1,42 @@
-import { Fragment, useEffect } from "react";
+import React from "react";
 import classes from "../components/Header.module.css";
-import { useSelector } from "react-redux";
-import { useLocation, NavLink } from "react-router-dom";
-import MovieSearchForm from "../components/MovieSearchForm";
-import { GiHamburgerMenu as Hamburger } from "react-icons/gi";
-import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-import DropdownModal from "../components/DropdownModal";
+import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { GiHamburgerMenu as Hamburger } from "react-icons/gi";
 
-const Header = () => {
-  const isFormActive = useSelector((state) => state.movies.isFormActive);
+const DropdownModal = () => {
   const [showMenu, setshowMenu] = useState(false);
-  const location = useLocation();
   const isdayModeActive = useSelector((state) => state.movies.dayMode);
 
   const handleToggleDropDown = () => {
     setshowMenu(!showMenu);
   };
 
-  useEffect(() => {
-    setshowMenu(false);
-  }, [location]);
-
   const darkorlightMode = isdayModeActive ? "black" : "white";
 
   return (
-    <Fragment>
-      <header className={classes.header}>
-        <DropdownModal></DropdownModal>
-        <ul className={classes.headerlist + " " + classes.hidden}>
+    <React.Fragment>
+      <div className={classes.hamburgerContainer + " " + classes.hidden}>
+        <Hamburger
+          onClick={handleToggleDropDown}
+          className={classes.hamburger}
+          style={{ color: darkorlightMode }}
+        />
+      </div>
+      <div
+        className={`${classes.dropdown} ${
+          showMenu ? classes.showMenu : classes.hidden
+        }`}
+        style={{ backgroundColor: isdayModeActive ? "white" : "black" }}
+      >
+        <ul className={classes.dropdownlist + " " + classes.hidden}>
+          <AiOutlineClose
+            onClick={handleToggleDropDown}
+            className={classes.closeIcon}
+            style={{ color: darkorlightMode }}
+          />
           <li className={classes.headerlink}>
             <NavLink
               className={classes.navlink}
@@ -66,10 +74,9 @@ const Header = () => {
             </NavLink>
           </li>
         </ul>
-        {isFormActive && <MovieSearchForm></MovieSearchForm>}
-      </header>
-    </Fragment>
+      </div>
+    </React.Fragment>
   );
 };
 
-export default Header;
+export default DropdownModal;

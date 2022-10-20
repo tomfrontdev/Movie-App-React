@@ -2,7 +2,7 @@ import MovieList from "../components/MovieList";
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import SpinnerModal from "../components/SpinnerModal";
+import Spinner from "../components/LoadingSpinner.js";
 import MovieFetchError from "../components/MovieFetchError.js";
 import { fetchMoviesData } from "../store/movies-actions";
 import Pagination from "../components/Pagination";
@@ -11,10 +11,10 @@ import { moviesActions } from "../store/movies-slice";
 
 const MainPage = () => {
   const dispatch = useDispatch();
+
   const moviesList = useSelector((state) => state.movies.movieList);
   const fetchingError = useSelector((state) => state.ui.error);
   const isdataLoading = useSelector((state) => state.ui.isdataLoading);
-  const searchInput = useSelector((state) => state.movies.searchInput);
   const postsPerPageLargeScreen = useSelector(
     (state) => state.ui.postsPerPageLargeScreen
   );
@@ -33,7 +33,7 @@ const MainPage = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (moviesList.length === 0 && searchInput !== "") {
+    if (moviesList.length === 0) {
       setfoundMovies(false);
     }
     if (moviesList.length > 0) {
@@ -77,7 +77,7 @@ const MainPage = () => {
         currentPage={currentPage}
         handlePageChange={changePage}
       ></Pagination>
-      {isdataLoading && <SpinnerModal></SpinnerModal>}
+      {isdataLoading && <Spinner></Spinner>}
       {!foundMovies && !fetchingError && (
         <MovieFetchError text={"No Movies Found! :("}></MovieFetchError>
       )}

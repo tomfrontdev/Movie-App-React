@@ -140,6 +140,7 @@ const MovieAddFilmForm = ({ text, editMovie, index }) => {
                 placeholder={
                   editMovie ? "Edit movie title..." : "Enter movie title..."
                 }
+                className={styles.FormInput}
               ></input>
               {enteredMovieTitleIsInvalid && (
                 <p className={styles["error-text"]}>
@@ -163,6 +164,7 @@ const MovieAddFilmForm = ({ text, editMovie, index }) => {
                 placeholder={
                   editMovie ? "Edit movie rating..." : "Enter movie rating..."
                 }
+                className={styles.FormInput}
               ></input>
 
               {enteredMovieRatingIsInValid && (
@@ -177,7 +179,10 @@ const MovieAddFilmForm = ({ text, editMovie, index }) => {
               )}
             </div>
             <div className={styles.FormSubmitBtnWrapper}>
-              <Button type="submit" classTitle={btn.greenBorder}>
+              <Button
+                type="submit"
+                classTitle={btn.Btn + " " + btn.greenBorder}
+              >
                 {text}
               </Button>
             </div>

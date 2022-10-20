@@ -10,17 +10,13 @@
   box-shadow: 0 0 5px #719ece;
 }
 
-/* .Form {
-  margin: auto;
-} */
-
 .FormSearchIconWrapper {
   width: 4rem;
   height: 100%;
   background-color: #323232;
   border: none;
   cursor: pointer;
-  margin-left: -0.3rem;
+  margin-left: -0.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,7 +26,6 @@
 .FormSearchEmptyWrapper {
   width: 4rem;
   height: 100%;
-  background-color: black;
   border: none;
   cursor: pointer;
   margin-left: -0.3rem;
@@ -50,15 +45,23 @@
   transition: 0.2s;
 }
 
-.FormInputWrapper input {
+.FormInput {
   height: 2em;
   font-size: 0.8rem;
-  background-color: black;
-  color: white;
-  border: 1px solid black;
+  border: none;
 }
 
-.FormInputWrapper input:focus {
+.dayMode {
+  background-color: white;
+  color: black;
+}
+
+.nightMode {
+  background-color: black;
+  color: white;
+}
+
+.FormInput:focus {
   outline: none;
 }
 

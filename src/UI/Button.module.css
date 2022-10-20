@@ -2,10 +2,30 @@
   border-radius: 50%;
   font-size: 1rem;
   border-width: 0.3em;
-  color: white;
   border-radius: 10px;
   cursor: pointer;
   background: black;
+  color: white;
+}
+
+.PaginationBtn {
+  margin: 10px;
+  font-size: 25px;
+  height: 40px;
+  width: 50px;
+  border-radius: 10px;
+  background-color: transparent;
+  cursor: pointer;
+  transition: 0.5s;
+  border: 1px solid #323232;
+}
+
+.dayMode {
+  color: white;
+}
+
+.nightMode {
+  color: black;
 }
 
 .Btn:hover {
@@ -30,4 +50,13 @@
 .redBorder {
   padding: 5px 10px;
   border: 2px solid red;
+}
+
+.PaginationBtn:hover {
+  transform: scale(1.1);
+  transition: 1s;
+}
+
+.currentPageShadow {
+  box-shadow: 0 0 15px #719ece;
 }

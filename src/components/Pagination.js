@@ -1,5 +1,8 @@
 import React from "react";
 import styles from "../components/Pagination.module.css";
+import Button from "../UI/Button";
+import btn from "../UI/Button.module.css";
+import { useSelector } from "react-redux";
 
 const Pagination = ({
   totalPosts,
@@ -7,6 +10,9 @@ const Pagination = ({
   handlePageChange,
   currentPage,
 }) => {
+  const isdayModeActive = useSelector((state) => state.movies.dayMode);
+  const colors = isdayModeActive ? `${btn.nightMode}` : `${btn.dayMode}`;
+
   let pages = [];
 
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
@@ -18,24 +24,24 @@ const Pagination = ({
       {pages.map((page, index) => {
         if (page === currentPage) {
           return (
-            <button
-              className={styles.Btn + " " + styles.Redbtn}
+            <Button
+              classTitle={`${btn.PaginationBtn} ${btn.currentPageShadow} ${colors}`}
               key={index}
               onClick={() => handlePageChange(page)}
             >
               {page}
-            </button>
+            </Button>
           );
         }
         if (page !== currentPage) {
           return (
-            <button
-              className={styles.Btn + " " + styles.Greenbtn}
+            <Button
+              classTitle={`${btn.PaginationBtn} ${colors}`}
               key={index}
               onClick={() => handlePageChange(page)}
             >
               {page}
-            </button>
+            </Button>
           );
         }
       })}

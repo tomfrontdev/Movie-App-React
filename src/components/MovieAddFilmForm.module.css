@@ -1,7 +1,19 @@
-.FormInputWrapper input {
+@media (max-width: 512px) {
+  .FormInput {
+    width: 70vw;
+  }
+}
+
+@media (min-width: 513px) {
+  .FormInput {
+    width: 60vw;
+  }
+}
+
+.FormInput {
   height: 3rem;
-  font-size: 1.3rem;
-  width: 35rem;
+  font-size: 1rem;
+
   outline: none;
   background-color: black;
   color: white;
@@ -22,11 +34,9 @@
 }
 
 .FormWrapper {
-  margin-bottom: 25px;
   width: 75%;
   display: flex;
   border-radius: 10px;
-  justify-content: center;
   margin: auto;
   background-color: #323232;
 }
@@ -35,7 +45,7 @@
   margin: auto;
 }
 
-.FormInputWrapper input:focus {
+.FormInput:focus {
   box-shadow: 0 0 10px #719ece;
 }
 

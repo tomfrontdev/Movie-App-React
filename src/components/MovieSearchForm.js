@@ -15,6 +15,7 @@ const MovieSearchForm = () => {
   const favMovieList = useSelector((state) => state.movies.favMovieList);
   const filterInput = useSelector((state) => state.movies.filterInput);
   const searchInputRef = useRef();
+  const isdayModeActive = useSelector((state) => state.movies.dayMode);
 
   const focusInput = () => searchInputRef.current.focus();
 
@@ -36,6 +37,8 @@ const MovieSearchForm = () => {
     dispatch(moviesActions.filterMovies(filteredArray));
   };
 
+  const colors = isdayModeActive ? `${styles.dayMode}` : `${styles.nightMode}`;
+
   return (
     <Fragment>
       <section className={styles.FormWrapper}>
@@ -46,7 +49,6 @@ const MovieSearchForm = () => {
               ? (e) => {
                   debouncedEventHandler(searchInput);
                   e.preventDefault();
-                  searchInputRef.current.value = "";
                   focusInput();
                 }
               : (e) => e.preventDefault()
@@ -74,6 +76,7 @@ const MovieSearchForm = () => {
                   isDataFetched ? "Search for movies.." : "Filter movies..."
                 }
                 value={isDataFetched ? searchInput : filterInput}
+                className={`${styles.FormInput} ${colors}`}
               ></input>
             </div>
             {isDataFetched ? (

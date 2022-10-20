@@ -33,11 +33,14 @@ const RemoveItemModal = () => {
             <div className={classes.modalbtns}>
               <Button
                 onClick={() => handleModal()}
-                classTitle={btn.greenBorder}
+                classTitle={btn.Btn + " " + btn.greenBorder}
               >
                 No
               </Button>
-              <Button onClick={() => removeMovie()} classTitle={btn.redBorder}>
+              <Button
+                onClick={() => removeMovie()}
+                classTitle={btn.Btn + " " + btn.redBorder}
+              >
                 Yes
               </Button>
             </div>
@@ -48,7 +51,7 @@ const RemoveItemModal = () => {
   );
 };
 
-const Modal = () => {
+const ModalSource = () => {
   return (
     <React.Fragment>
       {ReactDOM.createPortal(

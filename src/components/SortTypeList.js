@@ -6,6 +6,8 @@ import ToggleSwitch from "../components/ToggleSwitch";
 
 const SortTypeList = ({ movieListname }) => {
   const dispatch = useDispatch();
+  const isdayModeActive = useSelector((state) => state.movies.dayMode);
+
   const sortInputValue = useSelector(
     (state) => state.movies.sortFormInputValue
   );
@@ -28,13 +30,21 @@ const SortTypeList = ({ movieListname }) => {
       })
     );
   }, [sortInputValue]);
+
+  const colors = isdayModeActive ? `${styles.dayMode}` : `${styles.nightMode}`;
+
   return (
     <div className={styles.sorttypelistcontainer}>
-      <label className={styles.label}>Sort By:</label>
+      <label
+        className={styles.label}
+        style={{ color: isdayModeActive ? "black" : "white" }}
+      >
+        Sort By:
+      </label>
       <form className={styles.sorttypelistform}>
         <select
           defaultValue={sortInputValue}
-          className={styles.sortytypeselect}
+          className={`${styles.sortytypeselect} ${colors}`}
           name="filterByCateogry"
         >
           <option

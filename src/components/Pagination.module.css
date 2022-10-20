@@ -1,4 +1,4 @@
-/* .Pagination {
+.Pagination {
   position: absolute;
   margin-left: auto;
   margin-right: auto;
@@ -7,32 +7,3 @@
   text-align: center;
   bottom: 3%;
 }
-.Btn {
-  margin: 10px;
-  font-size: 25px;
-  height: 40px;
-  width: 50px;
-  border-radius: 10px;
-  background-color: transparent;
-  color: white;
-  border: none;
-  cursor: pointer;
-  transition: 0.5s;
-}
-
-.Btn:hover {
-  transform: scale(1.2);
-}
-
-.Greenbtn {
-  border: 2px solid #323232;
-}
-
-.Paginationbtn:hover {
-  transform: scale(1.1);
-  transition: 1s;
-}
-
-.Redbtn {
-  box-shadow: 0 0 15px #719ece;
-} */

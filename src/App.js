@@ -12,8 +12,6 @@ import { useSelector } from "react-redux";
 function App() {
   const isdayModeActive = useSelector((state) => state.movies.dayMode);
 
-  console.log(isdayModeActive);
-
   return (
     <React.Fragment>
       <main className={isdayModeActive ? styles.dayMode : styles.nightMode}>
