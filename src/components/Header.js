@@ -1,33 +1,48 @@
-import { Fragment, useEffect } from "react";
+import { Fragment } from "react";
 import classes from "../components/Header.module.css";
 import { useSelector } from "react-redux";
-import { useLocation, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import MovieSearchForm from "../components/MovieSearchForm";
+import DropdownModal from "../components/DropdownModal";
 import { GiHamburgerMenu as Hamburger } from "react-icons/gi";
 import { useState } from "react";
-import { AiOutlineClose } from "react-icons/ai";
-import DropdownModal from "../components/DropdownModal";
+import { useDispatch } from "react-redux";
+import { uiActions } from "../store/ui-slice";
+import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const Header = () => {
   const isFormActive = useSelector((state) => state.movies.isFormActive);
-  const [showMenu, setshowMenu] = useState(false);
-  const location = useLocation();
   const isdayModeActive = useSelector((state) => state.movies.dayMode);
+  const showDropDownModal = useSelector((state) => state.ui.showDropDownModal);
 
-  const handleToggleDropDown = () => {
-    setshowMenu(!showMenu);
+  const darkorlightMode = isdayModeActive ? "black" : "white";
+
+  const dispatch = useDispatch();
+
+  const location = useLocation();
+
+  const toggleModal = () => {
+    dispatch(uiActions.toggleDropDownModal());
   };
 
   useEffect(() => {
-    setshowMenu(false);
+    toggleModal();
   }, [location]);
-
-  const darkorlightMode = isdayModeActive ? "black" : "white";
 
   return (
     <Fragment>
       <header className={classes.header}>
-        <DropdownModal></DropdownModal>
+        <div className={classes.hamburgerContainer + " " + classes.hidden}>
+          <Hamburger
+            onClick={toggleModal}
+            className={classes.hamburger}
+            style={{ color: darkorlightMode }}
+          />
+        </div>
+        {showDropDownModal && (
+          <DropdownModal toggleModal={toggleModal}></DropdownModal>
+        )}
         <ul className={classes.headerlist + " " + classes.hidden}>
           <li className={classes.headerlink}>
             <NavLink

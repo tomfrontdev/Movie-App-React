@@ -8,10 +8,14 @@ const uiSlice = createSlice({
     isdataLoading: false,
     postsPerPageLargeScreen: 8,
     postsPerPageSmallScreen: 2,
+    showDropDownModal: false,
   },
   reducers: {
     toggleRemoveModal(state) {
       state.showRemoveItemModal = !state.showRemoveItemModal;
+    },
+    toggleDropDownModal(state) {
+      state.showDropDownModal = !state.showDropDownModal;
     },
     showLoadingSpinner(state, action) {
       state.isdataLoading = action.payload;

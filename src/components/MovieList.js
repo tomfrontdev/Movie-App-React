@@ -7,6 +7,7 @@ import { uiActions } from "../store/ui-slice";
 import { Navigate } from "react-router-dom";
 import { useState } from "react";
 import RemoveItemModal from "../components/RemoveItemModal";
+import DropdownModal from "../components/DropdownModal";
 
 const MovieList = ({ movie, foundMovies, addedMovies }) => {
   const dispatch = useDispatch();
@@ -14,6 +15,8 @@ const MovieList = ({ movie, foundMovies, addedMovies }) => {
   const favMovieList = useSelector((state) => state.movies.favMovieList);
   const ownMovieList = useSelector((state) => state.movies.ownMovieList);
   const clickedMovie = useSelector((state) => state.movies.clickedMovie);
+  const showDropDownModal = useSelector((state) => state.ui.showDropDownModal);
+
   const [redirect, setRedirect] = useState(false);
   const showRemoveItemModal = useSelector(
     (state) => state.ui.showRemoveItemModal
@@ -89,6 +92,7 @@ const MovieList = ({ movie, foundMovies, addedMovies }) => {
           <RemoveItemModal movie={ownMovieList}></RemoveItemModal>
         </React.Fragment>
       )}
+
       {redirect && <Navigate to={`/editfilm/${clickedMovie.id}`}></Navigate>}
     </React.Fragment>
   );
