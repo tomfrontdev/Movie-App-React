@@ -5,7 +5,6 @@ import { NavLink } from "react-router-dom";
 import MovieSearchForm from "../components/MovieSearchForm";
 import DropdownModal from "../components/DropdownModal";
 import { GiHamburgerMenu as Hamburger } from "react-icons/gi";
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { uiActions } from "../store/ui-slice";
 import React, { useEffect } from "react";
@@ -16,19 +15,19 @@ const Header = () => {
   const isdayModeActive = useSelector((state) => state.movies.dayMode);
   const showDropDownModal = useSelector((state) => state.ui.showDropDownModal);
 
-  const darkorlightMode = isdayModeActive ? "black" : "white";
-
   const dispatch = useDispatch();
 
   const location = useLocation();
 
   const toggleModal = () => {
-    dispatch(uiActions.toggleDropDownModal());
+    dispatch(uiActions.toggleDropDownModal(!showDropDownModal));
   };
 
   useEffect(() => {
-    toggleModal();
-  }, [location]);
+    dispatch(uiActions.toggleDropDownModal(false));
+  }, [location, dispatch]);
+
+  const darkorlightMode = isdayModeActive ? "black" : "white";
 
   return (
     <Fragment>
@@ -40,9 +39,7 @@ const Header = () => {
             style={{ color: darkorlightMode }}
           />
         </div>
-        {showDropDownModal && (
-          <DropdownModal toggleModal={toggleModal}></DropdownModal>
-        )}
+        {showDropDownModal && <DropdownModal />}
         <ul className={classes.headerlist + " " + classes.hidden}>
           <li className={classes.headerlink}>
             <NavLink
@@ -81,7 +78,7 @@ const Header = () => {
             </NavLink>
           </li>
         </ul>
-        {isFormActive && <MovieSearchForm></MovieSearchForm>}
+        {isFormActive && <MovieSearchForm />}
       </header>
     </Fragment>
   );

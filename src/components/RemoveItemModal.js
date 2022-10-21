@@ -62,4 +62,4 @@ const ModalSource = () => {
   );
 };
 
-export default RemoveItemModal;
+export default ModalSource;

@@ -43,6 +43,8 @@ const Pagination = ({
               {page}
             </Button>
           );
+        } else {
+          return null;
         }
       })}
     </div>

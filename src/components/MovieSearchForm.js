@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useCallback } from "react";
 import styles from "../components/MovieSearchForm.module.css";
 import { FaSearch } from "react-icons/fa";
 import { Fragment, useMemo } from "react";
@@ -21,13 +21,16 @@ const MovieSearchForm = () => {
 
   useEffect(() => focusInput());
 
-  const fetchMoviesHandler = (value) => {
-    dispatch(fetchMoviesData(value));
-  };
+  const fetchMoviesHandler = useCallback(
+    (value) => {
+      dispatch(fetchMoviesData(value));
+    },
+    [dispatch]
+  );
 
   const debouncedEventHandler = useMemo(
     () => debounce(fetchMoviesHandler, 300),
-    [searchInput]
+    [fetchMoviesHandler]
   );
 
   const filterMoviesArray = (inputValue) => {

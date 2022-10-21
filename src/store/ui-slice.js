@@ -14,8 +14,8 @@ const uiSlice = createSlice({
     toggleRemoveModal(state) {
       state.showRemoveItemModal = !state.showRemoveItemModal;
     },
-    toggleDropDownModal(state) {
-      state.showDropDownModal = !state.showDropDownModal;
+    toggleDropDownModal(state, action) {
+      state.showDropDownModal = action.payload;
     },
     showLoadingSpinner(state, action) {
       state.isdataLoading = action.payload;

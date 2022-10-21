@@ -1,6 +1,6 @@
 import classes from "../components/ToggleSwitch.module.css";
 import { moviesActions } from "../store/movies-slice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const ToggleSwitch = () => {
   const dispatch = useDispatch();

@@ -97,24 +97,23 @@ const MovieAddFilmForm = ({ text, editMovie, index }) => {
     if (emptyTitleInput) setenteredMovieTitleIsTouched(true);
   };
 
-  const validateInputData = () => {
-    if (!emptyRatingInput) setenteredMovieRatingIsTouched(false);
-    if (!emptyTitleInput) setenteredMovieTitleIsTouched(false);
-    setenteredMovieRatingIsInValid(false);
-    if (
-      (movieRating >= 11 && 0 <= movieRating) ||
-      isNaN(movieRating) ||
-      movieRating < 0
-    )
-      setenteredMovieRatingIsInValid(true);
-    if (!isNaN(movieTitle) && movieTitle !== "")
-      setenteredMovieTitleIsInvalid(true);
-    else setenteredMovieTitleIsInvalid(false);
-  };
-
   useLayoutEffect(() => {
+    const validateInputData = () => {
+      if (!emptyRatingInput) setenteredMovieRatingIsTouched(false);
+      if (!emptyTitleInput) setenteredMovieTitleIsTouched(false);
+      setenteredMovieRatingIsInValid(false);
+      if (
+        (movieRating >= 11 && 0 <= movieRating) ||
+        isNaN(movieRating) ||
+        movieRating < 0
+      )
+        setenteredMovieRatingIsInValid(true);
+      if (!isNaN(movieTitle) && movieTitle !== "")
+        setenteredMovieTitleIsInvalid(true);
+      else setenteredMovieTitleIsInvalid(false);
+    };
     validateInputData();
-  }, [movieTitle, movieRating]);
+  }, [movieTitle, movieRating, emptyRatingInput, emptyTitleInput]);
 
   useEffect(() => {
     focusInput();

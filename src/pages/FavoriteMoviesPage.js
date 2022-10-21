@@ -2,7 +2,6 @@ import React from "react";
 import MovieList from "../components/MovieList";
 import { useSelector, useDispatch } from "react-redux";
 import Pagination from "../components/Pagination";
-import { uiActions } from "../store/ui-slice";
 import { moviesActions } from "../store/movies-slice";
 import { useState, useEffect } from "react";
 import SortTypeList from "../components/SortTypeList";

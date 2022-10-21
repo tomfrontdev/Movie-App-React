@@ -29,7 +29,7 @@ const SortTypeList = ({ movieListname }) => {
         sortDirection: order,
       })
     );
-  }, [sortInputValue]);
+  }, [dispatch, movieListname, sortInputValue]);
 
   const colors = isdayModeActive ? `${styles.dayMode}` : `${styles.nightMode}`;
 
