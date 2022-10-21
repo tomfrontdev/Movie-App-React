@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { moviesActions } from "../store/movies-slice";
 import Button from "../UI/Button";
 import btn from "../UI/Button.module.css";
+import ErrorMessages from "../components/ErrorMessages";
 
 const MovieAddFilmForm = ({ text, editMovie, index }) => {
   const dispatch = useDispatch();
@@ -142,14 +143,14 @@ const MovieAddFilmForm = ({ text, editMovie, index }) => {
                 className={styles.FormInput}
               ></input>
               {enteredMovieTitleIsInvalid && (
-                <p className={styles["error-text"]}>
-                  Movie title must not contain numbers!
-                </p>
+                <ErrorMessages classTitle={styles.FormValidationError}>
+                  Movie title must not start with a number!
+                </ErrorMessages>
               )}
               {enteredMovieTitleIsTouched && (
-                <p className={styles["error-text"]}>
+                <ErrorMessages classTitle={styles.FormValidationError}>
                   Movie title must not be empty!
-                </p>
+                </ErrorMessages>
               )}
             </div>
             <div className={styles.FormInputWrapper}>
@@ -167,14 +168,14 @@ const MovieAddFilmForm = ({ text, editMovie, index }) => {
               ></input>
 
               {enteredMovieRatingIsInValid && (
-                <p className={styles["error-text"]}>
+                <ErrorMessages classTitle={styles.FormValidationError}>
                   Movie rating must be a number between 0 and 10!
-                </p>
+                </ErrorMessages>
               )}
               {enteredMovieRatingIsTouched && (
-                <p className={styles["error-text"]}>
+                <ErrorMessages classTitle={styles.FormValidationError}>
                   Movie rating must not be empty!
-                </p>
+                </ErrorMessages>
               )}
             </div>
             <div className={styles.FormSubmitBtnWrapper}>

@@ -3,7 +3,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "../components/LoadingSpinner.js";
-import MovieFetchError from "../components/MovieFetchError.js";
+import ErrorMessages from "../components/ErrorMessages.js";
 import { fetchMoviesData } from "../store/movies-actions";
 import Pagination from "../components/Pagination";
 import SortTypeList from "../components/SortTypeList";
@@ -79,11 +79,9 @@ const MainPage = () => {
       ></Pagination>
       {isdataLoading && <Spinner></Spinner>}
       {!foundMovies && !fetchingError && (
-        <MovieFetchError text={"No Movies Found! :("}></MovieFetchError>
+        <ErrorMessages>No movies found!:(</ErrorMessages>
       )}
-      {fetchingError && (
-        <MovieFetchError text={fetchingError}></MovieFetchError>
-      )}
+      {fetchingError && <ErrorMessages>{fetchingError}</ErrorMessages>}
     </React.Fragment>
   );
 };

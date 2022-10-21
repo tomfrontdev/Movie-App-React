@@ -2,7 +2,7 @@ import MovieList from "../components/MovieList";
 import { useSelector, useDispatch } from "react-redux";
 import { moviesActions } from "../store/movies-slice";
 import React, { useEffect } from "react";
-import MovieFetchError from "../components/MovieFetchError";
+import ErrorMessages from "../components/ErrorMessages";
 
 const AddedFilms = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const AddedFilms = () => {
     <React.Fragment>
       <MovieList movie={ownMovieList} addedMovies={true}></MovieList>
       {ownMovieList.length === 0 && (
-        <MovieFetchError text={"No Movies Added! :("}></MovieFetchError>
+        <ErrorMessages>No movies added! :(</ErrorMessages>
       )}
     </React.Fragment>
   );

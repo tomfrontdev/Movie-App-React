@@ -18,7 +18,7 @@
   background-color: black;
   color: white;
   border: 1px solid black;
-  margin-top: 10px;
+  margin-top: 25px;
 }
 
 .successmsg {
@@ -28,8 +28,9 @@
   margin-bottom: 10px;
 }
 
-.error-text {
-  margin-top: 10px;
+.FormValidationError {
+  position: absolute;
+  font-size: 0.8rem;
   color: rgb(199, 69, 69);
 }
 
@@ -52,5 +53,6 @@
 .FormSubmitBtnWrapper {
   display: flex;
   justify-content: center;
-  padding: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }

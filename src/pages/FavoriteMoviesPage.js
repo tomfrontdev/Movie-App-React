@@ -5,6 +5,7 @@ import Pagination from "../components/Pagination";
 import { moviesActions } from "../store/movies-slice";
 import { useState, useEffect } from "react";
 import SortTypeList from "../components/SortTypeList";
+import ErrorMessages from "../components/ErrorMessages";
 
 const FavoriteMoviesPage = () => {
   const dispatch = useDispatch();
@@ -51,6 +52,9 @@ const FavoriteMoviesPage = () => {
     <React.Fragment>
       <SortTypeList movieListname={"filteredMovies"}></SortTypeList>
       <MovieList movie={currentPosts} addedMovies={false}></MovieList>
+      {filteredMovies.length === 0 && (
+        <ErrorMessages>No fav movies found!:(</ErrorMessages>
+      )}
       <Pagination
         totalPosts={filteredMovies.length}
         postsPerPage={
