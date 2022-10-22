@@ -27,6 +27,8 @@ const MovieAddFilmForm = ({ text, editMovie, index }) => {
 
   const focusInput = () => movieInput.current.focus();
 
+  console.log(movieTitle);
+
   const cleanInputs = () => {
     movieInput.current.value = "";
     movieRatingInput.current.value = "";
@@ -40,6 +42,8 @@ const MovieAddFilmForm = ({ text, editMovie, index }) => {
     !enteredMovieRatingIsInValid &&
     !emptyTitleInput &&
     !emptyRatingInput;
+
+  console.log(isFormDataValid);
 
   const submitformValidation = (event) => {
     event.preventDefault();
@@ -65,19 +69,21 @@ const MovieAddFilmForm = ({ text, editMovie, index }) => {
 
   const submitEditMovie = (e) => {
     e.preventDefault();
-    dispatch(
-      moviesActions.editMovie({
-        id: index,
-        title: movieTitle,
-        rating: movieRating,
-      })
-    );
-    setIsMovieAdded(true);
-    setIsMovieEdited(true);
-    setTimeout(function () {
-      setIsMovieEdited(false);
-      setIsMovieAdded(false);
-    }, 1500);
+    if (isFormDataValid) {
+      dispatch(
+        moviesActions.editMovie({
+          id: index,
+          title: movieTitle,
+          rating: movieRating,
+        })
+      );
+
+      setIsMovieEdited(true);
+      setTimeout(function () {
+        setIsMovieEdited(false);
+        setIsMovieAdded(false);
+      }, 1500);
+    }
   };
 
   const addMovies = () => {
@@ -186,10 +192,10 @@ const MovieAddFilmForm = ({ text, editMovie, index }) => {
                 {text}
               </Button>
             </div>
-            {isMovieAdded && !isMovieEdited && (
+            {isMovieAdded && (
               <p className={styles.successmsg}> Movie Added Successfully!</p>
             )}
-            {isMovieAdded && isMovieEdited && (
+            {isMovieEdited && (
               <p className={styles.successmsg}> Movie Edited Successfully!</p>
             )}
           </div>

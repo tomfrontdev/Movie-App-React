@@ -10,7 +10,7 @@ const AddedFilms = () => {
 
   useEffect(() => {
     dispatch(moviesActions.setFetchedData(false));
-    dispatch(moviesActions.setForm(true));
+    dispatch(moviesActions.setForm(false));
   }, [dispatch]);
 
   return (

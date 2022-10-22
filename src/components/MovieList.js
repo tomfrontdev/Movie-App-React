@@ -74,7 +74,7 @@ const MovieList = ({ movie, foundMovies, addedMovies }) => {
                     year={movie.year}
                     id={movie.id}
                     addedMovies={true}
-                    imgSrc={"brokenimage.png"}
+                    imgSrc={"AddedValue.jpg"}
                     score={movie.rating ? movie.rating : 0}
                   ></MovieItem>
                 </React.Fragment>

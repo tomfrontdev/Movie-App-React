@@ -6,6 +6,7 @@
   cursor: pointer;
   background: black;
   color: white;
+  padding: 5px;
 }
 
 .PaginationBtn {
@@ -42,13 +43,15 @@
   margin: auto;
 }
 
+.setMargin {
+  margin-right: 10px;
+}
+
 .greenBorder {
-  padding: 5px 10px;
   border: 2px solid green;
 }
 
 .redBorder {
-  padding: 5px 10px;
   border: 2px solid red;
 }
 

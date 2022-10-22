@@ -72,13 +72,15 @@ const MovieItem = ({
                 <React.Fragment>
                   <Button
                     onClick={() => handleMovieToDelete(id)}
-                    classTitle={btn.Btn + " " + btn.noBorder}
+                    classTitle={
+                      btn.Btn + " " + btn.redBorder + " " + btn.setMargin
+                    }
                   >
                     <MdDeleteOutline className={btn.Icon}></MdDeleteOutline>
                   </Button>
                   <Button
                     onClick={() => redirectToForm(id)}
-                    classTitle={btn.Btn + " " + btn.noBorder}
+                    classTitle={btn.Btn + " " + btn.greenBorder}
                   >
                     <FiEdit className={btn.Icon}></FiEdit>
                   </Button>

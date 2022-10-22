@@ -32,13 +32,15 @@ const Header = () => {
   return (
     <Fragment>
       <header className={classes.header}>
-        <div className={classes.hamburgerContainer + " " + classes.hidden}>
-          <Hamburger
-            onClick={toggleModal}
-            className={classes.hamburger}
-            style={{ color: darkorlightMode }}
-          />
-        </div>
+        {!showDropDownModal && (
+          <div className={classes.hamburgerContainer + " " + classes.hidden}>
+            <Hamburger
+              onClick={toggleModal}
+              className={classes.hamburger}
+              style={{ color: darkorlightMode }}
+            />
+          </div>
+        )}
         {showDropDownModal && <DropdownModal />}
         <ul className={classes.headerlist + " " + classes.hidden}>
           <li className={classes.headerlink}>
