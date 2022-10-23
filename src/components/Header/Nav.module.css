@@ -1,0 +1,21 @@
+.navlink {
+  text-decoration: none;
+}
+
+@media (max-width: 812px) {
+  .navli {
+    margin-top: 10px;
+  }
+}
+
+@media (min-width: 813px) {
+  .navli {
+    margin: auto;
+    padding: 7.5px;
+  }
+}
+
+.navli:hover {
+  transform: scale(1.1);
+  transition: 0.3s;
+}

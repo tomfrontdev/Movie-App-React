@@ -1,10 +1,11 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import { useDispatch } from "react-redux";
-import classes from "../Header/Header.module.css";
-import { AiOutlineClose } from "react-icons/ai";
-import { NavLink } from "react-router-dom";
+import classes from "./DropdownModal.module.css";
 import { useSelector } from "react-redux";
 import { moviesActions } from "../../store/movies-slice";
+import Nav from "../Header/Nav";
+import { AiOutlineClose } from "react-icons/ai";
 
 const DropdownModal = () => {
   const isdayModeActive = useSelector((state) => state.movies.dayMode);
@@ -35,42 +36,7 @@ const DropdownModal = () => {
               className={classes.closeIcon}
               style={{ color: darkorlightMode }}
             />
-            <li className={classes.headerlink}>
-              <NavLink
-                className={classes.navlink}
-                style={{ color: darkorlightMode }}
-                to="/welcome"
-              >
-                Strona Główna
-              </NavLink>
-            </li>
-            <li className={classes.headerlink}>
-              <NavLink
-                className={classes.navlink}
-                style={{ color: darkorlightMode }}
-                to="/favoritemovies"
-              >
-                Lista ulubionych filmów
-              </NavLink>
-            </li>
-            <li className={classes.headerlink}>
-              <NavLink
-                className={classes.navlink}
-                style={{ color: darkorlightMode }}
-                to="/addfilm"
-              >
-                Dodaj film
-              </NavLink>
-            </li>
-            <li className={classes.headerlink}>
-              <NavLink
-                className={classes.navlink}
-                style={{ color: darkorlightMode }}
-                to="/addedfilms"
-              >
-                Lista Dodanych Filmów
-              </NavLink>
-            </li>
+            <Nav darkorlightMode={darkorlightMode} toggleModal={toggleModal} />
           </ul>
         </div>
       </div>
@@ -78,4 +44,15 @@ const DropdownModal = () => {
   );
 };
 
-export default DropdownModal;
+const ModalSource = () => {
+  return (
+    <React.Fragment>
+      {ReactDOM.createPortal(
+        <DropdownModal />,
+        document.getElementById("backdrop-root")
+      )}
+    </React.Fragment>
+  );
+};
+
+export default ModalSource;
