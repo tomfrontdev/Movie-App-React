@@ -1,5 +1,6 @@
 import React from "react";
-import styles from "../components/ErrorMessages.module.css";
+import styles from "../ErrorMessages/ErrorMessages.module.css";
+
 import { useSelector } from "react-redux";
 
 const ErrorMessages = ({ children, classTitle }) => {

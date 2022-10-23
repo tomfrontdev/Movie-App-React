@@ -1,18 +1,16 @@
-import ReactDOM from "react-dom";
 import React from "react";
-import classes from "../components/RemoveItemModal.module.css";
-import Button from "../UI/Button";
-import btn from "../UI/Button.module.css";
+import classes from "../Modals/RemoveItemModal.module.css";
+import Button from "../Buttons/Button";
+import btn from "../Buttons/Button.module.css";
 
-import { moviesActions } from "../store/movies-slice";
-import { uiActions } from "../store/ui-slice";
+import { moviesActions } from "../../store/movies-slice";
 import { useDispatch } from "react-redux";
 
 const RemoveItemModal = () => {
   const dispatch = useDispatch();
 
   const toggleModal = () => {
-    dispatch(uiActions.toggleRemoveModal());
+    dispatch(moviesActions.toggleRemoveModal());
   };
 
   const handleModal = () => {
@@ -51,15 +49,4 @@ const RemoveItemModal = () => {
   );
 };
 
-const ModalSource = () => {
-  return (
-    <React.Fragment>
-      {ReactDOM.createPortal(
-        <RemoveItemModal />,
-        document.getElementById("backdrop-root")
-      )}
-    </React.Fragment>
-  );
-};
-
-export default ModalSource;
+export default RemoveItemModal;

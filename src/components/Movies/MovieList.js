@@ -1,10 +1,10 @@
-import styles from "../components/MovieList.module.css";
-import MovieItem from "./MovieItem";
+import styles from "../Movies/MovieList.module.css";
+import SingleMovie from "./SingleMovie";
 import { useSelector, useDispatch } from "react-redux";
-import { moviesActions } from "../store/movies-slice";
+import { moviesActions } from "../../store/movies-slice";
 import { Navigate } from "react-router-dom";
 import React, { useState } from "react";
-import RemoveItemModal from "../components/RemoveItemModal";
+import RemoveItemModal from "../Modals/RemoveItemModal";
 
 const MovieList = ({ movie, foundMovies, addedMovies }) => {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const MovieList = ({ movie, foundMovies, addedMovies }) => {
 
   const [redirect, setRedirect] = useState(false);
   const showRemoveItemModal = useSelector(
-    (state) => state.ui.showRemoveItemModal
+    (state) => state.movies.showRemoveItemModal
   );
 
   const redirectToForm = (id) => {
@@ -33,7 +33,7 @@ const MovieList = ({ movie, foundMovies, addedMovies }) => {
               {movie.map((movie) =>
                 favMovieList.find((favMovie) => favMovie.id === movie.id) ? (
                   <React.Fragment>
-                    <MovieItem
+                    <SingleMovie
                       title={movie.title}
                       year={movie.year}
                       id={movie.id}
@@ -41,11 +41,11 @@ const MovieList = ({ movie, foundMovies, addedMovies }) => {
                       addedMovies={false}
                       imgSrc={movie.img}
                       score={movie.rating ? movie.rating : 0}
-                    ></MovieItem>
+                    ></SingleMovie>
                   </React.Fragment>
                 ) : (
                   <React.Fragment>
-                    <MovieItem
+                    <SingleMovie
                       title={movie.title}
                       foundMovies={foundMovies}
                       year={movie.year}
@@ -54,7 +54,7 @@ const MovieList = ({ movie, foundMovies, addedMovies }) => {
                       id={movie.id}
                       imgSrc={movie.img}
                       score={movie.rating ? movie.rating : 0}
-                    ></MovieItem>
+                    ></SingleMovie>
                   </React.Fragment>
                 )
               )}
@@ -68,7 +68,7 @@ const MovieList = ({ movie, foundMovies, addedMovies }) => {
             <div className={styles.MovieListcontainer}>
               {movie.map((movie) => (
                 <React.Fragment>
-                  <MovieItem
+                  <SingleMovie
                     title={movie.title}
                     redirectToForm={redirectToForm}
                     year={movie.year}
@@ -76,7 +76,7 @@ const MovieList = ({ movie, foundMovies, addedMovies }) => {
                     addedMovies={true}
                     imgSrc={"AddedValue.jpg"}
                     score={movie.rating ? movie.rating : 0}
-                  ></MovieItem>
+                  ></SingleMovie>
                 </React.Fragment>
               ))}
             </div>

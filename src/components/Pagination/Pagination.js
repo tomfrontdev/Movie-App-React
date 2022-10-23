@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "../components/Pagination.module.css";
-import Button from "../UI/Button";
-import btn from "../UI/Button.module.css";
+import styles from "./Pagination.module.css";
+import Button from "../Buttons/Button";
+import btn from "../Buttons/Button.module.css";
 import { useSelector } from "react-redux";
 
 const Pagination = ({

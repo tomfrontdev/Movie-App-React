@@ -1,14 +1,13 @@
 import React from "react";
-import styles from "../components/MovieItem.module.css";
-import Button from "../UI/Button";
-import btn from "../UI/Button.module.css";
+import styles from "../Movies/SingleMovie.module.css";
+import Button from "../Buttons/Button";
+import btn from "../Buttons/Button.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { moviesActions } from "../store/movies-slice";
-import { uiActions } from "../store/ui-slice";
+import { moviesActions } from "../../store/movies-slice";
 import { MdFavoriteBorder, MdFavorite, MdDeleteOutline } from "react-icons/md";
 import { FiEdit } from "react-icons/fi";
 
-const MovieItem = ({
+const SingleMovie = ({
   title,
   addedMovies,
   id,
@@ -36,7 +35,7 @@ const MovieItem = ({
   };
 
   const handleMovieToDelete = (id) => {
-    dispatch(uiActions.toggleRemoveModal());
+    dispatch(moviesActions.toggleRemoveModal());
 
     const selectedMovie = ownMovieList.find((movie) => movie.id === id);
 
@@ -97,4 +96,4 @@ const MovieItem = ({
   );
 };
 
-export default MovieItem;
+export default SingleMovie;

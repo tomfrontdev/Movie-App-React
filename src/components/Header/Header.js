@@ -1,30 +1,32 @@
 import { Fragment } from "react";
-import classes from "../components/Header.module.css";
+import classes from "../Header/Header.module.css";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import MovieSearchForm from "../components/MovieSearchForm";
-import DropdownModal from "../components/DropdownModal";
-import { GiHamburgerMenu as Hamburger } from "react-icons/gi";
+import DropdownModal from "../Modals/DropdownModal";
 import { useDispatch } from "react-redux";
-import { uiActions } from "../store/ui-slice";
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { GiHamburgerMenu as Hamburger } from "react-icons/gi";
+import SearchMovie from "../Forms/SearchMovie";
+import { moviesActions } from "../../store/movies-slice";
 
 const Header = () => {
   const isFormActive = useSelector((state) => state.movies.isFormActive);
   const isdayModeActive = useSelector((state) => state.movies.dayMode);
-  const showDropDownModal = useSelector((state) => state.ui.showDropDownModal);
+  const showDropDownModal = useSelector(
+    (state) => state.movies.showDropDownModal
+  );
 
   const dispatch = useDispatch();
 
   const location = useLocation();
 
   const toggleModal = () => {
-    dispatch(uiActions.toggleDropDownModal(!showDropDownModal));
+    dispatch(moviesActions.toggleDropDownModal(!showDropDownModal));
   };
 
   useEffect(() => {
-    dispatch(uiActions.toggleDropDownModal(false));
+    dispatch(moviesActions.toggleDropDownModal(false));
   }, [location, dispatch]);
 
   const darkorlightMode = isdayModeActive ? "black" : "white";
@@ -80,7 +82,7 @@ const Header = () => {
             </NavLink>
           </li>
         </ul>
-        {isFormActive && <MovieSearchForm />}
+        {isFormActive && <SearchMovie />}
       </header>
     </Fragment>
   );

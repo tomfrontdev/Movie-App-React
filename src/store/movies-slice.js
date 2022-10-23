@@ -15,6 +15,12 @@ const initialState = {
   sortFormInputValue: "",
   filterInput: "",
   dayMode: false,
+  showRemoveItemModal: false,
+  error: false,
+  isdataLoading: false,
+  postsPerPageLargeScreen: 8,
+  postsPerPageSmallScreen: 2,
+  showDropDownModal: false,
 };
 
 const moviesSlice = createSlice({
@@ -105,6 +111,18 @@ const moviesSlice = createSlice({
     },
     toggledayMode(state) {
       state.dayMode = !state.dayMode;
+    },
+    toggleRemoveModal(state) {
+      state.showRemoveItemModal = !state.showRemoveItemModal;
+    },
+    toggleDropDownModal(state, action) {
+      state.showDropDownModal = action.payload;
+    },
+    showLoadingSpinner(state, action) {
+      state.isdataLoading = action.payload;
+    },
+    errorFetchingData(state, action) {
+      state.error = action.payload;
     },
   },
 });

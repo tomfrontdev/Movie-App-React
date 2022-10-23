@@ -1,10 +1,9 @@
-import { uiActions } from "./ui-slice";
 import { moviesActions } from "./movies-slice";
 
 export const fetchMoviesData = (value) => {
   return async (dispatch) => {
     const fetchData = async () => {
-      dispatch(uiActions.showLoadingSpinner(true));
+      dispatch(moviesActions.showLoadingSpinner(true));
       const response = await fetch(
         `https://api.tvmaze.com/search/shows?q=${value}`
       );
@@ -27,11 +26,11 @@ export const fetchMoviesData = (value) => {
     try {
       const transformedMoviesData = await fetchData();
       dispatch(moviesActions.addMovies(transformedMoviesData));
-      dispatch(uiActions.showLoadingSpinner(false));
+      dispatch(moviesActions.showLoadingSpinner(false));
     } catch (error) {
       console.log(error);
-      dispatch(uiActions.showLoadingSpinner(false));
-      dispatch(uiActions.errorFetchingData(error.message));
+      dispatch(moviesActions.showLoadingSpinner(false));
+      dispatch(moviesActions.errorFetchingData(error.message));
     }
   };
 };

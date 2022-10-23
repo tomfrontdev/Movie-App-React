@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import MovieAddFilmForm from "../components/MovieAddFilmForm";
+import AddOrEditMovie from "../components/Forms/AddOrEditMovie";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -23,12 +23,12 @@ const EditOwnMoviePage = () => {
 
   return (
     <React.Fragment>
-      <MovieAddFilmForm
+      <AddOrEditMovie
         text={"Edit"}
         editMovie={true}
         index={index}
         editedMovieID={urlID}
-      ></MovieAddFilmForm>
+      ></AddOrEditMovie>
     </React.Fragment>
   );
 };

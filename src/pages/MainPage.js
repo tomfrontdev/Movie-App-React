@@ -1,25 +1,25 @@
-import MovieList from "../components/MovieList";
+import MovieList from "../components/Movies/MovieList";
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Spinner from "../components/LoadingSpinner.js";
-import ErrorMessages from "../components/ErrorMessages.js";
+import Spinner from "../components/Spinner/LoadingSpinner.js";
+import ErrorMessages from "../components/ErrorMessages/ErrorMessages";
 import { fetchMoviesData } from "../store/movies-actions";
-import Pagination from "../components/Pagination";
-import SortTypeList from "../components/SortTypeList";
+import Pagination from "../components/Pagination/Pagination";
+import SortingMovie from "../components/Forms/SortingMovie";
 import { moviesActions } from "../store/movies-slice";
 
 const MainPage = () => {
   const dispatch = useDispatch();
 
   const moviesList = useSelector((state) => state.movies.movieList);
-  const fetchingError = useSelector((state) => state.ui.error);
-  const isdataLoading = useSelector((state) => state.ui.isdataLoading);
+  const fetchingError = useSelector((state) => state.movies.error);
+  const isdataLoading = useSelector((state) => state.movies.isdataLoading);
   const postsPerPageLargeScreen = useSelector(
-    (state) => state.ui.postsPerPageLargeScreen
+    (state) => state.movies.postsPerPageLargeScreen
   );
   const postsPerPageSmallScreen = useSelector(
-    (state) => state.ui.postsPerPageSmallScreen
+    (state) => state.movies.postsPerPageSmallScreen
   );
   const [foundMovies, setfoundMovies] = useState(true);
   const [isScreenLarge, setisScreenLarge] = useState(true);
@@ -67,7 +67,7 @@ const MainPage = () => {
 
   return (
     <React.Fragment>
-      <SortTypeList movieListname={"movieList"}></SortTypeList>
+      <SortingMovie movieListname={"movieList"}></SortingMovie>
       <MovieList addedMovies={false} movie={currentPosts}></MovieList>
       <Pagination
         totalPosts={moviesList.length}

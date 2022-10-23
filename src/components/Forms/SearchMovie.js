@@ -1,14 +1,14 @@
 import React, { useRef, useEffect, useCallback } from "react";
-import styles from "../components/MovieSearchForm.module.css";
+import styles from "../Forms/SearchMovie.module.css";
 import { FaSearch } from "react-icons/fa";
 import { Fragment, useMemo } from "react";
 import debounce from "lodash.debounce";
 import { useDispatch } from "react-redux";
-import { fetchMoviesData } from "../store/movies-actions";
+import { fetchMoviesData } from "../../store/movies-actions";
 import { useSelector } from "react-redux";
-import { moviesActions } from "../store/movies-slice";
+import { moviesActions } from "../../store/movies-slice";
 
-const MovieSearchForm = () => {
+const SearchMovie = () => {
   const dispatch = useDispatch();
   const searchInput = useSelector((state) => state.movies.searchInput);
   const isDataFetched = useSelector((state) => state.movies.isDataFetched);
@@ -98,4 +98,4 @@ const MovieSearchForm = () => {
   );
 };
 
-export default MovieSearchForm;
+export default SearchMovie;

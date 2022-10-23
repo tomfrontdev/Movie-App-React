@@ -1,22 +1,23 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import { useDispatch } from "react-redux";
-import classes from "../components/Header.module.css";
+import classes from "../Header/Header.module.css";
 import { AiOutlineClose } from "react-icons/ai";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { uiActions } from "../store/ui-slice";
+import { moviesActions } from "../../store/movies-slice";
 
 const DropdownModal = () => {
   const isdayModeActive = useSelector((state) => state.movies.dayMode);
-  const showDropDownModal = useSelector((state) => state.ui.showDropDownModal);
+  const showDropDownModal = useSelector(
+    (state) => state.movies.showDropDownModal
+  );
   const dispatch = useDispatch();
 
-  const darkorlightMode = isdayModeActive ? "black" : "white";
-
   const toggleModal = () => {
-    dispatch(uiActions.toggleDropDownModal(!showDropDownModal));
+    dispatch(moviesActions.toggleDropDownModal(!showDropDownModal));
   };
+
+  const darkorlightMode = isdayModeActive ? "black" : "white";
 
   return (
     <React.Fragment>
@@ -77,15 +78,4 @@ const DropdownModal = () => {
   );
 };
 
-const ModalSource = () => {
-  return (
-    <React.Fragment>
-      {ReactDOM.createPortal(
-        <DropdownModal />,
-        document.getElementById("backdrop-root")
-      )}
-    </React.Fragment>
-  );
-};
-
-export default ModalSource;
+export default DropdownModal;

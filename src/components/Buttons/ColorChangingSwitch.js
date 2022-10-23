@@ -1,5 +1,5 @@
-import classes from "../components/ToggleSwitch.module.css";
-import { moviesActions } from "../store/movies-slice";
+import classes from "../Buttons/ColorChangingSwitch.module.css";
+import { moviesActions } from "../../store/movies-slice";
 import { useDispatch } from "react-redux";
 
 const ToggleSwitch = () => {

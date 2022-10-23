@@ -1,4 +1,4 @@
-import classes from "../components/LoadingSpinner.module.css";
+import classes from "./LoadingSpinner.module.css";
 import ReactDOM from "react-dom";
 import React from "react";
 

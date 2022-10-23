@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import MovieAddFilmForm from "../components/MovieAddFilmForm";
+import AddOrEditMovie from "../components/Forms/AddOrEditMovie";
 import { useDispatch } from "react-redux";
 import { moviesActions } from "../store/movies-slice";
 
@@ -13,7 +13,7 @@ const AddOwnMoviePage = () => {
 
   return (
     <React.Fragment>
-      <MovieAddFilmForm text="Add" editMovie={false}></MovieAddFilmForm>
+      <AddOrEditMovie text="Add" editMovie={false}></AddOrEditMovie>
     </React.Fragment>
   );
 };

@@ -1,10 +1,10 @@
-import styles from "../components/SortTypeList.module.css";
+import styles from "./SortingMovie.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { moviesActions } from "../store/movies-slice";
+import { moviesActions } from "../../store/movies-slice";
 import { useEffect } from "react";
-import ToggleSwitch from "../components/ToggleSwitch";
+import ToggleSwitch from "../Buttons/ColorChangingSwitch";
 
-const SortTypeList = ({ movieListname }) => {
+const SortingMovie = ({ movieListname }) => {
   const dispatch = useDispatch();
   const isdayModeActive = useSelector((state) => state.movies.dayMode);
 
@@ -86,4 +86,4 @@ const SortTypeList = ({ movieListname }) => {
   );
 };
 
-export default SortTypeList;
+export default SortingMovie;

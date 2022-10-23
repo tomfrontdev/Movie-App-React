@@ -1,12 +1,12 @@
-import styles from "../components/MovieAddFilmForm.module.css";
+import styles from "../Forms/AddOrEditMovie.module.css";
 import React, { useState, useLayoutEffect, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { moviesActions } from "../store/movies-slice";
-import Button from "../UI/Button";
-import btn from "../UI/Button.module.css";
-import ErrorMessages from "../components/ErrorMessages";
+import { moviesActions } from "../../store/movies-slice";
+import Button from "../Buttons/Button";
+import btn from "../Buttons/Button.module.css";
+import ErrorMessages from "../ErrorMessages/ErrorMessages";
 
-const MovieAddFilmForm = ({ text, editMovie, index }) => {
+const AddOrEditMovie = ({ text, editMovie, index }) => {
   const dispatch = useDispatch();
 
   const movieTitle = useSelector((state) => state.movies.movieTitle);
@@ -205,4 +205,4 @@ const MovieAddFilmForm = ({ text, editMovie, index }) => {
   );
 };
 
-export default MovieAddFilmForm;
+export default AddOrEditMovie;

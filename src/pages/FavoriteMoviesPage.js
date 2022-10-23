@@ -1,20 +1,20 @@
 import React from "react";
-import MovieList from "../components/MovieList";
+import MovieList from "../components/Movies/MovieList";
 import { useSelector, useDispatch } from "react-redux";
-import Pagination from "../components/Pagination";
+import Pagination from "../components/Pagination/Pagination";
 import { moviesActions } from "../store/movies-slice";
 import { useState, useEffect } from "react";
-import SortTypeList from "../components/SortTypeList";
-import ErrorMessages from "../components/ErrorMessages";
+import SortingMovie from "../components/Forms/SortingMovie";
+import ErrorMessages from "../components/ErrorMessages/ErrorMessages";
 
 const FavoriteMoviesPage = () => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPageLargeScreen = useSelector(
-    (state) => state.ui.postsPerPageLargeScreen
+    (state) => state.movies.postsPerPageLargeScreen
   );
   const postsPerPageSmallScreen = useSelector(
-    (state) => state.ui.postsPerPageSmallScreen
+    (state) => state.movies.postsPerPageSmallScreen
   );
   const filteredMovies = useSelector((state) => state.movies.filteredMovies);
   const [isScreenLarge, setisScreenLarge] = useState(true);
@@ -50,7 +50,7 @@ const FavoriteMoviesPage = () => {
 
   return (
     <React.Fragment>
-      <SortTypeList movieListname={"filteredMovies"}></SortTypeList>
+      <SortingMovie movieListname={"filteredMovies"}></SortingMovie>
       <MovieList movie={currentPosts} addedMovies={false}></MovieList>
       {filteredMovies.length === 0 && (
         <ErrorMessages>No fav movies found!:(</ErrorMessages>

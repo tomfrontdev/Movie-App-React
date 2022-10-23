@@ -1,8 +1,8 @@
-import MovieList from "../components/MovieList";
+import MovieList from "../components/Movies/MovieList";
 import { useSelector, useDispatch } from "react-redux";
 import { moviesActions } from "../store/movies-slice";
 import React, { useEffect } from "react";
-import ErrorMessages from "../components/ErrorMessages";
+import ErrorMessages from "../components/ErrorMessages/ErrorMessages";
 
 const AddedFilms = () => {
   const dispatch = useDispatch();

@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./App.module.css";
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
 import { Routes, Route, Navigate } from "react-router-dom";
 import MainPage from "./pages/MainPage";
 import FavoriteMoviesPage from "./pages/FavoriteMoviesPage";

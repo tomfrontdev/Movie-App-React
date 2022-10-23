@@ -1,7 +1,7 @@
 const ImageContainer = ({ imgSrc }) => {
   return (
     <div>
-      <img src={`${imgSrc}`}></img>
+      <img src={`${imgSrc}`} alt=""></img>
     </div>
   );
 };
