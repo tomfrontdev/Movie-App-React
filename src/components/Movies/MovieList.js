@@ -34,6 +34,7 @@ const MovieList = ({ movie, foundMovies, addedMovies }) => {
                 favMovieList.find((favMovie) => favMovie.id === movie.id) ? (
                   <React.Fragment>
                     <SingleMovie
+                      key={movie.id}
                       title={movie.title}
                       year={movie.year}
                       id={movie.id}
@@ -46,6 +47,7 @@ const MovieList = ({ movie, foundMovies, addedMovies }) => {
                 ) : (
                   <React.Fragment>
                     <SingleMovie
+                      key={movie.id}
                       title={movie.title}
                       foundMovies={foundMovies}
                       year={movie.year}
@@ -69,6 +71,7 @@ const MovieList = ({ movie, foundMovies, addedMovies }) => {
               {movie.map((movie) => (
                 <React.Fragment>
                   <SingleMovie
+                    key={movie.id}
                     title={movie.title}
                     redirectToForm={redirectToForm}
                     year={movie.year}

@@ -27,8 +27,6 @@ const AddOrEditMovie = ({ text, editMovie, index }) => {
 
   const focusInput = () => movieInput.current.focus();
 
-  console.log(movieTitle);
-
   const cleanInputs = () => {
     movieInput.current.value = "";
     movieRatingInput.current.value = "";
@@ -42,8 +40,6 @@ const AddOrEditMovie = ({ text, editMovie, index }) => {
     !enteredMovieRatingIsInValid &&
     !emptyTitleInput &&
     !emptyRatingInput;
-
-  console.log(isFormDataValid);
 
   const submitformValidation = (event) => {
     event.preventDefault();

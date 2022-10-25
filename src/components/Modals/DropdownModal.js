@@ -27,7 +27,7 @@ const DropdownModal = () => {
           className={`${classes.dropdown} ${
             showDropDownModal ? classes.showMenu : classes.hidden
           }`}
-          style={{ backgroundColor: isdayModeActive ? "white" : "black" }}
+          style={{ backgroundColor: !isdayModeActive }}
           onClick={(e) => e.stopPropagation()}
         >
           <ul className={classes.dropdownlist}>
