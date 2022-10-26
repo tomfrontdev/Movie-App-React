@@ -20,3 +20,5 @@ Poczytac o solidzie
       <DeleteMovieContent />
     </Modal>  
   */ -->
+
+Czym jest git flow?
