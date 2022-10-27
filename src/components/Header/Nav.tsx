@@ -1,8 +1,8 @@
-import React from "react";
-import classes from "./Nav.module.css";
-import { NavLink } from "react-router-dom";
+import React from 'react';
+import classes from './Nav.module.css';
+import { NavLink } from 'react-router-dom';
 
-const Nav = ({ darkorlightMode }) => {
+const Nav = ({ darkorlightMode }: { darkorlightMode: string }) => {
   return (
     <React.Fragment>
       <li className={classes.navli}>
