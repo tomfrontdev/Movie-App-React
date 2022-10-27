@@ -12,7 +12,7 @@ type State = {
     movieList: Movie[];
     favMovieList: Movie[];
     ownMovieList: Movie[];
-    clickedMovie: Movie[];
+    clickedMovie: Movie | null;
     filteredMovies: Movie[];
     movieTitle: string;
     movieRating: string;
@@ -31,12 +31,12 @@ type State = {
     showDropDownModal: boolean;
 };
 
-const initialState = {
+const initialState: State = {
     movieList: [],
     favMovieList: [],
     ownMovieList: [],
     filteredMovies: [],
-    clickedMovie: [],
+    clickedMovie: null,
     movieTitle: '',
     movieRating: '',
     editMovie: false,
@@ -66,11 +66,13 @@ const moviesSlice = createSlice({
             const order = sortParams[1];
             if (order === '(ascending)') {
                 state.movieList = state.movieList.sort((a, b) =>
+                    // @ts-ignore
                     a[titletoLowerCase] > b[titletoLowerCase] ? 1 : -1
                 );
             }
             if (order === '(descending)') {
                 state.movieList = state.movieList.sort((a, b) =>
+                    // @ts-ignore
                     a[titletoLowerCase] > b[titletoLowerCase] ? -1 : 1
                 );
             }
@@ -89,12 +91,14 @@ const moviesSlice = createSlice({
             const order = action.payload.sortDirection;
             const movieList = action.payload.movieListname;
             if (order === '(ascending)') {
+                // @ts-ignore
                 state[movieList] = state[movieList].sort(
                     (a: { [x: string]: number }, b: { [x: string]: number }) =>
                         a[title] > b[title] ? 1 : -1
                 );
             }
             if (order === '(descending)') {
+                // @ts-ignore
                 state[movieList] = state[movieList].sort(
                     (a: { [x: string]: number }, b: { [x: string]: number }) =>
                         a[title] > b[title] ? -1 : 1
@@ -116,26 +120,38 @@ const moviesSlice = createSlice({
         setRating(state, action) {
             state.movieRating = action.payload;
         },
-        addOwnMovies(state: State, action) {
+        addOwnMovies(state, action) {
             state.ownMovieList = [...state.ownMovieList, action.payload];
         },
-        setclickedMovie(state: State, action) {
+        setclickedMovie(state, action) {
             state.clickedMovie = action.payload;
         },
-        removeMovie(state: State) {
+        removeMovie(state) {
             state.ownMovieList = state.ownMovieList.filter(
-                (movie) => movie.id !== state.clickedMovie.id
+                (movie) => movie.id !== state.clickedMovie!.id
             );
+            // GUARD:
+            // if (state.clickedMovie !== null) {
+            //     state.ownMovieList = state.ownMovieList.filter(
+            //         (movie) => movie.id !== state.clickedMovie.id
+            //     );
+            // }
         },
-        editMovie(state: State, action) {
+        // CLICKEDMOVIE! - TEN WYKRZYKNI OZNACZA, ZE CLICKEDMOVIE NA PEWNO NIE JEST ANI NULL ANI UNDEFINED
+        // removeMovie(state) {
+        //     state.ownMovieList = state.ownMovieList.filter(
+        //         (movie) => movie.id !== state.clickedMovie!.id
+        //     );
+        // },
+        editMovie(state, action) {
             const id = action.payload.id;
             state.ownMovieList[id] = action.payload;
         },
-        addMovieToFav(state: State, action) {
+        addMovieToFav(state, action) {
             state.favMovieList = [...state.favMovieList, action.payload];
             state.filteredMovies = state.favMovieList;
         },
-        removeMovieFromFav(state: State, action) {
+        removeMovieFromFav(state, action) {
             state.favMovieList = state.favMovieList.filter(
                 (movie) => movie.id !== action.payload
             );
