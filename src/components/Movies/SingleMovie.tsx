@@ -16,6 +16,7 @@ type AppProps = {
   isFav: boolean;
   redirectToForm: (id: number) => void;
 };
+
 const SingleMovie = ({
   title,
   addedMovies,

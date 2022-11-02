@@ -1,10 +1,10 @@
-import React from "react";
-import classes from "../Modals/RemoveItemModal.module.css";
-import Button from "../Buttons/Button";
-import btn from "../Buttons/Button.module.css";
-import ReactDOM from "react-dom";
-import { moviesActions } from "../../store/movies-slice";
-import { useDispatch } from "react-redux";
+import React from 'react';
+import classes from '../Modals/RemoveItemModal.module.css';
+import Button from '../Buttons/Button';
+import btn from '../Buttons/Button.module.css';
+import ReactDOM from 'react-dom';
+import { moviesActions } from '../../store/movies-slice';
+import { useDispatch } from 'react-redux';
 
 const RemoveItemModal = () => {
   const dispatch = useDispatch();
@@ -31,13 +31,13 @@ const RemoveItemModal = () => {
             <div className={classes.modalbtns}>
               <Button
                 onClick={() => handleModal()}
-                classTitle={btn.Btn + " " + btn.greenBorder}
+                classTitle={btn.Btn + ' ' + btn.greenBorder}
               >
                 No
               </Button>
               <Button
                 onClick={() => removeMovie()}
-                classTitle={btn.Btn + " " + btn.redBorder}
+                classTitle={btn.Btn + ' ' + btn.redBorder}
               >
                 Yes
               </Button>
@@ -49,13 +49,12 @@ const RemoveItemModal = () => {
   );
 };
 
+let portalDiv = document.getElementById('backdrop-root') as HTMLElement;
+
 const ModalSource = () => {
   return (
     <React.Fragment>
-      {ReactDOM.createPortal(
-        <RemoveItemModal />,
-        document.getElementById("backdrop-root")
-      )}
+      {ReactDOM.createPortal(<RemoveItemModal />, portalDiv)}
     </React.Fragment>
   );
 };

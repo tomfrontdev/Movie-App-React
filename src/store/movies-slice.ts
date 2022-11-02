@@ -4,7 +4,7 @@ type Movie = {
   id: number;
   img: string;
   year: string;
-  title: number;
+  title: string;
   rating: number;
 };
 
@@ -24,7 +24,7 @@ type State = {
   filterInput: string;
   dayMode: boolean;
   showRemoveItemModal: boolean;
-  error: boolean;
+  error: string;
   isdataLoading: boolean;
   postsPerPageLargeScreen: number;
   postsPerPageSmallScreen: number;
@@ -47,7 +47,7 @@ const initialState: State = {
   filterInput: '',
   dayMode: false,
   showRemoveItemModal: false,
-  error: false,
+  error: '',
   isdataLoading: false,
   postsPerPageLargeScreen: 8,
   postsPerPageSmallScreen: 2,

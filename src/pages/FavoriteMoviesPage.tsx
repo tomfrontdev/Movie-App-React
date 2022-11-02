@@ -1,25 +1,25 @@
-import React from "react";
-import MovieList from "../components/Movies/MovieList";
-import { useSelector, useDispatch } from "react-redux";
-import Pagination from "../components/Pagination/Pagination";
-import { moviesActions } from "../store/movies-slice";
-import { useState, useEffect } from "react";
-import SortingMovie from "../components/Forms/SortingMovie";
-import ErrorMessages from "../components/ErrorMessages/ErrorMessages";
+import React from 'react';
+import MovieList from '../components/Movies/MovieList';
+import Pagination from '../components/Pagination/Pagination';
+import { moviesActions } from '../store/movies-slice';
+import { useState, useEffect } from 'react';
+import SortingMovie from '../components/Forms/SortingMovie';
+import ErrorMessages from '../components/ErrorMessages/ErrorMessages';
+import { useAppSelector, useAppDispatch } from '../store/hooks';
 
 const FavoriteMoviesPage = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPageLargeScreen = useSelector(
+  const postsPerPageLargeScreen = useAppSelector(
     (state) => state.movies.postsPerPageLargeScreen
   );
-  const postsPerPageSmallScreen = useSelector(
+  const postsPerPageSmallScreen = useAppSelector(
     (state) => state.movies.postsPerPageSmallScreen
   );
-  const filteredMovies = useSelector((state) => state.movies.filteredMovies);
+  const filteredMovies = useAppSelector((state) => state.movies.filteredMovies);
   const [isScreenLarge, setisScreenLarge] = useState(true);
 
-  const changePage = (value) => {
+  const changePage = (value: number) => {
     setCurrentPage(value);
   };
 
@@ -34,15 +34,13 @@ const FavoriteMoviesPage = () => {
     }
   }, [dispatch]);
 
-  let currentPosts = 0;
+  let currentPosts;
 
-  if (window.innerWidth < 812) {
+  if (window.innerWidth >= 812) {
     const lastPostIndex = currentPage * postsPerPageSmallScreen;
     const firstPostIndex = lastPostIndex - postsPerPageSmallScreen;
     currentPosts = filteredMovies.slice(firstPostIndex, lastPostIndex);
-  }
-
-  if (window.innerWidth > 812) {
+  } else {
     const lastPostIndex = currentPage * postsPerPageLargeScreen;
     const firstPostIndex = lastPostIndex - postsPerPageLargeScreen;
     currentPosts = filteredMovies.slice(firstPostIndex, lastPostIndex);
@@ -50,7 +48,7 @@ const FavoriteMoviesPage = () => {
 
   return (
     <React.Fragment>
-      <SortingMovie movieListname={"filteredMovies"}></SortingMovie>
+      <SortingMovie movieListname={'filteredMovies'}></SortingMovie>
       <MovieList movie={currentPosts} addedMovies={false}></MovieList>
       {filteredMovies.length === 0 && (
         <ErrorMessages>No fav movies found!:(</ErrorMessages>

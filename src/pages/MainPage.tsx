@@ -49,13 +49,11 @@ const MainPage = () => {
 
   let currentPosts;
 
-  if (window.innerWidth < 812) {
+  if (window.innerWidth >= 812) {
     const lastPostIndex = currentPage * postsPerPageSmallScreen;
     const firstPostIndex = lastPostIndex - postsPerPageSmallScreen;
     currentPosts = moviesList.slice(firstPostIndex, lastPostIndex);
-  }
-
-  if (window.innerWidth > 812) {
+  } else {
     const lastPostIndex = currentPage * postsPerPageLargeScreen;
     const firstPostIndex = lastPostIndex - postsPerPageLargeScreen;
     currentPosts = moviesList.slice(firstPostIndex, lastPostIndex);

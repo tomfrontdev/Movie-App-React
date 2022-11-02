@@ -1,14 +1,13 @@
-import React, { useEffect } from "react";
-import AddOrEditMovie from "../components/Forms/AddOrEditMovie";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { moviesActions } from "../store/movies-slice";
+import React, { useEffect } from 'react';
+import AddOrEditMovie from '../components/Forms/AddOrEditMovie';
+import { useAppSelector, useAppDispatch } from '../store/hooks';
+import { useParams } from 'react-router-dom';
+import { moviesActions } from '../store/movies-slice';
 
 const EditOwnMoviePage = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const ownMovieList = useSelector((state) => state.movies.ownMovieList);
+  const ownMovieList = useAppSelector((state) => state.movies.ownMovieList);
 
   const params = useParams();
 
@@ -24,7 +23,7 @@ const EditOwnMoviePage = () => {
   return (
     <React.Fragment>
       <AddOrEditMovie
-        text={"Edit"}
+        text={'Edit'}
         editMovie={true}
         index={index}
         editedMovieID={urlID}

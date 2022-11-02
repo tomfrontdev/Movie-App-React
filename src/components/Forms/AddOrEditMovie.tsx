@@ -1,16 +1,22 @@
-import styles from "../Forms/AddOrEditMovie.module.css";
-import React, { useState, useLayoutEffect, useRef, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { moviesActions } from "../../store/movies-slice";
-import Button from "../Buttons/Button";
-import btn from "../Buttons/Button.module.css";
-import ErrorMessages from "../ErrorMessages/ErrorMessages";
+import styles from '../Forms/AddOrEditMovie.module.css';
+import React, { useState, useLayoutEffect, useRef, useEffect } from 'react';
+import { moviesActions } from '../../store/movies-slice';
+import Button from '../Buttons/Button';
+import btn from '../Buttons/Button.module.css';
+import ErrorMessages from '../ErrorMessages/ErrorMessages';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
 
-const AddOrEditMovie = ({ text, editMovie, index }) => {
-  const dispatch = useDispatch();
+type AppProps = {
+  text: string;
+  editMovie: boolean;
+  index: number;
+};
 
-  const movieTitle = useSelector((state) => state.movies.movieTitle);
-  const movieRating = useSelector((state) => state.movies.movieRating);
+const AddOrEditMovie = ({ text, editMovie, index }: AppProps) => {
+  const dispatch = useAppDispatch();
+
+  const movieTitle = useAppSelector((state) => state.movies.movieTitle);
+  const movieRating = useAppSelector((state) => state.movies.movieRating);
   const [enteredMovieTitleIsTouched, setenteredMovieTitleIsTouched] =
     useState(false);
   const [enteredMovieRatingIsTouched, setenteredMovieRatingIsTouched] =
@@ -22,18 +28,18 @@ const AddOrEditMovie = ({ text, editMovie, index }) => {
   const [isMovieAdded, setIsMovieAdded] = useState(false);
   const [isMovieEdited, setIsMovieEdited] = useState(false);
 
-  const movieInput = useRef();
-  const movieRatingInput = useRef();
+  const movieInput = useRef() as React.MutableRefObject<HTMLInputElement>;
+  const movieRatingInput = useRef() as React.MutableRefObject<HTMLInputElement>;
 
-  const focusInput = () => movieInput.current.focus();
+  // const focusInput = () => movieInput.current.focus();
 
-  const cleanInputs = () => {
-    movieInput.current.value = "";
-    movieRatingInput.current.value = "";
-  };
+  // const cleanInputs = () => {
+  //   movieInput.current.value = '';
+  //   movieRatingInput.current.value = '';
+  // };
 
-  const emptyTitleInput = movieTitle === "";
-  const emptyRatingInput = movieRating === "";
+  const emptyTitleInput = movieTitle === '';
+  const emptyRatingInput = movieRating === '';
 
   const isFormDataValid =
     !enteredMovieTitleIsInvalid &&
@@ -41,7 +47,7 @@ const AddOrEditMovie = ({ text, editMovie, index }) => {
     !emptyTitleInput &&
     !emptyRatingInput;
 
-  const submitformValidation = (event) => {
+  const submitformValidation = (event: { preventDefault: () => void }) => {
     event.preventDefault();
 
     if (emptyTitleInput) {
@@ -63,7 +69,7 @@ const AddOrEditMovie = ({ text, editMovie, index }) => {
     }
   };
 
-  const submitEditMovie = (e) => {
+  const submitEditMovie = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (isFormDataValid) {
       dispatch(
@@ -106,12 +112,12 @@ const AddOrEditMovie = ({ text, editMovie, index }) => {
       if (!emptyTitleInput) setenteredMovieTitleIsTouched(false);
       setenteredMovieRatingIsInValid(false);
       if (
-        (movieRating >= 11 && 0 <= movieRating) ||
-        isNaN(movieRating) ||
-        movieRating < 0
+        (+movieRating >= 11 && 0 <= +movieRating) ||
+        isNaN(+movieRating) ||
+        +movieRating < 0
       )
         setenteredMovieRatingIsInValid(true);
-      if (!isNaN(movieTitle) && movieTitle !== "")
+      if (!isNaN(+movieTitle) && movieTitle !== '')
         setenteredMovieTitleIsInvalid(true);
       else setenteredMovieTitleIsInvalid(false);
     };
@@ -119,8 +125,11 @@ const AddOrEditMovie = ({ text, editMovie, index }) => {
   }, [movieTitle, movieRating, emptyRatingInput, emptyTitleInput]);
 
   useEffect(() => {
-    focusInput();
-    cleanInputs();
+    if (movieInput.current != null && movieRatingInput.current != null) {
+      movieInput.current.focus();
+      movieInput.current.value = '';
+      movieRatingInput.current.value = '';
+    }
   }, [isMovieAdded]);
 
   return (
@@ -140,7 +149,7 @@ const AddOrEditMovie = ({ text, editMovie, index }) => {
                 ref={movieInput}
                 onBlur={movieTitleBlurHandler}
                 placeholder={
-                  editMovie ? "Edit movie title..." : "Enter movie title..."
+                  editMovie ? 'Edit movie title...' : 'Enter movie title...'
                 }
                 className={styles.FormInput}
               ></input>
@@ -164,7 +173,7 @@ const AddOrEditMovie = ({ text, editMovie, index }) => {
                 }}
                 onBlur={movieRatingBlurHandler}
                 placeholder={
-                  editMovie ? "Edit movie rating..." : "Enter movie rating..."
+                  editMovie ? 'Edit movie rating...' : 'Enter movie rating...'
                 }
                 className={styles.FormInput}
               ></input>
@@ -183,7 +192,7 @@ const AddOrEditMovie = ({ text, editMovie, index }) => {
             <div className={styles.FormSubmitBtnWrapper}>
               <Button
                 type="submit"
-                classTitle={btn.Btn + " " + btn.greenBorder}
+                classTitle={btn.Btn + ' ' + btn.greenBorder}
               >
                 {text}
               </Button>

@@ -16,7 +16,6 @@ type Movie = {
 
 type AppProps = {
   movie: Movie[];
-  foundMovies: Movie[];
   addedMovies: boolean;
 };
 
@@ -99,7 +98,8 @@ const MovieList = ({ movie, addedMovies }: AppProps) => {
       )}
       {showRemoveItemModal && (
         <React.Fragment>
-          <RemoveItemModal movie={ownMovieList}></RemoveItemModal>
+          <RemoveItemModal></RemoveItemModal>
+          {/* movie={ownMovieList} */}
         </React.Fragment>
       )}
       {redirect && <Navigate to={`/editfilm/${clickedMovie!.id}`}></Navigate>}
