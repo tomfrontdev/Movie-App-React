@@ -9,7 +9,7 @@ import { useAppSelector, useAppDispatch } from '../../store/hooks';
 type AppProps = {
   text: string;
   editMovie: boolean;
-  index: number;
+  index?: number;
 };
 
 const AddOrEditMovie = ({ text, editMovie, index }: AppProps) => {

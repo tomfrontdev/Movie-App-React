@@ -1,28 +1,27 @@
-import React, { useRef, useEffect, useCallback } from "react";
-import styles from "../Forms/SearchMovie.module.css";
-import { FaSearch } from "react-icons/fa";
-import { Fragment, useMemo } from "react";
-import debounce from "lodash.debounce";
-import { useDispatch } from "react-redux";
-import { fetchMoviesData } from "../../store/movies-actions";
-import { useSelector } from "react-redux";
-import { moviesActions } from "../../store/movies-slice";
+import React, { useRef, useEffect, useCallback } from 'react';
+import styles from '../Forms/SearchMovie.module.css';
+import { FaSearch } from 'react-icons/fa';
+import { Fragment, useMemo } from 'react';
+import debounce from 'lodash.debounce';
+import { fetchMoviesData } from '../../store/movies-actions';
+import { moviesActions } from '../../store/movies-slice';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
 
 const SearchMovie = () => {
-  const dispatch = useDispatch();
-  const searchInput = useSelector((state) => state.movies.searchInput);
-  const isDataFetched = useSelector((state) => state.movies.isDataFetched);
-  const favMovieList = useSelector((state) => state.movies.favMovieList);
-  const filterInput = useSelector((state) => state.movies.filterInput);
-  const searchInputRef = useRef();
-  const isdayModeActive = useSelector((state) => state.movies.dayMode);
+  const dispatch = useAppDispatch();
+  const searchInput = useAppSelector((state) => state.movies.searchInput);
+  const isDataFetched = useAppSelector((state) => state.movies.isDataFetched);
+  const favMovieList = useAppSelector((state) => state.movies.favMovieList);
+  const filterInput = useAppSelector((state) => state.movies.filterInput);
+  const searchInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+  const isdayModeActive = useAppSelector((state) => state.movies.dayMode);
 
   const focusInput = () => searchInputRef.current.focus();
 
   useEffect(() => focusInput());
 
   const fetchMoviesHandler = useCallback(
-    (value) => {
+    (value: string) => {
       dispatch(fetchMoviesData(value));
     },
     [dispatch]
@@ -33,7 +32,7 @@ const SearchMovie = () => {
     [fetchMoviesHandler]
   );
 
-  const filterMoviesArray = (inputValue) => {
+  const filterMoviesArray = (inputValue: string) => {
     const filteredArray = favMovieList.filter((movie) =>
       movie.title.toLowerCase().includes(inputValue.toLowerCase())
     );
@@ -76,7 +75,7 @@ const SearchMovie = () => {
                 }
                 type="text"
                 placeholder={
-                  isDataFetched ? "Search for movies.." : "Filter movies..."
+                  isDataFetched ? 'Search for movies..' : 'Filter movies...'
                 }
                 value={isDataFetched ? searchInput : filterInput}
                 className={`${styles.FormInput} ${colors}`}

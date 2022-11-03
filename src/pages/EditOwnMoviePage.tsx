@@ -26,7 +26,6 @@ const EditOwnMoviePage = () => {
         text={'Edit'}
         editMovie={true}
         index={index}
-        editedMovieID={urlID}
       ></AddOrEditMovie>
     </React.Fragment>
   );

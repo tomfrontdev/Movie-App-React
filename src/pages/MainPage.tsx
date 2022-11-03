@@ -1,7 +1,7 @@
 import MovieList from '../components/Movies/MovieList';
 import React from 'react';
 import { useState, useEffect } from 'react';
-import Spinner from '../components/Spinner/LoadingSpinner.js';
+import Spinner from '../components/Spinner/LoadingSpinner';
 import ErrorMessages from '../components/ErrorMessages/ErrorMessages';
 import { fetchMoviesData } from '../store/movies-actions';
 import Pagination from '../components/Pagination/Pagination';

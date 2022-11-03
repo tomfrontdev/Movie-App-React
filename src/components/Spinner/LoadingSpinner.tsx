@@ -1,6 +1,6 @@
-import classes from "./LoadingSpinner.module.css";
-import ReactDOM from "react-dom";
-import React from "react";
+import classes from './LoadingSpinner.module.css';
+import ReactDOM from 'react-dom';
+import React from 'react';
 
 const LoadingSpinner = () => {
   return (
@@ -21,13 +21,12 @@ const LoadingSpinner = () => {
   );
 };
 
+let portalDiv = document.getElementById('backdrop-root') as HTMLElement;
+
 const Spinner = () => {
   return (
     <React.Fragment>
-      {ReactDOM.createPortal(
-        <LoadingSpinner />,
-        document.getElementById("backdrop-root")
-      )}
+      {ReactDOM.createPortal(<LoadingSpinner />, portalDiv)}
     </React.Fragment>
   );
 };

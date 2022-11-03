@@ -1,16 +1,22 @@
-import React from "react";
-import styles from "./Pagination.module.css";
-import Button from "../Buttons/Button";
-import btn from "../Buttons/Button.module.css";
-import { useSelector } from "react-redux";
+import styles from './Pagination.module.css';
+import Button from '../Buttons/Button';
+import btn from '../Buttons/Button.module.css';
+import { useAppSelector } from '../../store/hooks';
+
+type AppProps = {
+  totalPosts: number;
+  postsPerPage: number;
+  handlePageChange: (page: number) => void;
+  currentPage: number;
+};
 
 const Pagination = ({
   totalPosts,
   postsPerPage,
   handlePageChange,
   currentPage,
-}) => {
-  const isdayModeActive = useSelector((state) => state.movies.dayMode);
+}: AppProps) => {
+  const isdayModeActive = useAppSelector((state) => state.movies.dayMode);
   const colors = isdayModeActive ? `${btn.nightMode}` : `${btn.dayMode}`;
 
   let pages = [];

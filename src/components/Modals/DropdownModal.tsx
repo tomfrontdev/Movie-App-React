@@ -1,24 +1,24 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { useDispatch } from "react-redux";
-import classes from "./DropdownModal.module.css";
-import { useSelector } from "react-redux";
-import { moviesActions } from "../../store/movies-slice";
-import Nav from "../Header/Nav";
-import { AiOutlineClose } from "react-icons/ai";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import classes from './DropdownModal.module.css';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+
+import { moviesActions } from '../../store/movies-slice';
+import Nav from '../Header/Nav';
+import { AiOutlineClose } from 'react-icons/ai';
 
 const DropdownModal = () => {
-  const isdayModeActive = useSelector((state) => state.movies.dayMode);
-  const showDropDownModal = useSelector(
+  const isdayModeActive = useAppSelector((state) => state.movies.dayMode);
+  const showDropDownModal = useAppSelector(
     (state) => state.movies.showDropDownModal
   );
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const toggleModal = () => {
     dispatch(moviesActions.toggleDropDownModal(!showDropDownModal));
   };
 
-  const darkorlightMode = isdayModeActive ? "black" : "white";
+  const darkorlightMode = isdayModeActive ? 'black' : 'white';
 
   return (
     <React.Fragment>
@@ -27,7 +27,7 @@ const DropdownModal = () => {
           className={`${classes.dropdown} ${
             showDropDownModal ? classes.showMenu : classes.hidden
           }`}
-          style={{ backgroundColor: !isdayModeActive }}
+          style={{ backgroundColor: isdayModeActive ? 'white' : 'black' }}
           onClick={(e) => e.stopPropagation()}
         >
           <ul className={classes.dropdownlist}>
@@ -36,7 +36,7 @@ const DropdownModal = () => {
               className={classes.closeIcon}
               style={{ color: darkorlightMode }}
             />
-            <Nav darkorlightMode={darkorlightMode} toggleModal={toggleModal} />
+            <Nav darkorlightMode={darkorlightMode} />
           </ul>
         </div>
       </div>
@@ -44,13 +44,12 @@ const DropdownModal = () => {
   );
 };
 
+let portalDiv = document.getElementById('backdrop-root') as HTMLElement;
+
 const ModalSource = () => {
   return (
     <React.Fragment>
-      {ReactDOM.createPortal(
-        <DropdownModal />,
-        document.getElementById("backdrop-root")
-      )}
+      {ReactDOM.createPortal(<DropdownModal />, portalDiv)}
     </React.Fragment>
   );
 };

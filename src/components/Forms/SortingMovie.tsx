@@ -1,23 +1,27 @@
-import styles from "./SortingMovie.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { moviesActions } from "../../store/movies-slice";
-import { useEffect } from "react";
-import ToggleSwitch from "../Buttons/ColorChangingSwitch";
+import styles from './SortingMovie.module.css';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { moviesActions } from '../../store/movies-slice';
+import { useEffect } from 'react';
+import ToggleSwitch from '../Buttons/ColorChangingSwitch';
 
-const SortingMovie = ({ movieListname }) => {
-  const dispatch = useDispatch();
-  const isdayModeActive = useSelector((state) => state.movies.dayMode);
+type AppProps = {
+  movieListname: string;
+};
 
-  const sortInputValue = useSelector(
+const SortingMovie = ({ movieListname }: AppProps) => {
+  const dispatch = useAppDispatch();
+  const isdayModeActive = useAppSelector((state) => state.movies.dayMode);
+
+  const sortInputValue = useAppSelector(
     (state) => state.movies.sortFormInputValue
   );
 
-  const setInputValue = (value) => {
+  const setInputValue = (value: any) => {
     dispatch(moviesActions.setInputValue(value));
   };
 
   useEffect(() => {
-    const sortParams = sortInputValue.split(" ");
+    const sortParams = sortInputValue.split(' ');
     const title = sortParams[0];
     const titletoLowerCase = title.toLowerCase();
     const order = sortParams[1];
@@ -37,7 +41,7 @@ const SortingMovie = ({ movieListname }) => {
     <div className={styles.sorttypelistcontainer}>
       <label
         className={styles.label}
-        style={{ color: isdayModeActive ? "black" : "white" }}
+        style={{ color: isdayModeActive ? 'black' : 'white' }}
       >
         Sort By:
       </label>
@@ -49,32 +53,37 @@ const SortingMovie = ({ movieListname }) => {
         >
           <option
             value="Title (ascending)"
-            onClick={(e) => {
-              setInputValue(e.target.value);
+            onClick={(event) => {
+              const target = event.target as HTMLInputElement;
+
+              setInputValue(target.value);
             }}
           >
             Title (ascending)
           </option>
           <option
             value="Title (descending)"
-            onClick={(e) => {
-              setInputValue(e.target.value);
+            onClick={(event) => {
+              const target = event.target as HTMLInputElement;
+              setInputValue(target.value);
             }}
           >
             Title (descending)
           </option>
           <option
             value="Rating (ascending)"
-            onClick={(e) => {
-              setInputValue(e.target.value);
+            onClick={(event) => {
+              const target = event.target as HTMLInputElement;
+              setInputValue(target.value);
             }}
           >
             Rating (ascending)
           </option>
           <option
             value="Rating (descending)"
-            onClick={(e) => {
-              setInputValue(e.target.value);
+            onClick={(event) => {
+              const target = event.target as HTMLInputElement;
+              setInputValue(target.value);
             }}
           >
             Rating (descending)
