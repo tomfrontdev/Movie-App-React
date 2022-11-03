@@ -99,7 +99,6 @@ const MovieList = ({ movie, addedMovies }: AppProps) => {
       {showRemoveItemModal && (
         <React.Fragment>
           <RemoveItemModal></RemoveItemModal>
-          {/* movie={ownMovieList} */}
         </React.Fragment>
       )}
       {redirect && <Navigate to={`/editfilm/${clickedMovie!.id}`}></Navigate>}
