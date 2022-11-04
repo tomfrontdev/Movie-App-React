@@ -21,8 +21,7 @@ function App() {
       <main className={isdayModeActive ? styles.dayMode : styles.nightMode}>
         <Header></Header>
         <Routes>
-          <Route path="/" element={<Navigate replace to="/welcome" />} />
-          <Route path="/welcome" element={<MainPage />} />
+          <Route path="/" element={<MainPage />} />
           <Route path="/favoritemovies" element={<FavoriteMoviesPage />} />
           <Route path="/addfilm" element={<AddOwnMoviePage />} />
           <Route path="/addedfilms" element={<AddedOwnMoviePage />} />

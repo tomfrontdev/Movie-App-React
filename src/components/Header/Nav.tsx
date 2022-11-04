@@ -9,7 +9,7 @@ const Nav = ({ darkorlightMode }: { darkorlightMode: string }) => {
         <NavLink
           className={classes.navlink}
           style={{ color: darkorlightMode }}
-          to="/welcome"
+          to="/"
         >
           Strona Główna
         </NavLink>
