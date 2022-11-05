@@ -24,6 +24,7 @@ const AddOrEditMovie = ({
   const dispatch = useAppDispatch();
   const movieTitle = useAppSelector((state) => state.movies.movieTitle);
   const movieRating = useAppSelector((state) => state.movies.movieRating);
+
   const [enteredMovieTitleIsTouched, setenteredMovieTitleIsTouched] =
     useState(false);
   const [enteredMovieRatingIsTouched, setenteredMovieRatingIsTouched] =
@@ -94,14 +95,6 @@ const AddOrEditMovie = ({
     );
   };
 
-  const movieRatingBlurHandler = () => {
-    if (emptyRatingInput) setenteredMovieRatingIsTouched(true);
-  };
-
-  const movieTitleBlurHandler = () => {
-    if (emptyTitleInput) setenteredMovieTitleIsTouched(true);
-  };
-
   useLayoutEffect(() => {
     const validateInputData = () => {
       if (!emptyRatingInput) setenteredMovieRatingIsTouched(false);
@@ -155,7 +148,6 @@ const AddOrEditMovie = ({
                   dispatch(moviesActions.setTitle(e.target.value));
                 }}
                 ref={movieInput}
-                onBlur={movieTitleBlurHandler}
                 placeholder={
                   editMovie ? 'Edit movie title...' : 'Enter movie title...'
                 }
@@ -179,7 +171,6 @@ const AddOrEditMovie = ({
                 onChange={(e) => {
                   dispatch(moviesActions.setRating(e.target.value));
                 }}
-                onBlur={movieRatingBlurHandler}
                 placeholder={
                   editMovie ? 'Edit movie rating...' : 'Enter movie rating...'
                 }

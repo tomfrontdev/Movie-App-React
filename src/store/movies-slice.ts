@@ -77,6 +77,7 @@ const moviesSlice = createSlice({
         );
       }
     },
+
     setFetchedData(state, action) {
       state.isDataFetched = action.payload;
     },
