@@ -62,7 +62,7 @@ const SingleMovie = ({
             )`,
           }}
           className={styles.Moviecontainer}
-          onClick={!addedMovies ? () => handleFavoriteMovies(id) : null}
+          onClick={!addedMovies ? () => handleFavoriteMovies(id) : undefined}
         >
           <div className={styles.Moviedatacontainer}>
             <div className={styles.Moviescorecontainer}>

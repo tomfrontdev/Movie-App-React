@@ -38,60 +38,32 @@ const SortingMovie = ({ movieListname }: AppProps) => {
   const colors = isdayModeActive ? `${styles.dayMode}` : `${styles.nightMode}`;
 
   return (
-    <div className={styles.sorttypelistcontainer}>
+    <section className={styles.sorttypelistcontainer}>
       <label
         className={styles.label}
         style={{ color: isdayModeActive ? 'black' : 'white' }}
       >
         Sort By:
       </label>
-      <form className={styles.sorttypelistform}>
+      <div className={styles.sorttypeselectcontainer}>
         <select
           defaultValue={sortInputValue}
           className={`${styles.sortytypeselect} ${colors}`}
-          name="filterByCateogry"
+          name="filterbyCategory"
+          onChange={(event) => {
+            event.preventDefault();
+            const target = event.target;
+            setInputValue(target.value);
+          }}
         >
-          <option
-            value="Title (ascending)"
-            onClick={(event) => {
-              const target = event.target as HTMLInputElement;
-
-              setInputValue(target.value);
-            }}
-          >
-            Title (ascending)
-          </option>
-          <option
-            value="Title (descending)"
-            onClick={(event) => {
-              const target = event.target as HTMLInputElement;
-              setInputValue(target.value);
-            }}
-          >
-            Title (descending)
-          </option>
-          <option
-            value="Rating (ascending)"
-            onClick={(event) => {
-              const target = event.target as HTMLInputElement;
-              setInputValue(target.value);
-            }}
-          >
-            Rating (ascending)
-          </option>
-          <option
-            value="Rating (descending)"
-            onClick={(event) => {
-              const target = event.target as HTMLInputElement;
-              setInputValue(target.value);
-            }}
-          >
-            Rating (descending)
-          </option>
+          <option value="Title (ascending)">Title (ascending)</option>
+          <option value="Title (descending)">Title (descending)</option>
+          <option value="Rating (ascending)">Rating (ascending)</option>
+          <option value="Rating (descending)">Rating (descending)</option>
         </select>
-      </form>
+      </div>
       <ToggleSwitch />
-    </div>
+    </section>
   );
 };
 

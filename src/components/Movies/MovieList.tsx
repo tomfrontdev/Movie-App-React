@@ -79,9 +79,8 @@ const MovieList = ({ movie, addedMovies }: AppProps) => {
           <ul>
             <div className={styles.MovieListcontainer}>
               {movie.map((movie) => (
-                <React.Fragment>
+                <React.Fragment key={movie.id}>
                   <SingleMovie
-                    key={movie.id}
                     title={movie.title}
                     isFav={true}
                     redirectToForm={redirectToForm}

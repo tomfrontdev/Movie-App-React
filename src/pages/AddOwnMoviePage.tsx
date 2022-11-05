@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import AddOrEditMovie from "../components/Forms/AddOrEditMovie";
-import { useDispatch } from "react-redux";
-import { moviesActions } from "../store/movies-slice";
+import React, { useEffect } from 'react';
+import AddOrEditMovie from '../components/Forms/AddOrEditMovie';
+import { useDispatch } from 'react-redux';
+import { moviesActions } from '../store/movies-slice';
 
 const AddOwnMoviePage = () => {
   const dispatch = useDispatch();

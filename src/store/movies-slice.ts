@@ -130,19 +130,7 @@ const moviesSlice = createSlice({
       state.ownMovieList = state.ownMovieList.filter(
         (movie) => movie.id !== state.clickedMovie!.id
       );
-      // GUARD:
-      // if (state.clickedMovie !== null) {
-      //     state.ownMovieList = state.ownMovieList.filter(
-      //         (movie) => movie.id !== state.clickedMovie.id
-      //     );
-      // }
     },
-    // CLICKEDMOVIE! - TEN WYKRZYKNI OZNACZA, ZE CLICKEDMOVIE NA PEWNO NIE JEST ANI NULL ANI UNDEFINED
-    // removeMovie(state) {
-    //     state.ownMovieList = state.ownMovieList.filter(
-    //         (movie) => movie.id !== state.clickedMovie!.id
-    //     );
-    // },
     editMovie(state, action) {
       const id = action.payload.id;
       state.ownMovieList[id] = action.payload;

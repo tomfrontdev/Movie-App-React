@@ -13,12 +13,12 @@ const SearchMovie = () => {
   const isDataFetched = useAppSelector((state) => state.movies.isDataFetched);
   const favMovieList = useAppSelector((state) => state.movies.favMovieList);
   const filterInput = useAppSelector((state) => state.movies.filterInput);
-  const searchInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+  const searchInputRef = useRef<HTMLInputElement | null>(null);
   const isdayModeActive = useAppSelector((state) => state.movies.dayMode);
 
-  const focusInput = () => searchInputRef.current.focus();
-
-  useEffect(() => focusInput());
+  useEffect(() => {
+    if (searchInputRef.current != null) searchInputRef.current.focus();
+  });
 
   const fetchMoviesHandler = useCallback(
     (value: string) => {
@@ -51,7 +51,8 @@ const SearchMovie = () => {
               ? (e) => {
                   debouncedEventHandler(searchInput);
                   e.preventDefault();
-                  focusInput();
+                  if (searchInputRef.current != null)
+                    searchInputRef.current.focus();
                 }
               : (e) => e.preventDefault()
           }

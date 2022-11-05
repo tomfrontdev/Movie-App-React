@@ -10,11 +10,18 @@ type AppProps = {
   text: string;
   editMovie: boolean;
   index?: number;
+  title?: string;
+  rating?: any;
 };
 
-const AddOrEditMovie = ({ text, editMovie, index }: AppProps) => {
+const AddOrEditMovie = ({
+  text,
+  editMovie,
+  index,
+  title,
+  rating,
+}: AppProps) => {
   const dispatch = useAppDispatch();
-
   const movieTitle = useAppSelector((state) => state.movies.movieTitle);
   const movieRating = useAppSelector((state) => state.movies.movieRating);
   const [enteredMovieTitleIsTouched, setenteredMovieTitleIsTouched] =
@@ -28,15 +35,8 @@ const AddOrEditMovie = ({ text, editMovie, index }: AppProps) => {
   const [isMovieAdded, setIsMovieAdded] = useState(false);
   const [isMovieEdited, setIsMovieEdited] = useState(false);
 
-  const movieInput = useRef() as React.MutableRefObject<HTMLInputElement>;
-  const movieRatingInput = useRef() as React.MutableRefObject<HTMLInputElement>;
-
-  // const focusInput = () => movieInput.current.focus();
-
-  // const cleanInputs = () => {
-  //   movieInput.current.value = '';
-  //   movieRatingInput.current.value = '';
-  // };
+  const movieInput = useRef<HTMLInputElement | null>(null);
+  const movieRatingInput = useRef<HTMLInputElement | null>(null);
 
   const emptyTitleInput = movieTitle === '';
   const emptyRatingInput = movieRating === '';
@@ -81,10 +81,6 @@ const AddOrEditMovie = ({ text, editMovie, index }: AppProps) => {
       );
 
       setIsMovieEdited(true);
-      setTimeout(function () {
-        setIsMovieEdited(false);
-        setIsMovieAdded(false);
-      }, 1500);
     }
   };
 
@@ -131,6 +127,18 @@ const AddOrEditMovie = ({ text, editMovie, index }: AppProps) => {
       movieRatingInput.current.value = '';
     }
   }, [isMovieAdded]);
+
+  useEffect(() => {
+    if (
+      title &&
+      rating &&
+      movieInput.current != null &&
+      movieRatingInput.current != null
+    ) {
+      movieInput.current.value = title!;
+      movieRatingInput.current.value = rating!;
+    }
+  }, [isMovieEdited, rating, title]);
 
   return (
     <React.Fragment>

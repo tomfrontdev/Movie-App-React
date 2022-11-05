@@ -1,8 +1,11 @@
 .sortytypeselect {
-  font-size: 15px;
+  border: none;
+}
+
+.sorttypeselectcontainer {
+  box-shadow: 0 0 5px #719ece;
   border: none;
   margin-bottom: 20px;
-  box-shadow: 0 0 5px #719ece;
 }
 
 .dayMode {

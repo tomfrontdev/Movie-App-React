@@ -22,3 +22,24 @@ Poczytac o solidzie
   */ -->
 
 Czym jest git flow?
+
+// GUARD:
+// if (state.clickedMovie !== null) {
+// state.ownMovieList = state.ownMovieList.filter(
+// (movie) => movie.id !== state.clickedMovie.id
+// );
+// }
+},
+// CLICKEDMOVIE! - TEN WYKRZYKNI OZNACZA, ZE CLICKEDMOVIE NA PEWNO NIE JEST ANI NULL ANI UNDEFINED
+// removeMovie(state) {
+// state.ownMovieList = state.ownMovieList.filter(
+// (movie) => movie.id !== state.clickedMovie!.id
+// );
+// },
+
+       // GUARD:
+      // if (state.clickedMovie !== null) {
+      //     state.ownMovieList = state.ownMovieList.filter(
+      //         (movie) => movie.id !== state.clickedMovie.id
+      //     );
+      // }
