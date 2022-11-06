@@ -5,6 +5,8 @@ import Button from '../Buttons/Button';
 import btn from '../Buttons/Button.module.css';
 import ErrorMessages from '../ErrorMessages/ErrorMessages';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 type AppProps = {
   text: string;
@@ -24,81 +26,118 @@ const AddOrEditMovie = ({
   const dispatch = useAppDispatch();
   const movieTitle = useAppSelector((state) => state.movies.movieTitle);
   const movieRating = useAppSelector((state) => state.movies.movieRating);
-
-  const [enteredMovieTitleIsTouched, setenteredMovieTitleIsTouched] =
-    useState(false);
-  const [enteredMovieRatingIsTouched, setenteredMovieRatingIsTouched] =
-    useState(false);
+  const [noMovieEntered, setnoMovieEntered] = useState(false);
+  const [noRatingEntered, setnoRatingEntered] = useState(false);
   const [enteredMovieTitleIsInvalid, setenteredMovieTitleIsInvalid] =
     useState(true);
   const [enteredMovieRatingIsInValid, setenteredMovieRatingIsInValid] =
     useState(true);
-  const [isMovieAdded, setIsMovieAdded] = useState(false);
-  const [isMovieEdited, setIsMovieEdited] = useState(false);
 
   const movieInput = useRef<HTMLInputElement | null>(null);
   const movieRatingInput = useRef<HTMLInputElement | null>(null);
+
+  const movieAddedMessage = () =>
+    toast.success('Movie Added Successfully!', {
+      position: 'bottom-left',
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    });
+
+  const movieEditedMessage = () =>
+    toast.success('Movie Edited Successfully!', {
+      position: 'bottom-left',
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    });
 
   const emptyTitleInput = movieTitle === '';
   const emptyRatingInput = movieRating === '';
 
   const isFormDataValid =
+    movieRatingInput.current != null &&
+    movieInput.current != null &&
+    movieRatingInput.current.value !== '' &&
+    movieInput.current.value !== '' &&
     !enteredMovieTitleIsInvalid &&
-    !enteredMovieRatingIsInValid &&
-    !emptyTitleInput &&
-    !emptyRatingInput;
+    !enteredMovieRatingIsInValid;
+
+  const checkIfInputsAreEmpty = () => {
+    if (movieInput.current !== null && movieInput.current.value === '') {
+      setnoMovieEntered(true);
+    }
+
+    if (
+      movieRatingInput.current != null &&
+      movieRatingInput.current.value === ''
+    ) {
+      setnoRatingEntered(true);
+    }
+  };
 
   const submitformValidation = (event: { preventDefault: () => void }) => {
     event.preventDefault();
 
-    if (emptyTitleInput) {
-      setenteredMovieTitleIsTouched(true);
-    }
-
-    if (emptyRatingInput) {
-      setenteredMovieRatingIsTouched(true);
-    }
+    checkIfInputsAreEmpty();
 
     if (isFormDataValid) {
-      setIsMovieAdded(true);
-
-      setTimeout(function () {
-        setIsMovieAdded(false);
-      }, 1500);
-
       addMovies();
+      movieAddedMessage();
+    }
+
+    if (movieInput.current != null && movieRatingInput.current != null) {
+      movieInput.current.focus();
+      movieInput.current.value = '';
+      movieRatingInput.current.value = '';
     }
   };
 
   const submitEditMovie = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    if (isFormDataValid) {
+
+    checkIfInputsAreEmpty();
+    if (
+      isFormDataValid &&
+      movieInput.current != null &&
+      movieRatingInput.current != null
+    ) {
       dispatch(
         moviesActions.editMovie({
           id: index,
-          title: movieTitle,
-          rating: movieRating,
+          title: movieInput.current.value,
+          rating: movieRatingInput.current.value,
         })
       );
 
-      setIsMovieEdited(true);
+      movieEditedMessage();
     }
   };
 
   const addMovies = () => {
-    dispatch(
-      moviesActions.addOwnMovies({
-        title: movieTitle,
-        rating: movieRating,
-        id: Math.floor(Math.random() * (999 - 1) + 1),
-      })
-    );
+    if (movieInput.current != null && movieRatingInput.current != null) {
+      dispatch(
+        moviesActions.addOwnMovies({
+          title: movieInput.current.value,
+          rating: movieRatingInput.current.value,
+          id: Math.floor(Math.random() * (999 - 1) + 1),
+        })
+      );
+    }
   };
 
   useLayoutEffect(() => {
     const validateInputData = () => {
-      if (!emptyRatingInput) setenteredMovieRatingIsTouched(false);
-      if (!emptyTitleInput) setenteredMovieTitleIsTouched(false);
+      setnoRatingEntered(false);
+      setnoMovieEntered(false);
       setenteredMovieRatingIsInValid(false);
       if (
         (+movieRating >= 11 && 0 <= +movieRating) ||
@@ -114,14 +153,6 @@ const AddOrEditMovie = ({
   }, [movieTitle, movieRating, emptyRatingInput, emptyTitleInput]);
 
   useEffect(() => {
-    if (movieInput.current != null && movieRatingInput.current != null) {
-      movieInput.current.focus();
-      movieInput.current.value = '';
-      movieRatingInput.current.value = '';
-    }
-  }, [isMovieAdded]);
-
-  useEffect(() => {
     if (
       title &&
       rating &&
@@ -131,11 +162,29 @@ const AddOrEditMovie = ({
       movieInput.current.value = title!;
       movieRatingInput.current.value = rating!;
     }
-  }, [isMovieEdited, rating, title]);
+  }, [rating, title]);
 
   return (
     <React.Fragment>
       <section className={styles.FormWrapper}>
+        <ToastContainer
+          position="bottom-left"
+          style={{
+            width: '70%',
+            position: 'absolute',
+            left: '0',
+            bottom: '20px',
+          }}
+          autoClose={1500}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
         <form
           className={styles.Form}
           onSubmit={editMovie ? submitEditMovie : submitformValidation}
@@ -155,10 +204,10 @@ const AddOrEditMovie = ({
               ></input>
               {enteredMovieTitleIsInvalid && (
                 <ErrorMessages classTitle={styles.FormValidationError}>
-                  Movie title must not start with a number!
+                  Movie title must not be a number!
                 </ErrorMessages>
               )}
-              {enteredMovieTitleIsTouched && (
+              {noMovieEntered && (
                 <ErrorMessages classTitle={styles.FormValidationError}>
                   Movie title must not be empty!
                 </ErrorMessages>
@@ -182,7 +231,7 @@ const AddOrEditMovie = ({
                   Movie rating must be a number between 0 and 10!
                 </ErrorMessages>
               )}
-              {enteredMovieRatingIsTouched && (
+              {noRatingEntered && (
                 <ErrorMessages classTitle={styles.FormValidationError}>
                   Movie rating must not be empty!
                 </ErrorMessages>
@@ -196,12 +245,6 @@ const AddOrEditMovie = ({
                 {text}
               </Button>
             </div>
-            {isMovieAdded && (
-              <p className={styles.successmsg}> Movie Added Successfully!</p>
-            )}
-            {isMovieEdited && (
-              <p className={styles.successmsg}> Movie Edited Successfully!</p>
-            )}
           </div>
         </form>
       </section>

@@ -135,6 +135,7 @@ const moviesSlice = createSlice({
     editMovie(state, action) {
       const id = action.payload.id;
       state.ownMovieList[id] = action.payload;
+      console.log(id);
     },
     addMovieToFav(state, action) {
       state.favMovieList = [...state.favMovieList, action.payload];
