@@ -6,7 +6,10 @@ import { GiHamburgerMenu as Hamburger } from 'react-icons/gi';
 import SearchMovie from '../Forms/SearchMovie';
 import { moviesActions } from '../../store/movies-slice';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { MdFavorite } from 'react-icons/md';
+
 import Nav from './Nav';
+import btn from '../Buttons/Button.module.css';
 
 const Header = () => {
   const isFormActive = useAppSelector((state) => state.movies.isFormActive);
@@ -14,6 +17,7 @@ const Header = () => {
   const showDropDownModal = useAppSelector(
     (state) => state.movies.showDropDownModal
   );
+  const favMovieList = useAppSelector((state) => state.movies.favMovieList);
 
   const dispatch = useAppDispatch();
 
@@ -28,6 +32,7 @@ const Header = () => {
   }, [location, dispatch]);
 
   const darkorlightMode = isdayModeActive ? 'black' : 'white';
+  const colors = isdayModeActive ? `${btn.nightMode}` : `${btn.dayMode}`;
 
   return (
     <Fragment>
@@ -39,6 +44,11 @@ const Header = () => {
               className={classes.hamburger}
               style={{ color: darkorlightMode }}
             />
+            {favMovieList.length > 0 && (
+              <MdFavorite
+                className={`${btn.headerfavIcon} ${colors}`}
+              ></MdFavorite>
+            )}
           </div>
         )}
         {showDropDownModal && <DropdownModal />}

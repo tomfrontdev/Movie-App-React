@@ -9,6 +9,22 @@
   padding: 5px;
 }
 
+@media (min-width: 813px) {
+  .favListIcon {
+    position: absolute;
+    font-size: 15px;
+    right: -2px;
+    top: 4px;
+  }
+}
+
+.headerfavIcon {
+  position: absolute;
+  font-size: 15px;
+  right: 0px;
+  top: 0px;
+}
+
 .PaginationBtn {
   margin: 10px;
   font-size: 25px;

@@ -5,6 +5,7 @@
 @media (max-width: 812px) {
   .navli {
     margin-top: 10px;
+    position: relative;
   }
 }
 
@@ -12,6 +13,7 @@
   .navli {
     margin: auto;
     padding: 7.5px;
+    position: relative;
   }
 }
 

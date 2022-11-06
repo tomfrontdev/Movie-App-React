@@ -7,12 +7,10 @@ import FavoriteMoviesPage from './pages/FavoriteMoviesPage';
 import AddedOwnMoviePage from './pages/AddedOwnMoviePage';
 import AddOwnMoviePage from './pages/AddOwnMoviePage';
 import EditOwnMoviePage from './pages/EditOwnMoviePage';
-import { useAppSelector, useAppDispatch } from './store/hooks';
-import { moviesActions } from './store/movies-slice';
+import { useAppSelector } from './store/hooks';
 
 function App() {
   const isdayModeActive = useAppSelector((state) => state.movies.dayMode);
-  const dispatch = useAppDispatch();
 
   return (
     <React.Fragment>

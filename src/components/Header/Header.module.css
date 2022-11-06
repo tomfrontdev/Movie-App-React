@@ -34,7 +34,7 @@
 }
 
 .hamburgerContainer {
-  position: absolute;
+  position: relative;
   left: 0;
   top: 25px;
 }
