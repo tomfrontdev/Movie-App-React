@@ -147,8 +147,8 @@ const moviesSlice = createSlice({
       );
       state.filteredMovies = state.favMovieList;
     },
-    toggledayMode(state) {
-      state.dayMode = !state.dayMode;
+    toggledayMode(state, action) {
+      state.dayMode = action.payload;
     },
     toggleRemoveModal(state) {
       state.showRemoveItemModal = !state.showRemoveItemModal;

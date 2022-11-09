@@ -24,13 +24,20 @@ const MainPage = () => {
   const [foundMovies, setfoundMovies] = useState(true);
   const [isScreenLarge, setisScreenLarge] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+  const [initialValue] = useState(
+    JSON.parse(localStorage.getItem('searchInput')!)
+  );
 
   useEffect(() => {
-    dispatch(fetchMoviesData('girls'));
+    if (initialValue) {
+      dispatch(fetchMoviesData(initialValue));
+    } else {
+      dispatch(fetchMoviesData('girls'));
+    }
     dispatch(moviesActions.setFetchedData(true));
     dispatch(moviesActions.setForm(true));
     dispatch(moviesActions.setsearchInput(''));
-  }, [dispatch]);
+  }, [dispatch, initialValue]);
 
   useEffect(() => {
     if (moviesList.length === 0) {

@@ -96,9 +96,6 @@ const SingleMovie = ({
                 </React.Fragment>
               )}
             </div>
-            <div className={styles.Movieanimateddiv}>
-              <p className={styles.Movietitle}> {title}</p>
-            </div>
           </div>
         </div>
       </li>

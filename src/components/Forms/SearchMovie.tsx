@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useCallback } from 'react';
+import React, { useRef, useEffect, useCallback, useState } from 'react';
 import styles from '../Forms/SearchMovie.module.css';
 import { FaSearch } from 'react-icons/fa';
 import { Fragment, useMemo } from 'react';
@@ -9,16 +9,19 @@ import { useAppSelector, useAppDispatch } from '../../store/hooks';
 
 const SearchMovie = () => {
   const dispatch = useAppDispatch();
-  const searchInput = useAppSelector((state) => state.movies.searchInput);
   const isDataFetched = useAppSelector((state) => state.movies.isDataFetched);
   const favMovieList = useAppSelector((state) => state.movies.favMovieList);
   const filterInput = useAppSelector((state) => state.movies.filterInput);
   const searchInputRef = useRef<HTMLInputElement | null>(null);
   const isdayModeActive = useAppSelector((state) => state.movies.dayMode);
+  const [initialValue, setInitialValue] = useState(
+    JSON.parse(localStorage.getItem('searchInput')!)
+  );
 
   useEffect(() => {
     if (searchInputRef.current != null) searchInputRef.current.focus();
-  });
+    localStorage.setItem('searchInput', JSON.stringify(initialValue));
+  }, [initialValue]);
 
   const fetchMoviesHandler = useCallback(
     (value: string) => {
@@ -49,7 +52,7 @@ const SearchMovie = () => {
           onSubmit={
             isDataFetched
               ? (e) => {
-                  debouncedEventHandler(searchInput);
+                  debouncedEventHandler(initialValue);
                   e.preventDefault();
                   if (searchInputRef.current != null)
                     searchInputRef.current.focus();
@@ -64,8 +67,8 @@ const SearchMovie = () => {
                 onChange={
                   isDataFetched
                     ? (e) => {
-                        debouncedEventHandler(e.target.value);
-                        dispatch(moviesActions.setsearchInput(e.target.value));
+                        debouncedEventHandler(initialValue);
+                        setInitialValue(e.target.value);
                       }
                     : (e) => {
                         filterMoviesArray(e.target.value);
@@ -78,7 +81,7 @@ const SearchMovie = () => {
                 placeholder={
                   isDataFetched ? 'Search for movies..' : 'Filter movies...'
                 }
-                value={isDataFetched ? searchInput : filterInput}
+                value={isDataFetched ? initialValue : filterInput}
                 className={`${styles.FormInput} ${colors}`}
               ></input>
             </div>

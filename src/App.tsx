@@ -1,4 +1,4 @@
-import React from 'react';
+import { Fragment } from 'react';
 import styles from './App.module.css';
 import Header from './components/Header/Header';
 import { Routes, Route } from 'react-router-dom';
@@ -13,7 +13,7 @@ function App() {
   const isdayModeActive = useAppSelector((state) => state.movies.dayMode);
 
   return (
-    <React.Fragment>
+    <Fragment>
       <main className={isdayModeActive ? styles.dayMode : styles.nightMode}>
         <Header></Header>
         <Routes>
@@ -24,7 +24,7 @@ function App() {
           <Route path={`/editfilm/:productId`} element={<EditOwnMoviePage />} />
         </Routes>
       </main>
-    </React.Fragment>
+    </Fragment>
   );
 }
 
