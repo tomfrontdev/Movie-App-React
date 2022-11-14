@@ -16,7 +16,6 @@ const EditOwnMoviePage = () => {
   const index = ownMovieList.findIndex((movie) => movie.id === urlID);
 
   useEffect(() => {
-    dispatch(moviesActions.setFetchedData(true));
     dispatch(moviesActions.setForm(false));
   }, [dispatch]);
 

@@ -7,7 +7,6 @@ const AddOwnMoviePage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(moviesActions.setFetchedData(true));
     dispatch(moviesActions.setForm(false));
   }, [dispatch]);
 

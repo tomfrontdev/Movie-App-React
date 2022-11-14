@@ -33,7 +33,6 @@ type State = {
 const initialState: State = {
   movieList: [],
   favMovieList: JSON.parse(localStorage.getItem('favList')!),
-  // ownMovieList: [],
   ownMovieList: JSON.parse(localStorage.getItem('ownMovieList')!),
   clickedMovie: null,
   movieTitle: '',
@@ -42,7 +41,7 @@ const initialState: State = {
   searchInput: localStorage.getItem('searchInput')!,
   isDataFetched: false,
   isFormActive: true,
-  sortFormInputValue: '',
+  sortFormInputValue: localStorage.getItem('sortInputValue')!,
   filterInput: '',
   dayMode: localStorage.getItem('dayMode') === 'true',
   showRemoveItemModal: false,
@@ -85,6 +84,7 @@ const moviesSlice = createSlice({
     },
     setInputValue(state, action) {
       state.sortFormInputValue = action.payload;
+      localStorage.setItem('sortInputValue', action.payload);
     },
     sort(state, action) {
       const title = action.payload.sortBy;

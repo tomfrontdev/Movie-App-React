@@ -29,6 +29,11 @@
   position: relative;
 }
 
+.Moviecontainer:hover {
+  transform: scale(1.05);
+  transition: 0.3s;
+}
+
 .Moviescorecontainer {
   position: absolute;
   right: -3px;
@@ -50,21 +55,6 @@
 .Moviescorecontainer p {
   margin: auto;
   font-size: 0.7rem;
-}
-
-@keyframes animateddiv {
-  0% {
-    transform: scale(0.8);
-    opacity: 0.2;
-  }
-  50% {
-    transform: scale(1);
-    opacity: 0.4;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 0.6;
-  }
 }
 
 .Movietitle {

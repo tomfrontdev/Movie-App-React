@@ -9,7 +9,6 @@ const AddedFilms = () => {
   const ownMovieList = useAppSelector((state) => state.movies.ownMovieList);
 
   useEffect(() => {
-    dispatch(moviesActions.setFetchedData(false));
     dispatch(moviesActions.setForm(false));
   }, [dispatch]);
 

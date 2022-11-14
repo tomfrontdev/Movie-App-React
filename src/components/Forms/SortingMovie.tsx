@@ -16,23 +16,21 @@ const SortingMovie = ({ movieListname }: AppProps) => {
     (state) => state.movies.sortFormInputValue
   );
 
-  const setInputValue = (value: any) => {
-    dispatch(moviesActions.setInputValue(value));
-  };
-
   useEffect(() => {
-    const sortParams = sortInputValue.split(' ');
-    const title = sortParams[0];
-    const titletoLowerCase = title.toLowerCase();
-    const order = sortParams[1];
+    if (sortInputValue) {
+      const sortParams = sortInputValue.split(' ');
+      const title = sortParams[0];
+      const titletoLowerCase = title.toLowerCase();
+      const order = sortParams[1];
 
-    dispatch(
-      moviesActions.sort({
-        movieListname,
-        sortBy: titletoLowerCase,
-        sortDirection: order,
-      })
-    );
+      dispatch(
+        moviesActions.sort({
+          movieListname,
+          sortBy: titletoLowerCase,
+          sortDirection: order,
+        })
+      );
+    }
   }, [dispatch, movieListname, sortInputValue]);
 
   const colors = isdayModeActive ? `${styles.dayMode}` : `${styles.nightMode}`;
@@ -52,8 +50,7 @@ const SortingMovie = ({ movieListname }: AppProps) => {
           name="filterbyCategory"
           onChange={(event) => {
             event.preventDefault();
-            const target = event.target;
-            setInputValue(target.value);
+            dispatch(moviesActions.setInputValue(event.target.value));
           }}
         >
           <option value="Title (ascending)">Title (ascending)</option>

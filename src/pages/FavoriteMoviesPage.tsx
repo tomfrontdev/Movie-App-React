@@ -3,7 +3,6 @@ import MovieList from '../components/Movies/MovieList';
 import Pagination from '../components/Pagination/Pagination';
 import { moviesActions } from '../store/movies-slice';
 import { useState, useEffect } from 'react';
-import SortingMovie from '../components/Forms/SortingMovie';
 import ErrorMessages from '../components/ErrorMessages/ErrorMessages';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 
@@ -24,8 +23,7 @@ const FavoriteMoviesPage = () => {
   };
 
   useEffect(() => {
-    dispatch(moviesActions.setFetchedData(false));
-    dispatch(moviesActions.setForm(true));
+    dispatch(moviesActions.setForm(false));
     if (window.innerWidth < 812) {
       setisScreenLarge(false);
     }
@@ -48,7 +46,6 @@ const FavoriteMoviesPage = () => {
 
   return (
     <React.Fragment>
-      <SortingMovie movieListname={'filteredMovies'}></SortingMovie>
       <MovieList movie={currentPosts} addedMovies={false}></MovieList>
       {favMovieList.length === 0 && (
         <ErrorMessages>No fav movies found!:(</ErrorMessages>
