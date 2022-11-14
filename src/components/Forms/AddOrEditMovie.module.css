@@ -18,9 +18,13 @@
   background-color: black;
   color: white;
   border: 1px solid black;
-  margin-top: 25px;
 }
 
+.FormTitleInputWrapper {
+  box-shadow: 0 0 5px #719ece;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 .successmsg {
   color: green;
   font-size: 1.2rem;
@@ -44,10 +48,6 @@
 
 .Form {
   margin: auto;
-}
-
-.FormInput:focus {
-  box-shadow: 0 0 10px #719ece;
 }
 
 .FormSubmitBtnWrapper {

@@ -22,7 +22,6 @@ export const fetchMoviesData = (value: string) => {
             id: movie.id,
             year: movie.premiered,
             title: movie.name,
-            favorite: false,
             img: movie.image ? movie.image.medium : 'brokenimage.svg',
             rating: movie.rating.average,
           };
@@ -36,7 +35,6 @@ export const fetchMoviesData = (value: string) => {
       dispatch(moviesActions.addMovies(transformedMoviesData));
       dispatch(moviesActions.showLoadingSpinner(false));
     } catch (error) {
-      console.log(error);
       dispatch(moviesActions.showLoadingSpinner(false));
       dispatch(moviesActions.errorFetchingData(error.message));
     }

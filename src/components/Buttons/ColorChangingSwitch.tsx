@@ -1,26 +1,16 @@
 import classes from '../Buttons/ColorChangingSwitch.module.css';
 import { moviesActions } from '../../store/movies-slice';
 import { useDispatch } from 'react-redux';
-import { Fragment, useLayoutEffect, useState } from 'react';
+import { Fragment } from 'react';
+import { useAppSelector } from '../../store/hooks';
 
 const ToggleSwitch = () => {
-  const [isSliderChecked, setisSliderChecked] = useState(
-    JSON.parse(localStorage.getItem('isInputClicked')!)
-  );
+  const isdayModeActive = useAppSelector((state) => state.movies.dayMode);
 
   const dispatch = useDispatch();
 
-  useLayoutEffect(() => {
-    localStorage.setItem('isInputClicked', JSON.stringify(isSliderChecked));
-    if (isSliderChecked) {
-      dispatch(moviesActions.toggledayMode(true));
-    } else {
-      dispatch(moviesActions.toggledayMode(false));
-    }
-  }, [isSliderChecked]);
-
   const toggledayMode = () => {
-    setisSliderChecked(!isSliderChecked);
+    dispatch(moviesActions.toggledayMode(!isdayModeActive));
   };
 
   return (
@@ -35,7 +25,7 @@ const ToggleSwitch = () => {
 
           <span
             className={
-              isSliderChecked
+              isdayModeActive
                 ? classes.slider + ' ' + classes.sliderChecked
                 : classes.slider + ' ' + classes.sliderNotChecked
             }

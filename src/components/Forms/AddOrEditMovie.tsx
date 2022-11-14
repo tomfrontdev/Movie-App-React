@@ -153,6 +153,9 @@ const AddOrEditMovie = ({
   }, [movieTitle, movieRating, emptyRatingInput, emptyTitleInput]);
 
   useEffect(() => {
+    if (movieInput.current != null) {
+      movieInput.current.focus();
+    }
     if (
       title &&
       rating &&
@@ -190,7 +193,7 @@ const AddOrEditMovie = ({
           onSubmit={editMovie ? submitEditMovie : submitformValidation}
         >
           <div className={styles.FormAddFilmWrapper}>
-            <div className={styles.FormInputWrapper}>
+            <div className={styles.FormTitleInputWrapper}>
               <input
                 type="text"
                 onChange={(e) => {
@@ -213,7 +216,7 @@ const AddOrEditMovie = ({
                 </ErrorMessages>
               )}
             </div>
-            <div className={styles.FormInputWrapper}>
+            <div className={styles.FormRatingInputWrapper}>
               <input
                 type="text"
                 ref={movieRatingInput}

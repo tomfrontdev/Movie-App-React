@@ -13,7 +13,6 @@ type State = {
   favMovieList: Movie[];
   ownMovieList: Movie[];
   clickedMovie: Movie | null;
-  filteredMovies: Movie[];
   movieTitle: string;
   movieRating: string;
   editMovie: boolean;
@@ -33,19 +32,19 @@ type State = {
 
 const initialState: State = {
   movieList: [],
-  favMovieList: [],
-  ownMovieList: [],
-  filteredMovies: [],
+  favMovieList: JSON.parse(localStorage.getItem('favList')!),
+  // ownMovieList: [],
+  ownMovieList: JSON.parse(localStorage.getItem('ownMovieList')!),
   clickedMovie: null,
   movieTitle: '',
   movieRating: '',
   editMovie: false,
-  searchInput: '',
+  searchInput: localStorage.getItem('searchInput')!,
   isDataFetched: false,
   isFormActive: true,
   sortFormInputValue: '',
   filterInput: '',
-  dayMode: false,
+  dayMode: localStorage.getItem('dayMode') === 'true',
   showRemoveItemModal: false,
   error: '',
   isdataLoading: false,
@@ -106,11 +105,10 @@ const moviesSlice = createSlice({
         );
       }
     },
-    filterMovies(state, action) {
-      state.filteredMovies = action.payload;
-    },
+
     setsearchInput(state, action) {
       state.searchInput = action.payload;
+      localStorage.setItem('searchInput', action.payload);
     },
     setfilterInputValue(state, action) {
       state.filterInput = action.payload;
@@ -123,6 +121,7 @@ const moviesSlice = createSlice({
     },
     addOwnMovies(state, action) {
       state.ownMovieList = [...state.ownMovieList, action.payload];
+      localStorage.setItem('ownMovieList', JSON.stringify(state.ownMovieList));
     },
     setclickedMovie(state, action) {
       state.clickedMovie = action.payload;
@@ -135,20 +134,21 @@ const moviesSlice = createSlice({
     editMovie(state, action) {
       const id = action.payload.id;
       state.ownMovieList[id] = action.payload;
-      console.log(id);
     },
     addMovieToFav(state, action) {
       state.favMovieList = [...state.favMovieList, action.payload];
-      state.filteredMovies = state.favMovieList;
+
+      localStorage.setItem('favList', JSON.stringify(state.favMovieList));
     },
     removeMovieFromFav(state, action) {
       state.favMovieList = state.favMovieList.filter(
         (movie) => movie.id !== action.payload
       );
-      state.filteredMovies = state.favMovieList;
+      localStorage.setItem('favList', JSON.stringify(state.favMovieList));
     },
     toggledayMode(state, action) {
       state.dayMode = action.payload;
+      localStorage.setItem('dayMode', action.payload);
     },
     toggleRemoveModal(state) {
       state.showRemoveItemModal = !state.showRemoveItemModal;

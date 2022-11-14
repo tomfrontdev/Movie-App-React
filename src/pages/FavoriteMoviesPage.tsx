@@ -16,7 +16,7 @@ const FavoriteMoviesPage = () => {
   const postsPerPageSmallScreen = useAppSelector(
     (state) => state.movies.postsPerPageSmallScreen
   );
-  const filteredMovies = useAppSelector((state) => state.movies.filteredMovies);
+  const favMovieList = useAppSelector((state) => state.movies.favMovieList);
   const [isScreenLarge, setisScreenLarge] = useState(true);
 
   const changePage = (value: number) => {
@@ -39,22 +39,22 @@ const FavoriteMoviesPage = () => {
   if (window.innerWidth <= 812) {
     const lastPostIndex = currentPage * postsPerPageSmallScreen;
     const firstPostIndex = lastPostIndex - postsPerPageSmallScreen;
-    currentPosts = filteredMovies.slice(firstPostIndex, lastPostIndex);
+    currentPosts = favMovieList.slice(firstPostIndex, lastPostIndex);
   } else {
     const lastPostIndex = currentPage * postsPerPageLargeScreen;
     const firstPostIndex = lastPostIndex - postsPerPageLargeScreen;
-    currentPosts = filteredMovies.slice(firstPostIndex, lastPostIndex);
+    currentPosts = favMovieList.slice(firstPostIndex, lastPostIndex);
   }
 
   return (
     <React.Fragment>
       <SortingMovie movieListname={'filteredMovies'}></SortingMovie>
       <MovieList movie={currentPosts} addedMovies={false}></MovieList>
-      {filteredMovies.length === 0 && (
+      {favMovieList.length === 0 && (
         <ErrorMessages>No fav movies found!:(</ErrorMessages>
       )}
       <Pagination
-        totalPosts={filteredMovies.length}
+        totalPosts={favMovieList.length}
         postsPerPage={
           isScreenLarge ? postsPerPageLargeScreen : postsPerPageSmallScreen
         }
