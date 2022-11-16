@@ -41,7 +41,7 @@ const initialState: State = {
   searchInput: localStorage.getItem('searchInput')!,
   isDataFetched: false,
   isFormActive: true,
-  sortInputValue: localStorage.getItem('sortInputValue')!,
+  sortInputValue: localStorage.getItem('sortInputValue')! ?? '',
   filterInput: '',
   dayMode: localStorage.getItem('dayMode') === 'true',
   showRemoveItemModal: false,
