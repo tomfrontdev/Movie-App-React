@@ -19,7 +19,7 @@ type State = {
   searchInput: string;
   isDataFetched: boolean;
   isFormActive: boolean;
-  sortFormInputValue: string;
+  sortInputValue: string;
   filterInput: string;
   dayMode: boolean;
   showRemoveItemModal: boolean;
@@ -41,7 +41,7 @@ const initialState: State = {
   searchInput: localStorage.getItem('searchInput')!,
   isDataFetched: false,
   isFormActive: true,
-  sortFormInputValue: '',
+  sortInputValue: localStorage.getItem('sortInputValue')!,
   filterInput: '',
   dayMode: localStorage.getItem('dayMode') === 'true',
   showRemoveItemModal: false,
@@ -58,6 +58,22 @@ const moviesSlice = createSlice({
   reducers: {
     addMovies(state, action) {
       state.movieList = action.payload;
+      const sortParams = state.sortInputValue.split(' ');
+      const title = sortParams[0];
+      const titletoLowerCase = title.toLowerCase();
+      const order = sortParams[1];
+      if (order === '(ascending)') {
+        state.movieList = state.movieList.sort((a, b) =>
+          // @ts-ignore
+          a[titletoLowerCase] > b[titletoLowerCase] ? 1 : -1
+        );
+      }
+      if (order === '(descending)') {
+        state.movieList = state.movieList.sort((a, b) =>
+          // @ts-ignore
+          a[titletoLowerCase] > b[titletoLowerCase] ? -1 : 1
+        );
+      }
     },
 
     setFetchedData(state, action) {
@@ -66,22 +82,25 @@ const moviesSlice = createSlice({
     setForm(state, action) {
       state.isFormActive = action.payload;
     },
-    setInputValue(state, action) {
-      state.sortFormInputValue = action.payload;
+    sortInputValue(state, action) {
+      state.sortInputValue = action.payload;
       localStorage.setItem('sortInputValue', action.payload);
     },
     sort(state, action) {
       const order = action.payload.sortDirection;
+      const sortBy = action.payload.sortBy;
       if (order === '(ascending)') {
         // @ts-ignore
         state.movieList = state.movieList.sort((a, b) =>
-          a.title > b.title ? 1 : -1
+          // @ts-ignore
+          a[sortBy] > b[sortBy] ? 1 : -1
         );
       }
       if (order === '(descending)') {
         // @ts-ignore
         state.movieList = state.movieList.sort((a, b) =>
-          a.title > b.title ? -1 : 1
+          // @ts-ignore
+          a[sortBy] > b[sortBy] ? -1 : 1
         );
       }
     },
@@ -101,7 +120,6 @@ const moviesSlice = createSlice({
     },
     addOwnMovies(state, action) {
       state.ownMovieList = [...state.ownMovieList, action.payload];
-      console.log(state.ownMovieList);
       localStorage.setItem('ownMovieList', JSON.stringify(state.ownMovieList));
     },
     setclickedMovie(state, action) {

@@ -8,9 +8,7 @@ const SortingMovie = () => {
   const dispatch = useAppDispatch();
   const isdayModeActive = useAppSelector((state) => state.movies.dayMode);
 
-  const sortInputValue = useAppSelector(
-    (state) => state.movies.sortFormInputValue
-  );
+  const sortInputValue = useAppSelector((state) => state.movies.sortInputValue);
 
   useEffect(() => {
     const sortParams = sortInputValue.split(' ');
@@ -43,7 +41,7 @@ const SortingMovie = () => {
           name="filterbyCategory"
           onChange={(event) => {
             event.preventDefault();
-            dispatch(moviesActions.setInputValue(event.target.value));
+            dispatch(moviesActions.sortInputValue(event.target.value));
           }}
         >
           <option value="Title (ascending)">Title (ascending)</option>
