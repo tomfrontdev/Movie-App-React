@@ -22,7 +22,9 @@ export const fetchMoviesData = (value: string) => {
             id: movie.id,
             year: movie.premiered,
             title: movie.name,
-            img: movie.image ? movie.image.medium : 'brokenimage.svg',
+            img: movie.image
+              ? movie.image.medium
+              : 'https://www.linkpicture.com/q/brokenimage.png',
             rating: movie.rating.average,
           };
         }

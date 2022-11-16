@@ -2,7 +2,7 @@ import styles from '../Movies/MovieList.module.css';
 import SingleMovie from './SingleMovie';
 import { moviesActions } from '../../store/movies-slice';
 import { Navigate } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import RemoveItemModal from '../Modals/RemoveItemModal';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 
@@ -22,8 +22,10 @@ type AppProps = {
 const MovieList = ({ movie, addedMovies }: AppProps) => {
   const dispatch = useAppDispatch();
 
-  const favMovieList = useAppSelector((state) => state.movies.favMovieList);
-  const ownMovieList = useAppSelector((state) => state.movies.ownMovieList);
+  const favMovieList =
+    useAppSelector((state) => state.movies.favMovieList) ?? [];
+  const ownMovieList =
+    useAppSelector((state) => state.movies.ownMovieList) ?? [];
   const clickedMovie = useAppSelector((state) => state.movies.clickedMovie);
 
   const [redirect, setRedirect] = useState(false);
@@ -44,7 +46,9 @@ const MovieList = ({ movie, addedMovies }: AppProps) => {
           <ul>
             <div className={styles.MovieListcontainer}>
               {movie.map((movie) =>
-                favMovieList.find((favMovie) => favMovie.id === movie.id) ? (
+                favMovieList.find(
+                  (favMovie: { id: number }) => favMovie.id === movie.id
+                ) ? (
                   <React.Fragment key={movie.id}>
                     <SingleMovie
                       redirectToForm={redirectToForm}

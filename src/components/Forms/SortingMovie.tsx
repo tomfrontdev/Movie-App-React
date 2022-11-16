@@ -4,11 +4,7 @@ import { moviesActions } from '../../store/movies-slice';
 import { useEffect } from 'react';
 import ToggleSwitch from '../Buttons/ColorChangingSwitch';
 
-type AppProps = {
-  movieListname: string;
-};
-
-const SortingMovie = ({ movieListname }: AppProps) => {
+const SortingMovie = () => {
   const dispatch = useAppDispatch();
   const isdayModeActive = useAppSelector((state) => state.movies.dayMode);
 
@@ -17,21 +13,18 @@ const SortingMovie = ({ movieListname }: AppProps) => {
   );
 
   useEffect(() => {
-    if (sortInputValue) {
-      const sortParams = sortInputValue.split(' ');
-      const title = sortParams[0];
-      const titletoLowerCase = title.toLowerCase();
-      const order = sortParams[1];
+    const sortParams = sortInputValue.split(' ');
+    const title = sortParams[0];
+    const titletoLowerCase = title.toLowerCase();
+    const order = sortParams[1];
 
-      dispatch(
-        moviesActions.sort({
-          movieListname,
-          sortBy: titletoLowerCase,
-          sortDirection: order,
-        })
-      );
-    }
-  }, [dispatch, movieListname, sortInputValue]);
+    dispatch(
+      moviesActions.sort({
+        sortBy: titletoLowerCase,
+        sortDirection: order,
+      })
+    );
+  }, [dispatch, sortInputValue]);
 
   const colors = isdayModeActive ? `${styles.dayMode}` : `${styles.nightMode}`;
 

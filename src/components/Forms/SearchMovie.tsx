@@ -47,7 +47,7 @@ const SearchMovie = () => {
                 }}
                 type="text"
                 placeholder={'Search for movies..'}
-                value={searchInput}
+                value={searchInput ? searchInput : ''}
                 className={`${styles.FormInput} ${colors}`}
               ></input>
             </div>

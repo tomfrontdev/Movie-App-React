@@ -44,7 +44,7 @@ const Header = () => {
               className={classes.hamburger}
               style={{ color: darkorlightMode }}
             />
-            {favMovieList.length > 0 && (
+            {favMovieList && favMovieList.length > 0 && (
               <MdFavorite
                 className={`${btn.headerfavIcon} ${colors}`}
               ></MdFavorite>

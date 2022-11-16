@@ -15,7 +15,8 @@ const FavoriteMoviesPage = () => {
   const postsPerPageSmallScreen = useAppSelector(
     (state) => state.movies.postsPerPageSmallScreen
   );
-  const favMovieList = useAppSelector((state) => state.movies.favMovieList);
+  const favMovieList =
+    useAppSelector((state) => state.movies.favMovieList) ?? [];
   const [isScreenLarge, setisScreenLarge] = useState(true);
 
   const changePage = (value: number) => {

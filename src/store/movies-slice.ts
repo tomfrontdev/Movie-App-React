@@ -10,8 +10,8 @@ type Movie = {
 
 type State = {
   movieList: Movie[];
-  favMovieList: Movie[];
-  ownMovieList: Movie[];
+  favMovieList: Movie[] | [];
+  ownMovieList: Movie[] | [];
   clickedMovie: Movie | null;
   movieTitle: string;
   movieRating: string;
@@ -32,8 +32,8 @@ type State = {
 
 const initialState: State = {
   movieList: [],
-  favMovieList: JSON.parse(localStorage.getItem('favList')!),
-  ownMovieList: JSON.parse(localStorage.getItem('ownMovieList')!),
+  favMovieList: JSON.parse(localStorage.getItem('favList')!) ?? [],
+  ownMovieList: JSON.parse(localStorage.getItem('ownMovieList')!) ?? [],
   clickedMovie: null,
   movieTitle: '',
   movieRating: '',
@@ -41,7 +41,7 @@ const initialState: State = {
   searchInput: localStorage.getItem('searchInput')!,
   isDataFetched: false,
   isFormActive: true,
-  sortFormInputValue: localStorage.getItem('sortInputValue')!,
+  sortFormInputValue: '',
   filterInput: '',
   dayMode: localStorage.getItem('dayMode') === 'true',
   showRemoveItemModal: false,
@@ -87,21 +87,17 @@ const moviesSlice = createSlice({
       localStorage.setItem('sortInputValue', action.payload);
     },
     sort(state, action) {
-      const title = action.payload.sortBy;
       const order = action.payload.sortDirection;
-      const movieList = action.payload.movieListname;
       if (order === '(ascending)') {
         // @ts-ignore
-        state[movieList] = state[movieList].sort(
-          (a: { [x: string]: number }, b: { [x: string]: number }) =>
-            a[title] > b[title] ? 1 : -1
+        state.movieList = state.movieList.sort((a, b) =>
+          a.title > b.title ? 1 : -1
         );
       }
       if (order === '(descending)') {
         // @ts-ignore
-        state[movieList] = state[movieList].sort(
-          (a: { [x: string]: number }, b: { [x: string]: number }) =>
-            a[title] > b[title] ? -1 : 1
+        state.movieList = state.movieList.sort((a, b) =>
+          a.title > b.title ? -1 : 1
         );
       }
     },
@@ -121,6 +117,7 @@ const moviesSlice = createSlice({
     },
     addOwnMovies(state, action) {
       state.ownMovieList = [...state.ownMovieList, action.payload];
+      console.log(state.ownMovieList);
       localStorage.setItem('ownMovieList', JSON.stringify(state.ownMovieList));
     },
     setclickedMovie(state, action) {
@@ -130,14 +127,15 @@ const moviesSlice = createSlice({
       state.ownMovieList = state.ownMovieList.filter(
         (movie) => movie.id !== state.clickedMovie!.id
       );
+      localStorage.setItem('ownMovieList', JSON.stringify(state.ownMovieList));
     },
     editMovie(state, action) {
       const id = action.payload.id;
       state.ownMovieList[id] = action.payload;
+      localStorage.setItem('ownMovieList', JSON.stringify(state.ownMovieList));
     },
     addMovieToFav(state, action) {
       state.favMovieList = [...state.favMovieList, action.payload];
-
       localStorage.setItem('favList', JSON.stringify(state.favMovieList));
     },
     removeMovieFromFav(state, action) {

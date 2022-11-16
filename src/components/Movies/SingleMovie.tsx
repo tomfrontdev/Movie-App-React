@@ -29,8 +29,10 @@ const SingleMovie = ({
   const dispatch = useAppDispatch();
   const IMAGE_BASE_URL = imgSrc;
   const movieList = useAppSelector((state) => state.movies.movieList);
-  const favMovieList = useAppSelector((state) => state.movies.favMovieList);
-  const ownMovieList = useAppSelector((state) => state.movies.ownMovieList);
+  const favMovieList =
+    useAppSelector((state) => state.movies.favMovieList) ?? [];
+  const ownMovieList =
+    useAppSelector((state) => state.movies.ownMovieList) ?? [];
 
   const handleFavoriteMovies = (id: number) => {
     const selectedMovie = movieList.find((movie) => movie.id === id);

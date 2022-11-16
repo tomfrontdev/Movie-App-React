@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './Nav.module.css';
 import { NavLink } from 'react-router-dom';
 import { MdFavorite } from 'react-icons/md';
@@ -7,7 +7,8 @@ import { useAppSelector } from '../../store/hooks';
 
 const Nav = ({ darkorlightMode }: { darkorlightMode: string }) => {
   const isdayModeActive = useAppSelector((state) => state.movies.dayMode);
-  const favMovieList = useAppSelector((state) => state.movies.favMovieList);
+  const favMovieList =
+    useAppSelector((state) => state.movies.favMovieList) ?? [];
 
   const colors = isdayModeActive ? `${btn.nightMode}` : `${btn.dayMode}`;
 

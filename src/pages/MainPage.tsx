@@ -70,7 +70,7 @@ const MainPage = () => {
 
   return (
     <React.Fragment>
-      <SortingMovie movieListname={'movieList'}></SortingMovie>
+      <SortingMovie></SortingMovie>
       <MovieList addedMovies={false} movie={currentPosts}></MovieList>
       <Pagination
         totalPosts={moviesList.length}

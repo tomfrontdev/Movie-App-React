@@ -6,7 +6,8 @@ import { ErrorMessages } from '../components/ErrorMessages';
 
 const AddedFilms = () => {
   const dispatch = useAppDispatch();
-  const ownMovieList = useAppSelector((state) => state.movies.ownMovieList);
+  const ownMovieList =
+    useAppSelector((state) => state.movies.ownMovieList) ?? JSON.stringify([]);
 
   useEffect(() => {
     dispatch(moviesActions.setForm(false));
