@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import classes from './Nav.module.css';
 import { NavLink } from 'react-router-dom';
 import { MdFavorite } from 'react-icons/md';

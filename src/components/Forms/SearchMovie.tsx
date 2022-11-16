@@ -1,4 +1,4 @@
-import { useRef, useCallback, useEffect } from 'react';
+import { useRef, useCallback } from 'react';
 import styles from '../Forms/SearchMovie.module.css';
 import { FaSearch } from 'react-icons/fa';
 import { Fragment, useMemo } from 'react';

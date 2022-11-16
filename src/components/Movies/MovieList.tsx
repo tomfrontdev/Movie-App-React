@@ -2,7 +2,7 @@ import styles from '../Movies/MovieList.module.css';
 import SingleMovie from './SingleMovie';
 import { moviesActions } from '../../store/movies-slice';
 import { Navigate } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import RemoveItemModal from '../Modals/RemoveItemModal';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 

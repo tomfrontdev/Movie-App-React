@@ -58,22 +58,6 @@ const moviesSlice = createSlice({
   reducers: {
     addMovies(state, action) {
       state.movieList = action.payload;
-      const sortParams = state.sortFormInputValue.split(' ');
-      const title = sortParams[0];
-      const titletoLowerCase = title.toLowerCase();
-      const order = sortParams[1];
-      if (order === '(ascending)') {
-        state.movieList = state.movieList.sort((a, b) =>
-          // @ts-ignore
-          a[titletoLowerCase] > b[titletoLowerCase] ? 1 : -1
-        );
-      }
-      if (order === '(descending)') {
-        state.movieList = state.movieList.sort((a, b) =>
-          // @ts-ignore
-          a[titletoLowerCase] > b[titletoLowerCase] ? -1 : 1
-        );
-      }
     },
 
     setFetchedData(state, action) {

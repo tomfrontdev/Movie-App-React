@@ -27,7 +27,7 @@ const MainPage = () => {
   const searchInput = useAppSelector((state) => state.movies.searchInput);
 
   useEffect(() => {
-    if (searchInput == '') {
+    if (searchInput === '') {
       dispatch(fetchMoviesData('girls'));
     } else {
       dispatch(fetchMoviesData(searchInput));
