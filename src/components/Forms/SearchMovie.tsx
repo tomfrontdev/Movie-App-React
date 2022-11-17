@@ -46,7 +46,7 @@ const SearchMovie = () => {
                   debouncedEventHandler(e.target.value);
                 }}
                 type="text"
-                placeholder={'Search for moviesss..'}
+                placeholder={'Search for movies..'}
                 value={searchInput ? searchInput : ''}
                 className={`${styles.FormInput} ${colors}`}
               ></input>

@@ -11,19 +11,17 @@ const SortingMovie = () => {
   const sortInputValue = useAppSelector((state) => state.movies.sortInputValue);
 
   useEffect(() => {
-    if (sortInputValue !== null) {
-      const sortParams = sortInputValue.split(' ');
-      const title = sortParams[0];
-      const titletoLowerCase = title.toLowerCase();
-      const order = sortParams[1];
+    const sortParams = sortInputValue.split(' ');
+    const title = sortParams[0];
+    const titletoLowerCase = title.toLowerCase();
+    const order = sortParams[1];
 
-      dispatch(
-        moviesActions.sort({
-          sortBy: titletoLowerCase,
-          sortDirection: order,
-        })
-      );
-    }
+    dispatch(
+      moviesActions.sort({
+        sortBy: titletoLowerCase,
+        sortDirection: order,
+      })
+    );
   }, [dispatch, sortInputValue]);
 
   const colors = isdayModeActive ? `${styles.dayMode}` : `${styles.nightMode}`;
@@ -38,7 +36,7 @@ const SortingMovie = () => {
       </label>
       <div className={styles.sorttypeselectcontainer}>
         <select
-          defaultValue={'Title (ascending)'}
+          defaultValue={sortInputValue}
           className={`${styles.sortytypeselect} ${colors}`}
           name="filterbyCategory"
           onChange={(event) => {

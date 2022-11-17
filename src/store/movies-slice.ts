@@ -28,6 +28,7 @@ type State = {
   postsPerPageLargeScreen: number;
   postsPerPageSmallScreen: number;
   showDropDownModal: boolean;
+  currentPage: any;
 };
 
 const initialState: State = {
@@ -37,11 +38,13 @@ const initialState: State = {
   clickedMovie: null,
   movieTitle: '',
   movieRating: '',
+  currentPage: localStorage.getItem('currentPage')!,
   editMovie: false,
   searchInput: localStorage.getItem('searchInput')!,
   isDataFetched: false,
   isFormActive: true,
-  sortInputValue: localStorage.getItem('sortInputValue')! ?? '',
+  sortInputValue:
+    localStorage.getItem('sortInputValue')! ?? 'Title (ascending)',
   filterInput: '',
   dayMode: localStorage.getItem('dayMode') === 'true',
   showRemoveItemModal: false,

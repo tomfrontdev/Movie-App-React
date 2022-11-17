@@ -1,9 +1,11 @@
 .FormWrapper {
   margin-bottom: 25px;
   display: flex;
-  border-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
   justify-content: center;
   position: absolute;
+  padding-left: 5px;
   right: 0;
   top: 25px;
   margin: auto;
