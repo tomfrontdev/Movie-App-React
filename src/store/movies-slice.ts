@@ -38,7 +38,7 @@ const initialState: State = {
   clickedMovie: null,
   movieTitle: '',
   movieRating: '',
-  currentPage: localStorage.getItem('currentPage')!,
+  currentPage: '',
   editMovie: false,
   searchInput: localStorage.getItem('searchInput')!,
   isDataFetched: false,

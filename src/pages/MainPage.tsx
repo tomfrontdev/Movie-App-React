@@ -25,6 +25,8 @@ const MainPage = () => {
   const [isScreenLarge, setisScreenLarge] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const searchInput = useAppSelector((state) => state.movies.searchInput);
+  const lastPostIndex = currentPage * postsPerPageSmallScreen;
+  const firstPostIndex = lastPostIndex - postsPerPageSmallScreen;
 
   useEffect(() => {
     if (searchInput === '') {
