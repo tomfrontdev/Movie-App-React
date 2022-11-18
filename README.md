@@ -1,4 +1,4 @@
-Welcome!
+## Welcome! 👋
 
 What are the functionalities in the project? We can search for movies from the API, add to favorites, add our own movie, delete our own movie, edit our own movie.
 
