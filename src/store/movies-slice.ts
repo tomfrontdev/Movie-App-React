@@ -109,8 +109,6 @@ const moviesSlice = createSlice({
           a[sortTitle] > b[sortTitle] ? -1 : 1
         );
       }
-      console.log(sortTitle);
-      console.log(sortDirection);
       localStorage.setItem('sortInputValue', action.payload);
     },
 
