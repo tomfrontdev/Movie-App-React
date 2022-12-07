@@ -9,11 +9,9 @@ type AppProps = {
 
 const Button = ({ children, onClick, classTitle }: AppProps) => {
   return (
-    <React.Fragment>
-      <button className={classTitle} onClick={onClick}>
-        {children}
-      </button>
-    </React.Fragment>
+    <button className={classTitle} onClick={onClick}>
+      {children}
+    </button>
   );
 };
 

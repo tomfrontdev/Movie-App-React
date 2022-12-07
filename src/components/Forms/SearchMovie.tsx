@@ -12,6 +12,7 @@ const SearchMovie = () => {
   const searchInputRef = useRef<HTMLInputElement | null>(null);
   const isdayModeActive = useAppSelector((state) => state.movies.dayMode);
   const searchInput = useAppSelector((state) => state.movies.searchInput);
+  const moviesList = useAppSelector((state) => state.movies.movieList);
 
   const fetchMoviesHandler = useCallback(
     (value: string) => {
@@ -25,7 +26,7 @@ const SearchMovie = () => {
     [fetchMoviesHandler]
   );
 
-  const colors = isdayModeActive ? `${styles.dayMode}` : `${styles.nightMode}`;
+  const colors = isdayModeActive ? styles.dayMode : styles.nightMode;
 
   return (
     <Fragment>
@@ -44,6 +45,11 @@ const SearchMovie = () => {
                 onChange={(e) => {
                   dispatch(moviesActions.setsearchInput(e.target.value));
                   debouncedEventHandler(e.target.value);
+                  if (moviesList.length > 0) {
+                    dispatch(moviesActions.setFoundMovies(true));
+                  } else {
+                    dispatch(moviesActions.setFoundMovies(false));
+                  }
                 }}
                 type="text"
                 placeholder={'Search for movies..'}

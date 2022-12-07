@@ -10,21 +10,7 @@ const SortingMovie = () => {
 
   const sortInputValue = useAppSelector((state) => state.movies.sortInputValue);
 
-  useEffect(() => {
-    const sortParams = sortInputValue.split(' ');
-    const title = sortParams[0];
-    const titletoLowerCase = title.toLowerCase();
-    const order = sortParams[1];
-
-    dispatch(
-      moviesActions.sort({
-        sortBy: titletoLowerCase,
-        sortDirection: order,
-      })
-    );
-  }, [dispatch, sortInputValue]);
-
-  const colors = isdayModeActive ? `${styles.dayMode}` : `${styles.nightMode}`;
+  const colors = isdayModeActive ? styles.dayMode : styles.nightMode;
 
   return (
     <section className={styles.sorttypelistcontainer}>

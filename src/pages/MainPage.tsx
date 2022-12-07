@@ -15,18 +15,17 @@ const MainPage = () => {
   const moviesList = useAppSelector((state) => state.movies.movieList);
   const fetchingError = useAppSelector((state) => state.movies.error);
   const isdataLoading = useAppSelector((state) => state.movies.isdataLoading);
+  const moviesFound = useAppSelector((state) => state.movies.moviesFound);
+
   const postsPerPageLargeScreen = useAppSelector(
     (state) => state.movies.postsPerPageLargeScreen
   );
   const postsPerPageSmallScreen = useAppSelector(
     (state) => state.movies.postsPerPageSmallScreen
   );
-  const [foundMovies, setfoundMovies] = useState(true);
   const [isScreenLarge, setisScreenLarge] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const searchInput = useAppSelector((state) => state.movies.searchInput);
-  const lastPostIndex = currentPage * postsPerPageSmallScreen;
-  const firstPostIndex = lastPostIndex - postsPerPageSmallScreen;
 
   useEffect(() => {
     if (searchInput === '') {
@@ -40,12 +39,6 @@ const MainPage = () => {
   }, [dispatch, searchInput]);
 
   useEffect(() => {
-    if (moviesList.length === 0) {
-      setfoundMovies(false);
-    }
-    if (moviesList.length > 0) {
-      setfoundMovies(true);
-    }
     if (window.innerWidth < 812) {
       setisScreenLarge(false);
     }
@@ -83,7 +76,7 @@ const MainPage = () => {
         handlePageChange={changePage}
       ></Pagination>
       {isdataLoading && <Spinner></Spinner>}
-      {!foundMovies && !fetchingError && (
+      {!moviesFound && !fetchingError && (
         <ErrorMessages>No movies found!:(</ErrorMessages>
       )}
       {fetchingError && <ErrorMessages>{fetchingError}</ErrorMessages>}

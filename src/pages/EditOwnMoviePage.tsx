@@ -25,8 +25,8 @@ const EditOwnMoviePage = () => {
         text={'Edit'}
         editMovie={true}
         index={index}
-        title={ownMovieList[index] ? ownMovieList[index].title : undefined}
-        rating={ownMovieList[index] ? ownMovieList[index].rating : undefined}
+        title={ownMovieList[index]?.title}
+        rating={ownMovieList[index]?.title}
       ></AddOrEditMovie>
     </React.Fragment>
   );

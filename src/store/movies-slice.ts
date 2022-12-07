@@ -10,6 +10,7 @@ type Movie = {
 
 type State = {
   movieList: Movie[];
+  moviesFound: boolean;
   favMovieList: Movie[] | [];
   ownMovieList: Movie[] | [];
   clickedMovie: Movie | null;
@@ -33,6 +34,7 @@ type State = {
 
 const initialState: State = {
   movieList: [],
+  moviesFound: true,
   favMovieList: JSON.parse(localStorage.getItem('favList')!) ?? [],
   ownMovieList: JSON.parse(localStorage.getItem('ownMovieList')!) ?? [],
   clickedMovie: null,
@@ -82,30 +84,34 @@ const moviesSlice = createSlice({
     setFetchedData(state, action) {
       state.isDataFetched = action.payload;
     },
+    setFoundMovies(state, action) {
+      state.moviesFound = action.payload;
+    },
     setForm(state, action) {
       state.isFormActive = action.payload;
     },
     sortInputValue(state, action) {
       state.sortInputValue = action.payload;
+      const sortParams = action.payload.split(' ');
+      const sortDirection = sortParams[0];
+      const sortTitle = sortParams[1];
+      if (sortDirection === '(ascending)') {
+        // @ts-ignore
+        state.movieList = state.movieList.sort((a, b) =>
+          // @ts-ignore
+          a[sortTitle] > b[sortTitle] ? 1 : -1
+        );
+      }
+      if (sortDirection === '(descending)') {
+        // @ts-ignore
+        state.movieList = state.movieList.sort((a, b) =>
+          // @ts-ignore
+          a[sortTitle] > b[sortTitle] ? -1 : 1
+        );
+      }
+      console.log(sortTitle);
+      console.log(sortDirection);
       localStorage.setItem('sortInputValue', action.payload);
-    },
-    sort(state, action) {
-      const order = action.payload.sortDirection;
-      const sortBy = action.payload.sortBy;
-      if (order === '(ascending)') {
-        // @ts-ignore
-        state.movieList = state.movieList.sort((a, b) =>
-          // @ts-ignore
-          a[sortBy] > b[sortBy] ? 1 : -1
-        );
-      }
-      if (order === '(descending)') {
-        // @ts-ignore
-        state.movieList = state.movieList.sort((a, b) =>
-          // @ts-ignore
-          a[sortBy] > b[sortBy] ? -1 : 1
-        );
-      }
     },
 
     setsearchInput(state, action) {
